@@ -62,11 +62,12 @@ public class ArrayStack<T> implements StackADT<T> {
     }
 
     /**
-     * Creates a new array to store the contents of this stack with
-     * twice the capacity of the old one.
+     * Creates a new array to store the contents of this stack with a length of
+     * the original plus the value stored in DEFAULT_SIZE
+     * 
      */
     private void expandCapacity() {
-        T[] larger = (T[]) (new Object[stackArray.length * 2]);
+        T[] larger = (T[]) (new Object[stackArray.length + DEFAULT_SIZE]);
         System.arraycopy(stackArray, 0, larger, 0, stackArray.length);
 
         /*
@@ -123,9 +124,10 @@ public class ArrayStack<T> implements StackADT<T> {
     public Boolean isEmpty() {
         return (top == 0); //returns true if top == 0, false otherwise
     }
-    
+
     /**
      * find the current size of the stack
+     *
      * @return length of stack array
      */
     @Override

@@ -61,7 +61,11 @@ public class CareFacility extends Company {
      * Assign registered patients to existing beds
      */
     public void assignBed(){
-        throw new UnsupportedOperationException();//TODO:code method
+        /**
+         * 
+         * get stack of beds (bed3, bed2, bed1)
+         * 
+         */
     }
     
 
