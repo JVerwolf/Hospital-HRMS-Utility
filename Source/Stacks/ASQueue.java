@@ -2,8 +2,7 @@ package Stacks;
 
 /**
  * This Queue structure recursively traverses an ArrayStack to push an element
- * to the
- * bottom of the stack
+ * to the bottom of the stack
  *
  * @author John Verwolf
  * @param <T> Data Type T
@@ -35,7 +34,7 @@ public class ASQueue<T> extends ArrayStack<T> {
             }
 
         } catch (EmptyCollectionException e) {
-            System.out.println("Something went wrong in the queue ADT:\t" + e); 
+            System.out.println("Something went wrong in the queue ADT:\t" + e);
         }
 
     }
