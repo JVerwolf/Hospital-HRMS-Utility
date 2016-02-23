@@ -1,6 +1,7 @@
 package Stacks;
 
 import ADT.Company;
+import ADT.FullTimeEmployee;
 import ADT.HourlyEmployee;
 
 /**
@@ -56,17 +57,122 @@ public class CareFacility extends Company {
         bedStack = null;
         patientStack = null;
     }
-    
+
+    public void addPatient(Patient p) {
+        patientStack.push(p);
+    }
+
     /**
      * Assign registered patients to existing beds
      */
-    public void assignBed(){
-        /**
-         * 
-         * get stack of beds (bed3, bed2, bed1)
-         * 
-         */
+    public void assignBed() {
+        
+        ArrayStack<Patient> tempPatientStack = new ArrayStack<>();
+        try {
+            for (int i = patientStack.size(); i >= 0; i--) { //(i >= 0) is a candidate for errors. TODO: check this                
+                Patient p = patientStack.pop();
+                if (p.getBed() == null) { //if the patient does not have a bed assigned to them
+                    //put in tempPatientNoBedStack
+                    tempPatientNoBedStack.push(p);
+                } else {
+                    //put in tempPatientHasBedStack
+                    tempPatientHasBedStack.push(p);
+                }
+            }
+        } catch (EmptyCollectionException e) {
+            System.out.println("Something went wrong in the assign bed first try block\t" + e);
+        }
+        
+        
+        
+        //now we have two stacks of patients, one with beds, one without
+        //take the stack without beds and 
+//        ArrayStack<Patient> tempPatientNoBedStack = new ArrayStack<>();
+//        ArrayStack<Patient> tempPatientHasBedStack = new ArrayStack<>();
+//        try {
+//            for (int i = patientStack.size(); i >= 0; i--) { //(i >= 0) is a candidate for errors. TODO: check this                
+//                Patient p = patientStack.pop();
+//                if (p.getBed() == null) { //if the patient does not have a bed assigned to them
+//                    //put in tempPatientNoBedStack
+//                    tempPatientNoBedStack.push(p);
+//                } else {
+//                    //put in tempPatientHasBedStack
+//                    tempPatientHasBedStack.push(p);
+//                }
+//            }
+//        } catch (EmptyCollectionException e) {
+//            System.out.println("Something went wrong in the assign bed first try block\t" + e);
+//        }
+//        //now we have two stacks of patients, one with beds, one without
+//        //take the stack without beds and 
+        
+        
+        
+        
+        
     }
-    
-
+//        /**
+//         *
+//         * get stack of beds (bed3, bed2, bed1)
+//         *
+//         * For sorting algorithm
+//         * first pick from all those with most criticallity who have no bed and
+//         * assign all to beds. Nest pick all those (who have no bed) with second
+//         * worst criticallity and assign all to beds. wash, rinse, repeat
+//         *
+//         * Things to note: people in beds should probably stay in beds
+//         *          *
+//         * assign temp stack of patients
+//         * check each patient in patient stack and see if there are any not in a
+//         * bed
+//         * if they have no bed, put them into the temp stack
+//         *
+//         * check to make sure bed is not in use
+//         *
+//         */
+//        ASQueue<Patient> tempPatientQueue = new ASQueue<>(); //check to ensure that this is initially big enough to hold all data 
+//
+//        for (int i = patientStack.size(); i >= 0; i--) {
+//            Patient p = patientStack.peek();
+//            if (p.getBed() == null){
+//                
+//            }
+//        }
+//        
+//        try {
+//            if (!patientStack.isEmpty()) {
+//                Patient topElement = patientStack.pop();
+//                tempPatientQueue.push(topElement)
+//            }
+//        } catch (EmptyCollectionException e) {
+//            System.out.println("Something went wrong in the queue ADT:\t" + e);
+//        }
+//    }
+//
+////        try {
+////
+////            if (!patientStack.isEmpty()) {
+////                Patient topElement = patientStack.pop();//pop top element off of the stack
+////                tempPatientStack.push(topElement); //copy patients into another data structure TODO: investigate Queue
+////                this.push(element); //recursive call
+////                patientStack.push(topElement); //put topElement back on to stack as recursion unwinds
+////            } else {
+////                patientStack.push(element); //put element at the bottom of the stack
+////            }
+////
+////        } catch (EmptyCollectionException e) {
+////            System.out.println("Something went wrong in the queue ADT:\t" + e);
+////        }
+////    }
+////    private ASQueue copyStackToQueue(ArrayStack tempStack) {
+////        ASQueue<Patient> tempPatientQueue = new ASQueue<>();
+////        try {
+////            if (!tempStack.isEmpty()) {
+////                Patient topElement = patientStack.pop();//pop top element off of the stack
+////            }
+////        } catch (EmptyCollectionException e) {
+////            System.out.println("Something went wrong in the queue ADT:\t" + e);
+////        }
 }
+    //iterate through array
+
