@@ -16,7 +16,7 @@ public class StacksMainClass {
     public static void main(String[] args) {
         // TODO code application logic here
 
-        {//TODO test time!
+        {
             Patient p10 = new Patient("Bob10", 10);
             Patient p9 = new Patient("Bob9", 9);
             Patient p8 = new Patient("Bob8", 8);
@@ -28,9 +28,28 @@ public class StacksMainClass {
             Patient p2 = new Patient("Bob2", 2);
             Patient p1 = new Patient("Bob2", 1);
             Patient p0 = new Patient("Bob0", 0);
-
-            CareFacility CF = new CareFacility();
-
+            
+            ArrayStack<Patient> pStack = new ArrayStack<>();
+            
+            pStack.push(p6);
+            pStack.push(p2);
+            pStack.push(p3);
+            pStack.push(p4);
+            pStack.push(p10);
+            pStack.push(p8);
+            pStack.push(p5);
+            pStack.push(p9);
+            pStack.push(p6);
+            pStack.push(p7);
+            pStack.push(p0);
+            pStack.push(p6);
+            pStack.push(p4);
+            pStack.push(p10);
+            pStack.push(p0);
+            pStack.push(p5);
+            
+            CareFacility CF = new CareFacility("Test lab", pStack, null, null);
+            
             CF.addPatient(p1);//first in, last out
             CF.addPatient(p2);
             CF.addPatient(p3);
