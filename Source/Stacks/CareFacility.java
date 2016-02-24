@@ -11,7 +11,7 @@ import ADT.HourlyEmployee;
 public class CareFacility extends Company {
 
     private java.lang.String facilityName;
-    private ArrayStack<Patient> patientStack;
+    public ArrayStack<Patient> patientStack;
     private ArrayStack<Bed> bedStack;
     private HourlyEmployee[] hourlyEmployee;
 
@@ -21,9 +21,9 @@ public class CareFacility extends Company {
      */
     public CareFacility() {
         facilityName = null;
-        hourlyEmployee = null;
-        bedStack = null;
-        patientStack = null;
+        hourlyEmployee = new HourlyEmployee[50];
+        bedStack = new ArrayStack<>();
+        patientStack = new ArrayStack<>();
     }
 
     /**
@@ -59,34 +59,55 @@ public class CareFacility extends Company {
     }
 
     public void addPatient(Patient p) {
-        patientStack.push(p);
+        //System.out.println("\nNEW INSERT"); //uncomment to view algorithm in action
+        insert(patientStack, p);
+    }
+
+    private void insert(ArrayStack<Patient> s, Patient p) {
+
+        try {
+            if (s.isEmpty()) { //if the stack is empty
+                //System.out.println("push1");
+                s.push(p);//push patient on stack
+                return;
+            }
+            if (s.peek().getPriority() < p.getPriority()) { //check if priority of top element on stack is lower
+                Patient t = s.pop();//peek at top element 
+                //System.out.println("in"); 
+                insert(s, p); //recursive call. Do it all again with one less element on the stack.    
+                //System.out.println("out, push2");
+                s.push(t); //put topElement back on to stack as recursion unwinds
+            } else {
+                //System.out.println("push3");
+                s.push(p);
+                return;
+            }
+
+        } catch (EmptyCollectionException e) {
+            System.out.println("Something went wrong in the queue ADT:\t" + e);
+        }
+
     }
 
     /**
      * Assign registered patients to existing beds
      */
     public void assignBed() {
-        
-        ArrayStack<Patient> tempPatientStack = new ArrayStack<>();
-        try {
-            for (int i = patientStack.size(); i >= 0; i--) { //(i >= 0) is a candidate for errors. TODO: check this                
-                Patient p = patientStack.pop();
-                if (p.getBed() == null) { //if the patient does not have a bed assigned to them
-                    //put in tempPatientNoBedStack
-                    tempPatientNoBedStack.push(p);
-                } else {
-                    //put in tempPatientHasBedStack
-                    tempPatientHasBedStack.push(p);
-                }
-            }
-        } catch (EmptyCollectionException e) {
-            System.out.println("Something went wrong in the assign bed first try block\t" + e);
-        }
-        
-        
-        
-        //now we have two stacks of patients, one with beds, one without
-        //take the stack without beds and 
+
+    }
+//
+//        ArrayStack<Patient> tempPatientStack = new ArrayStack<>();
+//
+//        try {
+//            while (!tempPatientStack.isEmpty()) {
+//
+//            }
+//        } catch (EmptyCollectionException e) {
+//            System.out.println("Something went wrong in the assign bed first try block\t" + e);
+//        }
+
+    //now we have two stacks of patients, one with beds, one without
+    //take the stack without beds and 
 //        ArrayStack<Patient> tempPatientNoBedStack = new ArrayStack<>();
 //        ArrayStack<Patient> tempPatientHasBedStack = new ArrayStack<>();
 //        try {
@@ -105,12 +126,7 @@ public class CareFacility extends Company {
 //        }
 //        //now we have two stacks of patients, one with beds, one without
 //        //take the stack without beds and 
-        
-        
-        
-        
-        
-    }
+//    }
 //        /**
 //         *
 //         * get stack of beds (bed3, bed2, bed1)
@@ -173,6 +189,6 @@ public class CareFacility extends Company {
 ////        } catch (EmptyCollectionException e) {
 ////            System.out.println("Something went wrong in the queue ADT:\t" + e);
 ////        }
+//}
+//iterate through array
 }
-    //iterate through array
-
