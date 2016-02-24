@@ -148,7 +148,9 @@ public class CareFacility extends Company {
      * beds out.
      */
     public void assignBed() {
-        bedTime(ArrayStack < Patient > PatientS, ArrayStack < Bed > bedS) /*
+        bedTime(patientStack, bedStack); 
+                
+                /*
                  * ArrayStack<Patient> tempStack = new ArrayStack<>();
                  *
                  * //reverse order by flipping stack into tempStack Bed[]
