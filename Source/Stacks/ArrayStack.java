@@ -135,4 +135,11 @@ public class ArrayStack<T> implements StackADT<T> {
         return stackArray.length;
     }
 
+    @Override
+    public String toString() {
+        return "ArrayStack{" + "DEFAULT_SIZE=" + DEFAULT_SIZE + ", top=" + top + ", stackArray=" + stackArray + '}';
+    }
+    
+    
+
 }
