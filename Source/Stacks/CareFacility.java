@@ -41,6 +41,7 @@ public class CareFacility extends Company {
         this.patientStack = patientStack;
         this.bedStack = bedStack;
         this.hourlyEmployee = hourlyEmployee;
+        sortPatientStack(); //sort data in  passed stack of patients
     }
 
     /**
@@ -54,8 +55,8 @@ public class CareFacility extends Company {
     public CareFacility(String facilityName, HourlyEmployee[] hourlyEmployee) {
         this.facilityName = facilityName;
         this.hourlyEmployee = hourlyEmployee;
-        bedStack = null;
-        patientStack = null;
+        bedStack = new ArrayStack<>();
+        patientStack = new ArrayStack<>();
     }
 
     public void addPatient(Patient p) {
@@ -63,132 +64,120 @@ public class CareFacility extends Company {
         insert(patientStack, p);
     }
 
-    private void insert(ArrayStack<Patient> s, Patient p) {
-
-        try {
-            if (s.isEmpty()) { //if the stack is empty
-                //System.out.println("push1");
-                s.push(p);//push patient on stack
-                return;
-            }
-            if (s.peek().getPriority() < p.getPriority()) { //check if priority of top element on stack is lower
-                Patient t = s.pop();//peek at top element 
-                //System.out.println("in"); 
-                insert(s, p); //recursive call. Do it all again with one less element on the stack.    
-                //System.out.println("out, push2");
-                s.push(t); //put topElement back on to stack as recursion unwinds
-            } else {
-                //System.out.println("push3");
-                s.push(p);
-                return;
-            }
-
-        } catch (EmptyCollectionException e) {
-            System.out.println("Something went wrong in the queue ADT:\t" + e);
-        }
-
+    /**
+     * This method will sort the instance object patientStack according to
+     * criticallity.
+     */
+    public void sortPatientStack() {
+        sort(patientStack);
     }
 
     /**
-     * Assign registered patients to existing beds
+     * This method will sort an ArrayObject of generic type Patient by
+     * criticallity. It is an expensive call, likely O(n^2), so use judiciously.
+     *
+     * @param stack ArrayStack of Patient type to be sorted.
+     */
+    private void sort(ArrayStack<Patient> stack) {
+        try {
+            if (stack.isEmpty()) {      //when stack becomes empty, return to right after sort(s); call, before insert(s, t) below.
+                return;
+            }
+            Patient t = stack.pop();    //Peel every element off of stack and store in call-stack
+            sort(stack);                //recursive call
+            insert(stack, t);           //sort top element of call stack back into stack.
+        } catch (EmptyCollectionException e) {
+            System.out.println("Something went wrong in Carefacility.sort(s):\t" + e);
+        }
+    }
+
+    /**
+     * This method will insert a patient into a stack in order of criticallity.
+     * The patients with the lowest criticallity are placed on the top of the
+     * stack because they are most likely to be popped off of the stack, and
+     * this will cause less time for the sorting algorithm.
+     *
+     * @param stack   ArrayStack of Patients in which patient will be inserted
+     * @param patient Patient to be inserted
+     */
+    private void insert(ArrayStack<Patient> stack, Patient patient) {
+
+        try {
+            if (stack.isEmpty()) { //if the stack is empty
+                //System.out.println("push1");
+                stack.push(patient);//push patient on stack
+                return;
+            }
+            if (stack.peek().getPriority() < patient.getPriority()) {   //check if priority of top element on stack is lower
+                Patient t = stack.pop();                                //pop top element and store in a temp variable
+                //System.out.println("in"); 
+                insert(stack, patient);             //recursive call. (Do it all again with one less element on the call-stack).    
+                //System.out.println("out, push2");
+                stack.push(t);                      //put topElement back on to stack as recursion unwinds
+            } else {                                //insert patient when priority is not larger than the top stack element
+                //System.out.println("push3");
+                stack.push(patient);                //insert patient in proper place on stack
+            }
+        } catch (EmptyCollectionException e) {
+            System.out.println("Something went wrong in Carefacility.insert(s,p):\t" + e);
+        }
+    }
+
+    private static void bedTime(ArrayStack<Patient> PatientS, ArrayStack<Bed> bedS) {
+
+        try {
+            if (!bedS.isEmpty()) {
+                return;
+            }
+            if (!PatientS.isEmpty()) {
+                Patient t = PatientS.pop();                     //pop temp element off of the stack
+                bedTime(PatientS, bedS);                        //recursive call
+                //if (t.getBed() == null && !bedS.isEmpty()) {    //(if there is a patient without a bed, and beds in the bedStack)
+                if (t.getBed() == null) {
+                    t.setBed(bedS.pop());                       //pop bed from bed stack and give to patient 
+                }
+                PatientS.push(t);          //put temp element back on to stack as recursion unwinds
+            }
+        } catch (EmptyCollectionException e) {
+            System.out.println("Something went wrong in the queue ADT:\t" + e);
+        }
+    }
+
+    /**
+     * Assign registered patients to existing beds, without kicking people in
+     * beds out.
      */
     public void assignBed() {
+        bedTime(ArrayStack < Patient > PatientS, ArrayStack < Bed > bedS) /*
+                 * ArrayStack<Patient> tempStack = new ArrayStack<>();
+                 *
+                 * //reverse order by flipping stack into tempStack Bed[]
+                 * bedArray = new Bed[patientStack.size()]; //make an array to
+                 * hold references to bed objects try { int i = 0; //iterator
+                 * varaible to store position for bed insertion into array while
+                 * (patientStack.peek() != null) { //loop while there are still
+                 * elements in the stack we are pulling from Patient p1 =
+                 * patientStack.pop(); //temp variable holds popped element if
+                 * (p1.getBed() != null) { //if (the patient has a bed assigned
+                 * to them){... bedArray[i] = p1.getBed(); //assign reference to
+                 * bed then add to array i++; //increment array position
+                 * iterator } tempStack.push(p1); //push the patient into the
+                 * tempStack } } catch (EmptyCollectionException e) {
+                 * System.out.println("Something went wrong in
+                 * Carefacility.assignBed():\t" + e);
+                 *
+                 * }
+                 * try { while (tempStack.peek() != null) { //while there are
+                 * elements in the tempStack Patient p2 = tempStack.pop(); if
+                 * (p2.getBed() == null) { //if the patient does not have a bed
+                 * assigned to them) //asign bed }
+                 *
+                 * }
+                 * } catch (EmptyCollectionException e) {
+                 * System.out.println("Something went wrong in
+                 * Carefacility.assignBed():\t" + e); }
+                 */
 
     }
-//
-//        ArrayStack<Patient> tempPatientStack = new ArrayStack<>();
-//
-//        try {
-//            while (!tempPatientStack.isEmpty()) {
-//
-//            }
-//        } catch (EmptyCollectionException e) {
-//            System.out.println("Something went wrong in the assign bed first try block\t" + e);
-//        }
 
-    //now we have two stacks of patients, one with beds, one without
-    //take the stack without beds and 
-//        ArrayStack<Patient> tempPatientNoBedStack = new ArrayStack<>();
-//        ArrayStack<Patient> tempPatientHasBedStack = new ArrayStack<>();
-//        try {
-//            for (int i = patientStack.size(); i >= 0; i--) { //(i >= 0) is a candidate for errors. TODO: check this                
-//                Patient p = patientStack.pop();
-//                if (p.getBed() == null) { //if the patient does not have a bed assigned to them
-//                    //put in tempPatientNoBedStack
-//                    tempPatientNoBedStack.push(p);
-//                } else {
-//                    //put in tempPatientHasBedStack
-//                    tempPatientHasBedStack.push(p);
-//                }
-//            }
-//        } catch (EmptyCollectionException e) {
-//            System.out.println("Something went wrong in the assign bed first try block\t" + e);
-//        }
-//        //now we have two stacks of patients, one with beds, one without
-//        //take the stack without beds and 
-//    }
-//        /**
-//         *
-//         * get stack of beds (bed3, bed2, bed1)
-//         *
-//         * For sorting algorithm
-//         * first pick from all those with most criticallity who have no bed and
-//         * assign all to beds. Nest pick all those (who have no bed) with second
-//         * worst criticallity and assign all to beds. wash, rinse, repeat
-//         *
-//         * Things to note: people in beds should probably stay in beds
-//         *          *
-//         * assign temp stack of patients
-//         * check each patient in patient stack and see if there are any not in a
-//         * bed
-//         * if they have no bed, put them into the temp stack
-//         *
-//         * check to make sure bed is not in use
-//         *
-//         */
-//        ASQueue<Patient> tempPatientQueue = new ASQueue<>(); //check to ensure that this is initially big enough to hold all data 
-//
-//        for (int i = patientStack.size(); i >= 0; i--) {
-//            Patient p = patientStack.peek();
-//            if (p.getBed() == null){
-//                
-//            }
-//        }
-//        
-//        try {
-//            if (!patientStack.isEmpty()) {
-//                Patient topElement = patientStack.pop();
-//                tempPatientQueue.push(topElement)
-//            }
-//        } catch (EmptyCollectionException e) {
-//            System.out.println("Something went wrong in the queue ADT:\t" + e);
-//        }
-//    }
-//
-////        try {
-////
-////            if (!patientStack.isEmpty()) {
-////                Patient topElement = patientStack.pop();//pop top element off of the stack
-////                tempPatientStack.push(topElement); //copy patients into another data structure TODO: investigate Queue
-////                this.push(element); //recursive call
-////                patientStack.push(topElement); //put topElement back on to stack as recursion unwinds
-////            } else {
-////                patientStack.push(element); //put element at the bottom of the stack
-////            }
-////
-////        } catch (EmptyCollectionException e) {
-////            System.out.println("Something went wrong in the queue ADT:\t" + e);
-////        }
-////    }
-////    private ASQueue copyStackToQueue(ArrayStack tempStack) {
-////        ASQueue<Patient> tempPatientQueue = new ASQueue<>();
-////        try {
-////            if (!tempStack.isEmpty()) {
-////                Patient topElement = patientStack.pop();//pop top element off of the stack
-////            }
-////        } catch (EmptyCollectionException e) {
-////            System.out.println("Something went wrong in the queue ADT:\t" + e);
-////        }
-//}
-//iterate through array
 }
