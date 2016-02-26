@@ -130,10 +130,13 @@ public class ArrayStack<T> implements StackADT<T> {
     public int size() {
         return stackArray.length;
     }
-
+    /**
+     * returns string representation of the object, including size and number of objects
+     * @return string representation of the object, including size and number of objects
+     */
     @Override
     public String toString() {
-        return "ArrayStack{" + "DEFAULT_SIZE=" + DEFAULT_SIZE + ", top=" + top + ", stackArray=" + stackArray + '}';
+        return "ArrayStack:" + "size=" + size() + ", number_of_objects=" + top;
     }
 
 }

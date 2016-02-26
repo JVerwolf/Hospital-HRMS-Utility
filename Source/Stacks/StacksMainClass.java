@@ -1,6 +1,10 @@
 package Stacks;
 
 /**
+ * The purpose of this class is to test the CareFacility class behaviorally.
+ *
+ * Caution: to ensure functionality, forTestGetPatientStack must be not
+ * commented in CareFacility
  *
  * @author John Verwolf
  */
@@ -10,28 +14,47 @@ public class StacksMainClass {
     }
 
     /**
-     * The purpose of this class is to test the CareFacility class behaviorally. 
+     * The purpose of this class is to test the CareFacility class behaviorally.
      *
-     * @param args the command line arguments
+     * @param args the command line arguments.
      */
     public static void main(String[] args) {
+
+        /**
+         * Here, new instance of the CareFacility class is instantiated. A stack
+         * of Patient objects and a stack of Bed objects are passed, and the
+         * assignBed() method is called.
+         *
+         * A loop then prints out the list of the Patient objects in the
+         * CareFacility instance, displaying their properties 'priority' and
+         * 'bed'.
+         *
+         * The expected output is a of patients sorted from lowest to hightest
+         * 'priority', with all the bed objects assigned to those with the
+         * highest priority.
+         */
         {
             CareFacility CF = new CareFacility("Test lab", stackOfPatients(), stackOfBeds(), null);
-            CF.assignBed();
+            CF.assignBed(); //this method assigns beds to patients
 
+            /**
+             * This loop prints out the list of the Patient objects in the
+             * CareFacility instance CF, displaying their properties 'priority'
+             * and 'bed'.
+             */
             try {
-                while (!CF.patientStack.isEmpty()) {
-                    Patient p = CF.patientStack.pop();
+                while (!CF.forTestGetPatientStack().isEmpty()) {        //loop while there are still elements in the patientStack
+                    Patient p = CF.forTestGetPatientStack().pop();      //pop a patient, assign to temp variable
 
-                    String bed = "NO BED";
+                    String bed = "NO BED";                  //instantiate bed variable to default value "NO BED"
 
-                    if (p.getBed() != null) {
-                        bed = p.getBed().getName();
+                    if (p.getBed() != null) {               //If the current patient (in the temp variable) has a bed...
+                        bed = p.getBed().getName();         //change bed variable to the name of the bed
                     }
 
-                    String name = p.getName();
+                    String name = p.getName();              //instantiate name varaible to hold name of patient
 
-                    System.out.println(name + "\t" + bed);
+                    System.out.println(name + "\t" + bed);  //print out properties of current patient in temp vraible
                 }
             } catch (EmptyCollectionException e) {
                 System.out.println(e);
@@ -42,9 +65,9 @@ public class StacksMainClass {
     }
 
     /**
-     * Return a stack of 10 patients
+     * Generate and return a stack of 10 patients.
      *
-     * @return a stack of 10 patients
+     * @return a stack of 10 patients.
      */
     private static ArrayStack stackOfPatients() {
         Patient p10 = new Patient("Bob10", 10);
@@ -77,9 +100,9 @@ public class StacksMainClass {
     }
 
     /**
-     * Returns a stack of beds with 4 beds
+     * Generate and return a stack of beds with 4 beds.
      *
-     * @return a stack of beds with 4 beds
+     * @return a stack of beds with 4 beds.
      */
     private static ArrayStack<Bed> stackOfBeds() {
         Bed b1 = new Bed("Bed1", "1");

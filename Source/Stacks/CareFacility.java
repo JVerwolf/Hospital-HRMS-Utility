@@ -155,5 +155,12 @@ public class CareFacility extends Company {
     public void assignBed() {
         bedTime(patientStack, bedStack);
     }
-
+    
+    /**
+     * This method is for testing this class.  It should be deleted/commented-out for release.
+     * @return patientStack instance var
+     */
+    public ArrayStack<Patient> forTestGetPatientStack(){
+        return patientStack;
+    }
 }
