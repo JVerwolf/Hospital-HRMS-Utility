@@ -7,17 +7,15 @@ package Stacks;
 public class StacksMainClass {
 
     public StacksMainClass() {
-
     }
 
     /**
+     * The purpose of this class is to test the CareFacility class behaviorally. 
+     *
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-
         {
-
             CareFacility CF = new CareFacility("Test lab", stackOfPatients(), stackOfBeds(), null);
             CF.assignBed();
 
@@ -44,7 +42,9 @@ public class StacksMainClass {
     }
 
     /**
-     * Return a stack of patient
+     * Return a stack of 10 patients
+     *
+     * @return a stack of 10 patients
      */
     private static ArrayStack stackOfPatients() {
         Patient p10 = new Patient("Bob10", 10);
@@ -61,22 +61,17 @@ public class StacksMainClass {
 
         ArrayStack<Patient> pStack = new ArrayStack<>();
 
-        pStack.push(p6);
         pStack.push(p2);
+        pStack.push(p1);
         pStack.push(p3);
-        pStack.push(p4);
-        pStack.push(p10);
         pStack.push(p8);
         pStack.push(p5);
         pStack.push(p9);
-        pStack.push(p6);
         pStack.push(p7);
-        pStack.push(p0);
         pStack.push(p6);
         pStack.push(p4);
         pStack.push(p10);
         pStack.push(p0);
-        pStack.push(p5);
 
         return pStack;
     }
@@ -87,10 +82,10 @@ public class StacksMainClass {
      * @return a stack of beds with 4 beds
      */
     private static ArrayStack<Bed> stackOfBeds() {
-        Bed b1 = new Bed("reclining", "wing1");
-        Bed b2 = new Bed("tilting", "wing2");
-        Bed b3 = new Bed("flat", "wing3");
-        Bed b4 = new Bed("baby bed", "wing4");
+        Bed b1 = new Bed("Bed1", "1");
+        Bed b2 = new Bed("Bed2", "1");
+        Bed b3 = new Bed("Bed3", "1");
+        Bed b4 = new Bed("Bed4", "1");
 
         ArrayStack<Bed> bStack = new ArrayStack<>();
 

@@ -104,18 +104,14 @@ public class CareFacility extends Company {
 
         try {
             if (stack.isEmpty()) { //if the stack is empty
-                //System.out.println("push1");
                 stack.push(patient);//push patient on stack
                 return;
             }
             if (stack.peek().getPriority() < patient.getPriority()) {   //check if priority of top element on stack is lower
                 Patient t = stack.pop();                                //pop top element and store in a temp variable
-                //System.out.println("in"); 
                 insert(stack, patient);             //recursive call. (Do it all again with one less element on the call-stack).    
-                //System.out.println("out, push2");
                 stack.push(t);                      //put topElement back on to stack as recursion unwinds
             } else {                                //insert patient when priority is not larger than the top stack element
-                //System.out.println("push3");
                 stack.push(patient);                //insert patient in proper place on stack
             }
         } catch (EmptyCollectionException e) {
@@ -123,23 +119,32 @@ public class CareFacility extends Company {
         }
     }
 
+    /**
+     * This class assigns beds (from a stack of Bed objects ) to patients (in a
+     * stack of Patient objects). It will recursively call itself till the
+     * patient stack is empty, then start assigning beds to the patients with
+     * the highest priority which reside at the bottom of the patient stack.
+     *
+     * @param PatientS A stack of (sorted) Patient objects
+     * @param bedS     A stack of Bed objects
+     */
     private static void bedTime(ArrayStack<Patient> PatientS, ArrayStack<Bed> bedS) {
 
         try {
-            if (!bedS.isEmpty()) {
+            if (bedS.isEmpty()) {
                 return;
             }
             if (!PatientS.isEmpty()) {
                 Patient t = PatientS.pop();                     //pop temp element off of the stack
-                bedTime(PatientS, bedS);                        //recursive call
-                //if (t.getBed() == null && !bedS.isEmpty()) {    //(if there is a patient without a bed, and beds in the bedStack)
-                if (t.getBed() == null) {
-                    t.setBed(bedS.pop());                       //pop bed from bed stack and give to patient 
+                bedTime(PatientS, bedS);                        //recursive call (ie reverse stack by pushing to call-stack)
+                //                                              //recursion unwinds and starts returning to this line
+                if (t.getBed() == null && !bedS.isEmpty()) {    //if Patient t does not have a bed and if there are beds available...
+                    t.setBed(bedS.pop());                       //pop bed from bed stack and give to Patient 
                 }
-                PatientS.push(t);          //put temp element back on to stack as recursion unwinds
+                PatientS.push(t);                               //put temp element back on to stack as recursion unwinds
             }
         } catch (EmptyCollectionException e) {
-            System.out.println("Something went wrong in the queue ADT:\t" + e);
+            System.out.println("Something went wrong in the .bedTime method:\t" + e);
         }
     }
 
@@ -148,38 +153,7 @@ public class CareFacility extends Company {
      * beds out.
      */
     public void assignBed() {
-        bedTime(patientStack, bedStack); 
-                
-                /*
-                 * ArrayStack<Patient> tempStack = new ArrayStack<>();
-                 *
-                 * //reverse order by flipping stack into tempStack Bed[]
-                 * bedArray = new Bed[patientStack.size()]; //make an array to
-                 * hold references to bed objects try { int i = 0; //iterator
-                 * varaible to store position for bed insertion into array while
-                 * (patientStack.peek() != null) { //loop while there are still
-                 * elements in the stack we are pulling from Patient p1 =
-                 * patientStack.pop(); //temp variable holds popped element if
-                 * (p1.getBed() != null) { //if (the patient has a bed assigned
-                 * to them){... bedArray[i] = p1.getBed(); //assign reference to
-                 * bed then add to array i++; //increment array position
-                 * iterator } tempStack.push(p1); //push the patient into the
-                 * tempStack } } catch (EmptyCollectionException e) {
-                 * System.out.println("Something went wrong in
-                 * Carefacility.assignBed():\t" + e);
-                 *
-                 * }
-                 * try { while (tempStack.peek() != null) { //while there are
-                 * elements in the tempStack Patient p2 = tempStack.pop(); if
-                 * (p2.getBed() == null) { //if the patient does not have a bed
-                 * assigned to them) //asign bed }
-                 *
-                 * }
-                 * } catch (EmptyCollectionException e) {
-                 * System.out.println("Something went wrong in
-                 * Carefacility.assignBed():\t" + e); }
-                 */
-
+        bedTime(patientStack, bedStack);
     }
 
 }
