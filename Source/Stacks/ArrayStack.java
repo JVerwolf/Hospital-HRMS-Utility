@@ -14,7 +14,7 @@ public class ArrayStack<T> implements StackADT<T> {
     /**
      * constant to represent the default capacity of the array
      */
-    private final int DEFAULT_SIZE = 100;
+    private final int DEFAULT_SIZE = 10;
 
     /**
      * int that represents both the number of elements and the next available
