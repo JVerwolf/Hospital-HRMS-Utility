@@ -56,7 +56,7 @@ public class Bed {
      */
     @Override
     public String toString() {
-        return "Bed:" + "location=" + location + ", name=" + name ;
+        return "Bed: " + "location=" + location + ", name=" + name ;
     }
 
 }

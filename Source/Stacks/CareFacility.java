@@ -11,7 +11,7 @@ import ADT.HourlyEmployee;
 public class CareFacility extends Company {
 
     private java.lang.String facilityName;
-    public ArrayStack<Patient> patientStack;
+    private ArrayStack<Patient> patientStack;
     private ArrayStack<Bed> bedStack;
     private HourlyEmployee[] hourlyEmployee;
 
