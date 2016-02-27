@@ -96,7 +96,7 @@ public class Patient {
      */
     @Override
     public String toString() {
-        return "Patient:" + "bed=" + bed + ", name=" + name + ", priority=" + priority;
+        return "Patient: " + "bed=" + bed + ", name=" + name + ", priority=" + priority;
     }
 
 }
