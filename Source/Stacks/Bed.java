@@ -1,6 +1,8 @@
 package Stacks;
 
 /**
+ * This class is used to represent a Bed object in a care facility or hospital.
+ * The location and name of the bed are contained.
  *
  * @author John Verwolf
  */
@@ -20,8 +22,8 @@ public class Bed {
         this.location = location;
         this.name = name;
     }
-    
-//    /**
+
+//    /** TODO: delete this
 //     * Static factory method design pattern
 //     * @param name
 //     * @param location
@@ -30,7 +32,6 @@ public class Bed {
 //    public static Bed getInstBedNameLocation(String name, String location){
 //        return new Bed(name, location);
 //    }
-    
     /**
      * @return this bed object's name
      */
@@ -48,13 +49,14 @@ public class Bed {
     }
 
     /**
-     *
+     *Returns a String representation of this Bed object with the name followed
+     *         by a space followed by location.
      * @return a String representation of this Bed object with the name followed
-     *         by a space followed by location
+     *         by a space followed by location.
      */
     @Override
     public String toString() {
-        return "Bed{" + "location=" + location + ", name=" + name + '}';
+        return "Bed:" + "location=" + location + ", name=" + name ;
     }
 
 }

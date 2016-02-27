@@ -26,11 +26,11 @@ public class ASQueue<T> extends ArrayStack<T> {
 
         try {
             if (!stack.isEmpty()) {
-                T topElement = stack.pop();//pop top element off of the stack
-                this.push(element); //recursive call
-                stack.push(topElement); //put topElement back on to stack as recursion unwinds
+                T topElement = stack.pop();     //pop top element off of the stack
+                this.push(element);             //recursive call
+                stack.push(topElement);         //put topElement back on to stack as recursion unwinds
             } else {
-                stack.push(element); //put element at the bottom of the stack
+                stack.push(element);            //put element at the bottom of the stack
             }
 
         } catch (EmptyCollectionException e) {

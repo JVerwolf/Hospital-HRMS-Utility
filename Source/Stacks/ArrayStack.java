@@ -17,8 +17,8 @@ public class ArrayStack<T> implements StackADT<T> {
     private final int DEFAULT_SIZE = 100;
 
     /**
-     * int that represents both the number of elements and the next
-     * available position in the array
+     * int that represents both the number of elements and the next available
+     * position in the array
      */
     private int top;
 
@@ -46,8 +46,8 @@ public class ArrayStack<T> implements StackADT<T> {
     }
 
     /**
-     * Adds the specified element to the top of this stack, expanding
-     * the capacity of the stack array if necessary.
+     * Adds the specified element to the top of this stack, expanding the
+     * capacity of the stack array if necessary.
      *
      * @param element generic element to be pushed onto stack
      */
@@ -64,25 +64,22 @@ public class ArrayStack<T> implements StackADT<T> {
     /**
      * Creates a new array to store the contents of this stack with a length of
      * the original plus the value stored in DEFAULT_SIZE
-     * 
+     * <p>
      */
     private void expandCapacity() {
         T[] larger = (T[]) (new Object[stackArray.length + DEFAULT_SIZE]);
         System.arraycopy(stackArray, 0, larger, 0, stackArray.length);
 
         /*
-         * //the above line replaces the for loop. (TODO: test)
-         * for (int index = 0; index < stack.length; index++) {
-         * larger[index] = stack[index];
-         * }
+         * //the above line replaces the for loop. (TODO: test) for (int index
+         * = 0; index < stack.length; index++) { larger[index] = stack[index]; }
          */
         stackArray = larger;
     }
 
     /**
-     * Removes the element at the top of this stack and returns a
-     * reference to it. Throws an EmptyCollectionException if the stack
-     * is empty.
+     * Removes the element at the top of this stack and returns a reference to
+     * it. Throws an EmptyCollectionException if the stack is empty.
      *
      * @return T element removed from top of stack
      * @throws EmptyCollectionException if a pop is attempted on empty stack
@@ -99,13 +96,12 @@ public class ArrayStack<T> implements StackADT<T> {
     }
 
     /**
-     * Returns a reference to the element at the top of this stack.
-     * The element is not removed from the stack. Throws an
-     * EmptyCollectionException if the stack is empty.
+     * Returns a reference to the element at the top of this stack. The element
+     * is not removed from the stack. Throws an EmptyCollectionException if the
+     * stack is empty.
      *
      * @return T element on top of stack
-     * @throws EmptyCollectionException if a peek is attempted on empty
-     *                                  stack
+     * @throws EmptyCollectionException if peek is attempted on empty stack
      */
     @Override
     public T peek() throws EmptyCollectionException {
@@ -133,6 +129,14 @@ public class ArrayStack<T> implements StackADT<T> {
     @Override
     public int size() {
         return stackArray.length;
+    }
+    /**
+     * returns string representation of the object, including size and number of objects
+     * @return string representation of the object, including size and number of objects
+     */
+    @Override
+    public String toString() {
+        return "ArrayStack:" + "size=" + size() + ", number_of_objects=" + top;
     }
 
 }
