@@ -2,9 +2,9 @@ package Stacks;
 
 /**
  * The purpose of this class is to test the CareFacility class behaviorally.
- *
- * Caution: to ensure functionality, forTestGetPatientStack must be not
- * commented in CareFacility
+ * <p>
+ * Caution: to ensure functionality, forTestGetPatientStack() method must be not
+ * be commented in CareFacility class.
  *
  * @author John Verwolf
  */
@@ -24,11 +24,11 @@ public class StacksMainClass {
          * Here, new instance of the CareFacility class is instantiated. A stack
          * of Patient objects and a stack of Bed objects are passed, and the
          * assignBed() method is called.
-         *
+         * <p>
          * A loop then prints out the list of the Patient objects in the
          * CareFacility instance, displaying their properties 'priority' and
          * 'bed'.
-         *
+         * <p>
          * The expected output is a of patients sorted from lowest to hightest
          * 'priority', with all the bed objects assigned to those with the
          * highest priority.

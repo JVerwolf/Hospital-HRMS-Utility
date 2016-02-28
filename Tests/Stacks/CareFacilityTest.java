@@ -57,16 +57,13 @@ public class CareFacilityTest {
         try {
             while (!CF.forTestGetPatientStack().isEmpty()) {
                 if (i != CF.forTestGetPatientStack().pop().getPriority()) {
-                    fail(); //fail if the list is not the right length
+                    fail("at testAddPatient()"); //fail if the list is not the right length
                 }
-
                 i++;  //increment priority counter
             }
         } catch (EmptyCollectionException e) {
             System.out.println(e);
         }
-
-
     }
 
     /**
@@ -75,10 +72,39 @@ public class CareFacilityTest {
     @Test
     public void testSortPatientStack() {
         System.out.println("sortPatientStack");
-        CareFacility instance = new CareFacility();
-        instance.sortPatientStack();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+        Patient p4 = new Patient("", 4);
+        Patient p3 = new Patient("", 3);
+        Patient p2 = new Patient("", 2);
+        Patient p1 = new Patient("", 1);
+        Patient p0 = new Patient("", 0);
+        ArrayStack<Patient> pStack = new ArrayStack<>();
+        pStack.push(p0);
+        pStack.push(p1);
+        pStack.push(p2);
+        pStack.push(p3);
+        pStack.push(p4);
+
+        CareFacility CF = new CareFacility("TestLab", pStack, null, null);
+
+        CF.sortPatientStack();  //This is the call of the method to be tested
+
+        /**
+         * this loop will compare priory values of patients in the stack. the
+         * priority value should be the same as the counter i.
+         */
+        int i = 0;
+        try {
+            while (!CF.forTestGetPatientStack().isEmpty()) {
+                if (i != CF.forTestGetPatientStack().pop().getPriority()) {
+                    fail("at testSortPatientStack"); //fail if the priority is not correct
+                }
+                i++;  //increment priority counter
+            }
+        } catch (EmptyCollectionException e) {
+            System.out.println(e);
+        }
+
     }
 
     /**
@@ -87,10 +113,51 @@ public class CareFacilityTest {
     @Test
     public void testAssignBed() {
         System.out.println("assignBed");
-        CareFacility instance = new CareFacility();
-        instance.assignBed();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        /**
+         * Generate stack of 3 Patients
+         */
+        Patient p2 = new Patient("", 2);
+        Patient p1 = new Patient("", 1);
+        Patient p0 = new Patient("", 0);
+        ArrayStack<Patient> pStack = new ArrayStack<>();
+        pStack.push(p0);
+        pStack.push(p1);
+        pStack.push(p2);
+
+        /**
+         * Generate stack of 2 Beds
+         */
+        Bed b1 = new Bed("Bed1", "1");
+        Bed b2 = new Bed("Bed2", "1");
+        ArrayStack<Bed> bStack = new ArrayStack<>();
+        bStack.push(b1);
+        bStack.push(b2);
+
+        /**
+         * Generate CareFacility object and pass both stacks. Call assignBed
+         * method
+         */
+        CareFacility CF = new CareFacility("TestLab", pStack, bStack, null);
+        CF.assignBed();
+
+        /**
+         * pop each patient and check to make sure that they have been assigned
+         * beds in the correct order
+         */
+        try {
+            if (CF.forTestGetPatientStack().pop().getBed() != null) {
+                fail("at testAssignBed");
+            }
+            if (CF.forTestGetPatientStack().pop().getBed() == null) {
+                fail("at testAssignBed");
+            }
+            if (CF.forTestGetPatientStack().pop().getBed() == null) {
+                fail("at testAssignBed");
+            }
+        } catch (EmptyCollectionException e) {
+            System.out.println(e);
+            fail("at testAssignBed");
+        }
     }
 
 }

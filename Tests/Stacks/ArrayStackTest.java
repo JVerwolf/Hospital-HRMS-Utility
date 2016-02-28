@@ -46,14 +46,15 @@ public class ArrayStackTest {
     }
 
     /**
-     * Test of pop, push methods of class ArrayStack.
+     * Test of pop, push methods of class ArrayStack. These elements work
+     * together, and as such they are tested together
      */
     @Test
     public void testPopPush() {
         {
             /**
              * Try to push and pop from stack
-             *
+             * <p>
              */
             System.out.println("Try .push() and .pop() on stack");
             ArrayStack<Integer> instance = new ArrayStack<>();
@@ -68,7 +69,7 @@ public class ArrayStackTest {
 
             try {
                 System.out.println("\t" + instance.pop());
-                System.out.println("\t" + instance.pop());                
+                System.out.println("\t" + instance.pop());
                 System.out.println("\t" + instance.pop());
                 System.out.println("\t" + instance.pop());//pop empty stack
 
@@ -90,10 +91,10 @@ public class ArrayStackTest {
         System.out.println("test peek method:");
         ArrayStack<Integer> instance = new ArrayStack<>();
         Integer element1 = 1;
-        instance.push(element1);       
+        instance.push(element1);
         Object result = instance.peek();
         assertEquals(element1, result);
-        
+
     }
 
     /**
@@ -105,7 +106,7 @@ public class ArrayStackTest {
         ArrayStack instance = new ArrayStack();
         Boolean expResult = true;
         Boolean result = instance.isEmpty();
-        assertEquals(expResult, result);        
+        assertEquals(expResult, result);
     }
 
     /**
@@ -115,9 +116,9 @@ public class ArrayStackTest {
     public void testSize() {
         System.out.println("size");
         ArrayStack instance = new ArrayStack();
-        int expResult = 0;
+        int expResult = 10;
         int result = instance.size();
-        assertEquals(expResult, result);        
+        assertEquals(expResult, result);
     }
 
 }
