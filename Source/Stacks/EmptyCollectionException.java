@@ -1,7 +1,8 @@
-
 package Stacks;
 
 /**
+ * This exception is thrown when a collection element is called for that does
+ * not exist.
  *
  * @author C0432660 John Verwolf
  */
@@ -11,7 +12,7 @@ public class EmptyCollectionException extends Exception {
      * Creates a new instance of <code>EmptyCollectionException</code> without
      * detail message.
      */
-    public EmptyCollectionException()  {
+    public EmptyCollectionException() {
         super("The collection is empty");
     }
 
@@ -20,9 +21,9 @@ public class EmptyCollectionException extends Exception {
      * specified detail message.
      *
      * @param msg the detail message. Should be the name of the stack in which
-     *            it is used.
+     *            it is used, or the name of the method in which it was called.
      */
     public EmptyCollectionException(String msg) {
-        super("The " + msg + " collection is empty");
+        super("The collection is empty: " + msg);
     }
 }
