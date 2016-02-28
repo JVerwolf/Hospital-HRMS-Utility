@@ -60,7 +60,6 @@ public class CareFacility extends Company {
     }
 
     public void addPatient(Patient p) {
-        //System.out.println("\nNEW INSERT"); //uncomment to view algorithm in action
         insert(patientStack, p);
     }
 
