@@ -95,7 +95,8 @@ public class CareFacility extends Company {
      * This method will insert a patient into a stack in order of criticallity.
      * The patients with the lowest criticallity are placed on the top of the
      * stack because they are most likely to be popped off of the stack, and
-     * this will cause less time for the sorting algorithm.
+     * this will cause less time for the sorting algorithm to resort whenever a
+     * patient leaves the facility.
      *
      * @param stack   ArrayStack of Patients in which patient will be inserted
      * @param patient Patient to be inserted
@@ -137,7 +138,7 @@ public class CareFacility extends Company {
             if (!PatientS.isEmpty()) {
                 Patient t = PatientS.pop();                     //pop temp element off of the stack
                 bedTime(PatientS, bedS);                        //recursive call (ie reverse stack by pushing to call-stack)
-                //                                              //recursion unwinds and starts returning to this line
+                //                                             //recursion unwinds and starts returning to this line
                 if (t.getBed() == null && !bedS.isEmpty()) {    //if Patient t does not have a bed and if there are beds available...
                     t.setBed(bedS.pop());                       //pop bed from bed stack and give to Patient 
                 }
@@ -155,12 +156,14 @@ public class CareFacility extends Company {
     public void assignBed() {
         bedTime(patientStack, bedStack);
     }
-    
+
     /**
-     * This method is for testing this class.  It should be deleted/commented-out for release.
+     * This method is for testing this class. It should be deleted/commented-out
+     * for release.
+     *
      * @return patientStack instance var
      */
-    public ArrayStack<Patient> forTestGetPatientStack(){
+    public ArrayStack<Patient> forTestGetPatientStack() {
         return patientStack;
     }
 }
