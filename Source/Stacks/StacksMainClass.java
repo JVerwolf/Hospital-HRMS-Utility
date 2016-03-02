@@ -3,8 +3,8 @@ package Stacks;
 /**
  * The purpose of this class is to test the CareFacility class behaviorally.
  * <p>
- * Caution: to ensure functionality, forTestGetPatientStack() method must be not
- * be commented in CareFacility class.
+ * Caution: to ensure functionality, patientStackClone() method must be not be
+ * commented in CareFacility class.
  *
  * @author John Verwolf
  */
@@ -33,9 +33,17 @@ public class StacksMainClass {
          * 'priority', with all the bed objects assigned to those with the
          * highest priority.
          */
+        CareFacility CF = new CareFacility("Test lab", stackOfPatients(), stackOfBeds(), null);
         {
-            CareFacility CF = new CareFacility("Test lab", stackOfPatients(), stackOfBeds(), null);
-            CF.assignBed(); //this method assigns beds to patients
+
+            //this method assigns beds to patients
+            CF.assignBed();
+
+            /**
+             * Get a copy of the patientStack instance variable of CF
+             * CareFacility object.
+             */
+            ArrayStack<Patient> tempPatientStack = CF.getCopyPatientStack();
 
             /**
              * This loop prints out the list of the Patient objects in the
@@ -43,8 +51,8 @@ public class StacksMainClass {
              * and 'bed'.
              */
             try {
-                while (!CF.forTestGetPatientStack().isEmpty()) {        //loop while there are still elements in the patientStack
-                    Patient p = CF.forTestGetPatientStack().pop();      //pop a patient, assign to temp variable
+                while (!tempPatientStack.isEmpty()) {        //loop while there are still elements in the patientStack
+                    Patient p = tempPatientStack.pop();      //pop a patient, assign to temp variable
 
                     String bed = "NO BED";                  //instantiate bed variable to default value "NO BED"
 
@@ -59,9 +67,7 @@ public class StacksMainClass {
             } catch (EmptyCollectionException e) {
                 System.out.println(e);
             }
-
         }
-
     }
 
     /**
@@ -96,7 +102,7 @@ public class StacksMainClass {
         pStack.push(p10);
         pStack.push(p0);
 
-        return pStack;
+        return pStack.copy();
     }
 
     /**
@@ -117,7 +123,7 @@ public class StacksMainClass {
         bStack.push(b3);
         bStack.push(b4);
 
-        return bStack;
+        return bStack.copy();
     }
 
 }

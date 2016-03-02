@@ -55,8 +55,8 @@ public class CareFacilityTest {
          */
         int i = 0;
         try {
-            while (!CF.forTestGetPatientStack().isEmpty()) {
-                if (i != CF.forTestGetPatientStack().pop().getPriority()) {
+            while (!CF.patientStackClone().isEmpty()) {
+                if (i != CF.patientStackClone().pop().getPriority()) {
                     fail("at testAddPatient()"); //fail if the list is not the right length
                 }
                 i++;  //increment priority counter
@@ -95,8 +95,8 @@ public class CareFacilityTest {
          */
         int i = 0;
         try {
-            while (!CF.forTestGetPatientStack().isEmpty()) {
-                if (i != CF.forTestGetPatientStack().pop().getPriority()) {
+            while (!CF.patientStackClone().isEmpty()) {
+                if (i != CF.patientStackClone().pop().getPriority()) {
                     fail("at testSortPatientStack"); //fail if the priority is not correct
                 }
                 i++;  //increment priority counter
@@ -145,13 +145,13 @@ public class CareFacilityTest {
          * beds in the correct order
          */
         try {
-            if (CF.forTestGetPatientStack().pop().getBed() != null) {
+            if (CF.patientStackClone().pop().getBed() != null) {
                 fail("at testAssignBed");
             }
-            if (CF.forTestGetPatientStack().pop().getBed() == null) {
+            if (CF.patientStackClone().pop().getBed() == null) {
                 fail("at testAssignBed");
             }
-            if (CF.forTestGetPatientStack().pop().getBed() == null) {
+            if (CF.patientStackClone().pop().getBed() == null) {
                 fail("at testAssignBed");
             }
         } catch (EmptyCollectionException e) {

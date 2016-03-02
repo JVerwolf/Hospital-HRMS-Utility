@@ -137,7 +137,7 @@ public class CareFacility extends Company {
             if (!PatientS.isEmpty()) {
                 Patient t = PatientS.pop();                     //pop temp element off of the stack
                 bedTime(PatientS, bedS);                        //recursive call (ie reverse stack by pushing to call-stack)
-                //                                             //recursion unwinds and starts returning to this line
+                //                                              //recursion unwinds and starts returning to this line
                 if (t.getBed() == null && !bedS.isEmpty()) {    //if Patient t does not have a bed and if there are beds available...
                     t.setBed(bedS.pop());                       //pop bed from bed stack and give to Patient 
                 }
@@ -156,13 +156,13 @@ public class CareFacility extends Company {
         bedTime(patientStack, bedStack);
     }
 
-    /**
-     * This method is for testing this class. It should be deleted/commented-out
-     * for release.
-     *
-     * @return patientStack instance var
-     */
-    public ArrayStack<Patient> forTestGetPatientStack() {
-        return patientStack;
+    public ArrayStack<Patient> getCopyPatientStack() {
+        return patientStack.copy();
     }
+
+    @Override
+    public String toString() {
+        return "CareFacility{" + "facilityName=" + facilityName + ", patientStack=" + patientStack + ", bedStack=" + bedStack + ", hourlyEmployee=" + hourlyEmployee + '}';
+    }
+
 }
