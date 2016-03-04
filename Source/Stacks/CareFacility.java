@@ -1,10 +1,10 @@
 package Stacks;
 
 import ADT.Company;
-import ADT.FullTimeEmployee;
 import ADT.HourlyEmployee;
 
 /**
+ * This class models a care facility with patients, beds, and hourly employees.
  *
  * @author John Verwolf
  */
@@ -59,6 +59,10 @@ public class CareFacility extends Company {
         patientStack = new ArrayStack<>();
     }
 
+    /*
+     * This method adds a patient to the patient stack and places it in order or
+     * priority on the stack.
+     */
     public void addPatient(Patient p) {
         insert(patientStack, p);
     }
@@ -103,8 +107,8 @@ public class CareFacility extends Company {
     private void insert(ArrayStack<Patient> stack, Patient patient) {
 
         try {
-            if (stack.isEmpty()) { //if the stack is empty
-                stack.push(patient);//push patient on stack
+            if (stack.isEmpty()) {      //if the stack is empty
+                stack.push(patient);    //push patient on stack
                 return;
             }
             if (stack.peek().getPriority() < patient.getPriority()) {   //check if priority of top element on stack is lower
@@ -137,7 +141,7 @@ public class CareFacility extends Company {
             if (!PatientS.isEmpty()) {
                 Patient t = PatientS.pop();                     //pop temp element off of the stack
                 bedTime(PatientS, bedS);                        //recursive call (ie reverse stack by pushing to call-stack)
-                //                                             //recursion unwinds and starts returning to this line
+                //                                              //recursion unwinds and starts returning to this line
                 if (t.getBed() == null && !bedS.isEmpty()) {    //if Patient t does not have a bed and if there are beds available...
                     t.setBed(bedS.pop());                       //pop bed from bed stack and give to Patient 
                 }
@@ -157,12 +161,12 @@ public class CareFacility extends Company {
     }
 
     /**
-     * This method is for testing this class. It should be deleted/commented-out
-     * for release.
+     * Returns a copy of the patient stack. This allows the data to be printed
+     * out without emptying the original stack
      *
-     * @return patientStack instance var
+     * @return copy of patientStack
      */
-    public ArrayStack<Patient> forTestGetPatientStack() {
-        return patientStack;
+    public ArrayStack<Patient> getCopyPatientStack() {
+        return patientStack.copy();
     }
 }

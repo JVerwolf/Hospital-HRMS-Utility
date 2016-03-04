@@ -4,7 +4,7 @@ package Stacks;
  * This exception is thrown when a collection element is called for that does
  * not exist.
  *
- * @author C0432660 John Verwolf
+ * @author  John Verwolf
  */
 public class EmptyCollectionException extends Exception {
 

@@ -1,8 +1,9 @@
 package Stacks;
 
 /**
+ * This is an interface for a stack.
  *
- * @author C0432660 John Verwolf
+ * @author John Verwolf
  * @param <T>
  */
 public interface StackADT<T> {

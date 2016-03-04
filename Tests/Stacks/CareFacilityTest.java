@@ -32,16 +32,19 @@ public class CareFacilityTest {
      */
     @Test
     public void testAddPatient() {
+        System.out.println("testAddPatient");
 
+        ArrayStack<Patient> pStack = new ArrayStack<>();
+        CareFacility CF = new CareFacility("TestLab", pStack, null, null);
+
+        /**
+         * Generate a 5 Patient objects and add them to CF
+         */
         Patient p4 = new Patient("", 4);
         Patient p3 = new Patient("", 3);
         Patient p2 = new Patient("", 2);
         Patient p1 = new Patient("", 1);
         Patient p0 = new Patient("", 0);
-
-        ArrayStack<Patient> pStack = new ArrayStack<>();
-
-        CareFacility CF = new CareFacility("TestLab", pStack, null, null);
 
         CF.addPatient(p1);//first in, last out
         CF.addPatient(p2);
@@ -53,13 +56,14 @@ public class CareFacilityTest {
          * this loop will compare priory values of patients in the stack. the
          * priority value should be the same as the counter i.
          */
-        int i = 0;
         try {
-            while (!CF.forTestGetPatientStack().isEmpty()) {
-                if (i != CF.forTestGetPatientStack().pop().getPriority()) {
-                    fail("at testAddPatient()"); //fail if the list is not the right length
+            ArrayStack<Patient> pStackCopy = CF.getCopyPatientStack();
+            int i = 0;
+            while (!pStackCopy.isEmpty()) {
+                if (i != pStackCopy.pop().getPriority()) {
+                    fail("at testSortPatientStack");                //fail if the priority is not correct
                 }
-                i++;  //increment priority counter
+                i++;                                                //increment priority counter
             }
         } catch (EmptyCollectionException e) {
             System.out.println(e);
@@ -73,6 +77,9 @@ public class CareFacilityTest {
     public void testSortPatientStack() {
         System.out.println("sortPatientStack");
 
+        /**
+         * Generate a 5 Patient objects and push them onto an ArrayStack
+         */
         Patient p4 = new Patient("", 4);
         Patient p3 = new Patient("", 3);
         Patient p2 = new Patient("", 2);
@@ -85,21 +92,25 @@ public class CareFacilityTest {
         pStack.push(p3);
         pStack.push(p4);
 
+        /**
+         * Generate a CareFacility and pass pStack of patient objects to it. The
+         * method sortPatientStack() is called in the CareFacility constructor
+         * to sort the Patient objects by order of priority.
+         */
         CareFacility CF = new CareFacility("TestLab", pStack, null, null);
-
-        CF.sortPatientStack();  //This is the call of the method to be tested
 
         /**
          * this loop will compare priory values of patients in the stack. the
          * priority value should be the same as the counter i.
          */
-        int i = 0;
         try {
-            while (!CF.forTestGetPatientStack().isEmpty()) {
-                if (i != CF.forTestGetPatientStack().pop().getPriority()) {
-                    fail("at testSortPatientStack"); //fail if the priority is not correct
+            ArrayStack<Patient> pStackCopy = CF.getCopyPatientStack();
+            int i = 0;
+            while (!pStackCopy.isEmpty()) {
+                if (i != pStackCopy.pop().getPriority()) {
+                    fail("at testSortPatientStack");                //fail if the priority is not correct
                 }
-                i++;  //increment priority counter
+                i++;                                                //increment priority counter
             }
         } catch (EmptyCollectionException e) {
             System.out.println(e);
@@ -113,6 +124,7 @@ public class CareFacilityTest {
     @Test
     public void testAssignBed() {
         System.out.println("assignBed");
+
         /**
          * Generate stack of 3 Patients
          */
@@ -145,19 +157,48 @@ public class CareFacilityTest {
          * beds in the correct order
          */
         try {
-            if (CF.forTestGetPatientStack().pop().getBed() != null) {
+            ArrayStack<Patient> pStackCopy = CF.getCopyPatientStack();
+            if (pStackCopy.pop().getBed() != null) {
                 fail("at testAssignBed");
             }
-            if (CF.forTestGetPatientStack().pop().getBed() == null) {
+            if (pStackCopy.pop().getBed() == null) {
                 fail("at testAssignBed");
             }
-            if (CF.forTestGetPatientStack().pop().getBed() == null) {
+            if (pStackCopy.pop().getBed() == null) {
                 fail("at testAssignBed");
             }
         } catch (EmptyCollectionException e) {
             System.out.println(e);
             fail("at testAssignBed");
         }
+    }
+
+    /**
+     * Test of getCopyPatientStack method, of class CareFacility. Copy the
+     * patientStack object, pop a patient off, then compare top elements with
+     * original stack to ensure that they are not equal.
+     */
+    @Test
+    public void testGetCopyPatientStack() {
+        System.out.println("getCopyPatientStack");
+
+        CareFacility instance = new CareFacility();
+        Patient p1 = new Patient("", 1);
+        instance.addPatient(p1);
+        try {
+            ArrayStack<Patient> copyStack1 = instance.getCopyPatientStack();
+            copyStack1.pop();
+            ArrayStack<Patient> copyStack2 = instance.getCopyPatientStack();
+            /**
+             * check to make sure that popping patient off of copyStack1 does
+             * not affect original CareFacility instance.  
+             */
+            assertEquals(p1, copyStack2.pop());
+        } catch (EmptyCollectionException e) {
+            System.out.println(e);
+            fail("at testAssignBed");
+        }
+
     }
 
 }

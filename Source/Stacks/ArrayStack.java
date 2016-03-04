@@ -1,12 +1,10 @@
 package Stacks;
 
-import ADT.Company;
-
 /**
+ * ArrayStack generates a stack using an array.
  *
- * @author C0432660
+ * @author John Verwolf
  *
- * ArrayStack generates a stack using an array
  * @param <T> The generic type that the stack will be set to operate on
  */
 public class ArrayStack<T> implements StackADT<T> {
@@ -46,6 +44,28 @@ public class ArrayStack<T> implements StackADT<T> {
     }
 
     /**
+     * Private constructor for static factory method copy(). Generates a copy of
+     * the instance.
+     *
+     * @param passedTop   The pointer to the top of the arrayStack.
+     * @param passedArray the array that the stack uses as it's underlying data
+     *                    container.
+     */
+    private ArrayStack(int passedTop, T[] passedArray, int passedLength) {
+        this.top = passedTop;
+
+        this.stackArray = (T[]) (new Object[passedLength]);
+
+        /**
+         * manual deep copy of passed array into instance variable
+         * this.stackArray
+         */
+        for (int i = 0; i < passedArray.length; i++) {
+            this.stackArray[i] = passedArray[i];
+        }
+    }
+
+    /**
      * Adds the specified element to the top of this stack, expanding the
      * capacity of the stack array if necessary.
      *
@@ -58,7 +78,6 @@ public class ArrayStack<T> implements StackADT<T> {
         }
         stackArray[top] = element;
         top++;
-
     }
 
     /**
@@ -130,13 +149,26 @@ public class ArrayStack<T> implements StackADT<T> {
     public int size() {
         return stackArray.length;
     }
+
     /**
-     * returns string representation of the object, including size and number of objects
-     * @return string representation of the object, including size and number of objects
+     * returns string representation of the object, including size and number of
+     * objects
+     *
+     * @return string representation of the object, including size and number of
+     *         objects
      */
     @Override
     public String toString() {
         return "ArrayStack:" + "size=" + size() + ", number_of_objects=" + top;
     }
 
+    /**
+     * Static factory method to return a new copy instance of the current
+     * arrayStack instance.
+     *
+     * @return a copied instance of the original array instance.
+     */
+    public ArrayStack<T> copy() {
+        return new ArrayStack<>(this.top, this.stackArray, stackArray.length);
+    }
 }
