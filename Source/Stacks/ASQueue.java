@@ -1,6 +1,8 @@
 package Stacks;
 
 /**
+ * Note: This Class is unused in this Lab, 
+ * 
  * This Queue structure recursively traverses an ArrayStack to push an element
  * to the bottom of the stack
  *
