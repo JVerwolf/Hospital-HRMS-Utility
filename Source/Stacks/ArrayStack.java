@@ -159,7 +159,7 @@ public class ArrayStack<T> implements StackADT<T> {
      */
     @Override
     public String toString() {
-        return "ArrayStack:" + "size=" + size() + ", number_of_objects=" + top;
+        return "ArrayStack: " + "size=" + size() + ", number_of_objects=" + top;
     }
 
     /**
