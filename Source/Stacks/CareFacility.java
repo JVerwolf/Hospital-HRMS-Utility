@@ -1,10 +1,10 @@
 package Stacks;
 
 import ADT.Company;
-import ADT.FullTimeEmployee;
 import ADT.HourlyEmployee;
 
 /**
+ * This class models a care facility with patients, beds, and hourly employees.
  *
  * @author John Verwolf
  */
@@ -156,13 +156,13 @@ public class CareFacility extends Company {
         bedTime(patientStack, bedStack);
     }
 
+    /**
+     * Returns a copy of the patient stack. This allows the data to be printed
+     * out without emptying the original stack
+     *
+     * @return copy of patientStack
+     */
     public ArrayStack<Patient> getCopyPatientStack() {
         return patientStack.copy();
     }
-
-    @Override
-    public String toString() {
-        return "CareFacility{" + "facilityName=" + facilityName + ", patientStack=" + patientStack + ", bedStack=" + bedStack + ", hourlyEmployee=" + hourlyEmployee + '}';
-    }
-
 }
