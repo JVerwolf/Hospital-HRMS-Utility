@@ -141,13 +141,13 @@ public class ArrayStackTest {
         String expResult = "";
         String result = instance.toString();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
      * Test of copy method, of class ArrayStack.
      */
+    @Test
     public void testCopy() {
         System.out.println("copy");
 
