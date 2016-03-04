@@ -159,11 +159,11 @@ public class ArrayStack<T> implements StackADT<T> {
      */
     @Override
     public String toString() {
-        return "ArrayStack:" + "size=" + size() + ", number_of_objects=" + top;
+        return "ArrayStack: " + "size=" + size() + ", number_of_objects=" + top;
     }
 
     /**
-     * Static factory method to return a new copy instance of the current
+     * Factory method to return a new copy instance of the current
      * arrayStack instance.
      *
      * @return a copied instance of the original array instance.
