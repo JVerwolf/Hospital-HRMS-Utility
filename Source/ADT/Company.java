@@ -51,10 +51,10 @@ public class Company {
      */
     public FullTimeEmployee findBestPaid(FullTimeEmployee[] ArrayEmployee) {
         try {
-            FullTimeEmployee Highestpaid = ArrayEmployee[0]; //variable used to store highest paid employee
-            for (FullTimeEmployee e : ArrayEmployee) { //iterate through array
-                if (e.getGrossPay() > Highestpaid.getGrossPay()) { //search for higher grossPay value
-                    Highestpaid = e; //update highest paid employeee
+            FullTimeEmployee Highestpaid = ArrayEmployee[0];            //variable used to store highest paid employee
+            for (FullTimeEmployee e : ArrayEmployee) {                  //iterate through array
+                if (e.getGrossPay() > Highestpaid.getGrossPay()) {      //search for higher grossPay value
+                    Highestpaid = e;                                    //update highest paid employeee
                 }
             }
             return (Highestpaid);

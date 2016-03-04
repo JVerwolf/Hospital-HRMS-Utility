@@ -2,9 +2,6 @@ package Stacks;
 
 /**
  * The purpose of this class is to test the CareFacility class behaviorally.
- * <p>
- * Caution: to ensure functionality, patientStackClone() method must be not be
- * commented in CareFacility class.
  *
  * @author John Verwolf
  */
@@ -29,7 +26,7 @@ public class StacksMainClass {
          * CareFacility instance, displaying their properties 'priority' and
          * 'bed'.
          * <p>
-         * The expected output is a of patients sorted from lowest to hightest
+         * The expected output is a of patients sorted from lowest to highest
          * 'priority', with all the bed objects assigned to those with the
          * highest priority.
          */
@@ -51,8 +48,8 @@ public class StacksMainClass {
              * and 'bed'.
              */
             try {
-                while (!tempPatientStack.isEmpty()) {        //loop while there are still elements in the patientStack
-                    Patient p = tempPatientStack.pop();      //pop a patient, assign to temp variable
+                while (!tempPatientStack.isEmpty()) {       //loop while there are still elements in the patientStack
+                    Patient p = tempPatientStack.pop();     //pop a patient, assign to temp variable
 
                     String bed = "NO BED";                  //instantiate bed variable to default value "NO BED"
 

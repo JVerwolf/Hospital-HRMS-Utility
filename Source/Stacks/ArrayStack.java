@@ -1,12 +1,10 @@
 package Stacks;
 
-import ADT.Company;
-
 /**
+ * ArrayStack generates a stack using an array.
  *
- * @author C0432660
+ * @author John Verwolf
  *
- * ArrayStack generates a stack using an array
  * @param <T> The generic type that the stack will be set to operate on
  */
 public class ArrayStack<T> implements StackADT<T> {

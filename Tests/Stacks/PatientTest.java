@@ -103,6 +103,5 @@ public class PatientTest {
         String expResult = "Patient: bed=null, name=TestName, priority=1";        
         String result = instance.toString();        
         assertEquals(expResult, result);
-    }
-    
+    }    
 }

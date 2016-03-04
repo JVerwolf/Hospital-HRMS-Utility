@@ -9,7 +9,6 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import ADT.FullTimeEmployee;
 
 /**
  *
@@ -54,7 +53,6 @@ public class ArrayStackTest {
         {
             /**
              * Try to push and pop from stack
-             * <p>
              */
             System.out.println("Try .push() and .pop() on stack");
             ArrayStack<Integer> instance = new ArrayStack<>();
@@ -121,4 +119,53 @@ public class ArrayStackTest {
         assertEquals(expResult, result);
     }
 
+    /**
+     * Test of pop method, of class ArrayStack.
+     */
+    public void testPop() throws Exception {
+        System.out.println("pop");
+        ArrayStack instance = new ArrayStack();
+        Object expResult = null;
+        Object result = instance.pop();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of toString method, of class ArrayStack.
+     */
+    public void testToString() {
+        System.out.println("toString");
+        ArrayStack instance = new ArrayStack();
+        String expResult = "";
+        String result = instance.toString();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of copy method, of class ArrayStack.
+     */
+    public void testCopy() {
+        System.out.println("copy");
+
+        ArrayStack<Patient> instance = new ArrayStack<>();
+        Patient p1 = new Patient("", 1);
+        instance.push(p1);
+        try {
+            ArrayStack<Patient> copyStack1 = instance.copy();
+            copyStack1.pop();
+            ArrayStack<Patient> copyStack2 = instance.copy();
+            /**
+             * check to make sure that popping patient off of copyStack1 does
+             * not affect original CareFacility instance.
+             */
+            assertEquals(p1, copyStack2.pop());
+        } catch (EmptyCollectionException e) {
+            System.out.println(e);
+            fail("at testAssignBed");
+        }
+    }
 }

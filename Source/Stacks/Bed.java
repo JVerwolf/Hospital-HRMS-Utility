@@ -49,14 +49,15 @@ public class Bed {
     }
 
     /**
-     *Returns a String representation of this Bed object with the name followed
-     *         by a space followed by location.
+     * Returns a String representation of this Bed object with the name followed
+     * by a space followed by location.
+     *
      * @return a String representation of this Bed object with the name followed
      *         by a space followed by location.
      */
     @Override
     public String toString() {
-        return "Bed: " + "location=" + location + ", name=" + name ;
+        return "Bed: " + "location=" + location + ", name=" + name;
     }
 
 }
