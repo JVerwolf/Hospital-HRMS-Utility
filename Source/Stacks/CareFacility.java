@@ -103,8 +103,8 @@ public class CareFacility extends Company {
     private void insert(ArrayStack<Patient> stack, Patient patient) {
 
         try {
-            if (stack.isEmpty()) { //if the stack is empty
-                stack.push(patient);//push patient on stack
+            if (stack.isEmpty()) {      //if the stack is empty
+                stack.push(patient);    //push patient on stack
                 return;
             }
             if (stack.peek().getPriority() < patient.getPriority()) {   //check if priority of top element on stack is lower
