@@ -59,6 +59,10 @@ public class CareFacility extends Company {
         patientStack = new ArrayStack<>();
     }
 
+    /*
+     * This method adds a patient to the patient stack and places it in order or
+     * priority on the stack.
+     */
     public void addPatient(Patient p) {
         insert(patientStack, p);
     }
