@@ -87,18 +87,9 @@ public class StacksMainClass {
 
         ArrayStack<Patient> pStack = new ArrayStack<>();
 
-        pStack.push(p2);
-        pStack.push(p1);
-        pStack.push(p3);
-        pStack.push(p8);
-        pStack.push(p5);
-        pStack.push(p9);
-        pStack.push(p7);
-        pStack.push(p6);
-        pStack.push(p4);
-        pStack.push(p10);
-        pStack.push(p0);
-
+        for (Patient e : new Patient[]{p2, p1, p3, p8, p5, p9, p7, p6, p4, p10, p0}) {
+            pStack.push(e);
+        }
         return pStack.copy();
     }
 
@@ -114,12 +105,11 @@ public class StacksMainClass {
         Bed b4 = new Bed("Bed4", "1");
 
         ArrayStack<Bed> bStack = new ArrayStack<>();
-
-        bStack.push(b1);
-        bStack.push(b2);
-        bStack.push(b3);
-        bStack.push(b4);
-
+        
+        for (Bed e : new Bed[]{b1, b2, b3, b4}) {
+            bStack.push(e);
+        }
+       
         return bStack.copy();
     }
 
