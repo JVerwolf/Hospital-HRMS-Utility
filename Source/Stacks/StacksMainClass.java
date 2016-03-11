@@ -106,10 +106,11 @@ public class StacksMainClass {
         Bed b4 = new Bed("Bed4", "1");
 
         ArrayStack<Bed> bStack = new ArrayStack<>();
-            
+        
         for (Bed e : new Bed[]{b1, b2, b3, b4}) {
             bStack.push(e);
         }
+       
         return bStack.copy();
     }
 
