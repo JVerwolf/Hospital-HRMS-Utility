@@ -92,50 +92,6 @@ public class LinkedList<T> implements ListADT<T>, Iterable<T> {
     }
 
     /**
-     * Removes the first instance of the specified element from this list and
-     * returns a reference to it. Throws an EmptyListException if the list is
-     * empty. Throws a NoSuchElementException if the specified element is not
-     * found in the list.
-     *
-     * @param targetElement the element to be removed from the list
-     * @return a reference to the removed element
-     * @throws EmptyCollectionException if an empty collection exception occurs
-     */
-    //@Override
-    public T remove(T targetElement) throws EmptyCollectionException,
-            ElementNotFoundException {
-        if (isEmpty()) {
-            throw new EmptyCollectionException("List");
-        }
-        boolean found = false;
-        LinearNode<T> previous = null;
-        LinearNode<T> current = head;
-        while (current != null && !found) {
-            if (targetElement.equals(current.getElement())) {
-                found = true;
-            } else {
-                previous = current;
-                current = current.getNext();
-            }
-        }
-        if (!found) {
-            throw new ElementNotFoundException("List");
-        }
-        if (size() == 1) {
-            head = tail = null;
-        } else if (current.equals(head)) {
-            head = current.getNext();
-        } else if (current.equals(tail)) {
-            tail = previous;
-            tail.setNext(null);
-        } else {
-            previous.setNext(current.getNext());
-        }
-        count--;
-        return current.getElement();
-    }
-
-    /**
      * Check if list is empty
      *
      * @return true if this list contains no elements
