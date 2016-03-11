@@ -6,8 +6,8 @@ package ADT;
  */
 public class Company {
 
-    protected String name; //holds name of company
-    protected FullTimeEmployee[] fullTimeEmployee; //holds array of employees
+    private String name; //holds name of company
+    private FullTimeEmployee[] fullTimeEmployee; //holds array of employees
 
     /**
      * Initialize this company object by assigning it a "no name" name and an

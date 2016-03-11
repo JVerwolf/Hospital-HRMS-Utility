@@ -6,10 +6,10 @@ package ADT;
  */
 public class HourlyEmployee extends FullTimeEmployee {
 
-    protected int hoursWorked;
-    protected double payRate;
-    protected double regularPay;
-    protected double overTimePay;
+    private int hoursWorked;
+    private double payRate;
+    private double regularPay;
+    private double overTimePay;
 
     /**
      * Default constructor
@@ -38,7 +38,7 @@ public class HourlyEmployee extends FullTimeEmployee {
     public HourlyEmployee(String name, int hoursWorked, double payRate) {
         super();
         setDefaultInstanceVaraibleValues();
-        super.name = name;
+        super.setName(name);
         this.hoursWorked = hoursWorked;
         this.payRate = payRate;
     }

@@ -5,6 +5,8 @@
  */
 package Linked_Queues;
 
+import Stacks.EmptyCollectionException;
+
 /**
  *
  * @author John Verwolf
@@ -23,7 +25,7 @@ public interface QueueADT<T> {
      *
      * @return the element at the front of this queue
      */
-    public T dequeue();
+    public T dequeue()throws EmptyCollectionException ;
 
     /**
      * Returns without removing the object at the front of this queue.

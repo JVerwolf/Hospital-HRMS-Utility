@@ -109,9 +109,7 @@ public class StacksMainClass {
         
         for (Bed e : new Bed[]{b1, b2, b3, b4}) {
             bStack.push(e);
-        }
-       
+        }       
         return bStack.copy();
     }
-
 }

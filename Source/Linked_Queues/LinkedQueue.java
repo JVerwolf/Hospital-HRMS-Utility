@@ -2,6 +2,8 @@ package Linked_Queues;
 
 import Stacks.EmptyCollectionException;
 
+import Stacks.EmptyCollectionException;
+
 /**
  * TODO: sec 5.4
  * <p>
@@ -25,8 +27,9 @@ public class LinkedQueue<T> implements QueueADT<T> {
      *
      * @param element the element to be added to the rear of this queue
      */
+    @Override
     public void enqueue(T element) {
-        LinearNode<T> node = new LinearNode<T>(element);
+        LinearNode<T> node = new LinearNode<>(element);
         if (isEmpty()) {
             front = node;
         } else {
@@ -36,7 +39,7 @@ public class LinkedQueue<T> implements QueueADT<T> {
         count++;
 
     }
-
+    
     /**
      * Removes the element at the front of this queue and returns a reference to
      * it. Throws an EmptyCollectionException if the queue is empty.
@@ -44,6 +47,7 @@ public class LinkedQueue<T> implements QueueADT<T> {
      * @return the element at the front of this queue
      * @throws EmptyCollectionException if an empty collection exception occurs
      */
+    @Override
     public T dequeue() throws EmptyCollectionException {
         if (isEmpty()) {
             throw new EmptyCollectionException("queue");
@@ -56,5 +60,18 @@ public class LinkedQueue<T> implements QueueADT<T> {
         }
         return result;
 
+    }
+    public boolean isEmpty(){
+        return (count == 0);
+    }
+
+    @Override
+    public T first() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int size() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

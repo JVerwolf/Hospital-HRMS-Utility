@@ -6,8 +6,8 @@ package ADT;
  */
 public class FullTimeEmployee implements Employee {
 
-    protected String name;
-    protected double grossPay;
+    private String name;
+    private double grossPay;
 
     /**
      * Default Constructor
@@ -32,6 +32,14 @@ public class FullTimeEmployee implements Employee {
     @Override
     public String getName() {
         return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setGrossPay(double grossPay) {
+        this.grossPay = grossPay;
     }
 
     @Override
