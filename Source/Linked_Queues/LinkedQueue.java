@@ -39,7 +39,7 @@ public class LinkedQueue<T> implements QueueADT<T> {
         count++;
 
     }
-    
+
     /**
      * Removes the element at the front of this queue and returns a reference to
      * it. Throws an EmptyCollectionException if the queue is empty.
@@ -61,13 +61,14 @@ public class LinkedQueue<T> implements QueueADT<T> {
         return result;
 
     }
-    public boolean isEmpty(){
+
+    public boolean isEmpty() {
         return (count == 0);
     }
 
     @Override
     public T first() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return front.getElement();
     }
 
     @Override
