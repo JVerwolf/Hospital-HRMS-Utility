@@ -71,38 +71,38 @@ public class LinkedList<T> implements ListADT<T>, Iterable<T> {
 
     @Override
     public T removeLast() throws EmptyCollectionException {
-        if (isEmpty()) {
-            throw new EmptyCollectionException("queue");
-        }
-        T result = head.getElement();
-        head = head.getNext();
-        count--;
-        if (isEmpty()) {
-            tail = null;
-        }
-        return result;
-    }
-//        LinearNode<T> probe = head;
-//        LinearNode<T> returnNode;
-//        switch (count) {
-//            case 0:
-//                throw new EmptyCollectionException("Error in removeLast()");
-//            case 1:
-//                head = tail = null;
-//                count--;
-//                return probe.getElement();
-//            default:
-//                //traverse list until probe refers to second last element
-//                while (probe.getNext().getNext() != null) {
-//                    probe = probe.getNext();
-//                }
-//                returnNode = tail;          //set pointer to tail node that is going to be removed
-//                tail = probe;               //update tail point to second last node
-//                tail.setNext(null);         //chop tail node off of the list
+//        if (isEmpty()) {
+//            throw new EmptyCollectionException("queue");
 //        }
+//        T result = head.getElement();
+//        head = head.getNext();
 //        count--;
-//        return returnNode.getElement();
+//        if (isEmpty()) {
+//            tail = null;
+//        }
+//        return result;
 //    }
+        LinearNode<T> probe = head;
+        LinearNode<T> returnNode;
+        switch (count) {
+            case 0:
+                throw new EmptyCollectionException("Error in removeLast()");
+            case 1:
+                head = tail = null;
+                count--;
+                return probe.getElement();
+            default:
+                //traverse list until probe refers to second last element
+                while (probe.getNext().getNext() != null) {
+                    probe = probe.getNext();
+                }
+                returnNode = tail;          //set pointer to tail node that is going to be removed
+                tail = probe;               //update tail point to second last node
+                tail.setNext(null);         //chop tail node off of the list
+        }
+        count--;
+        return returnNode.getElement();
+    }
 
     /**
      * Check if list is empty

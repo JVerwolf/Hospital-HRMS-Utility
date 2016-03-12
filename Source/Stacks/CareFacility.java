@@ -31,10 +31,10 @@ public class CareFacility extends Company {
      * of beds and array of patients from a specified name and array of
      * employees, array of beds and array of patients
      *
-     * @param facilityName
-     * @param patientStack
-     * @param bedStack
-     * @param hourlyEmployee
+     * @param facilityName   The name of the facility
+     * @param patientStack   A stack of patient objects
+     * @param bedStack       A stack of beds
+     * @param hourlyEmployee An array of Hourly Employees
      */
     public CareFacility(String facilityName, ArrayStack<Patient> patientStack, ArrayStack<Bed> bedStack, HourlyEmployee[] hourlyEmployee) {
         this.facilityName = facilityName;
@@ -49,8 +49,8 @@ public class CareFacility extends Company {
      * specified name and array of employees The array of beds and array of
      * patients will be set to null
      *
-     * @param facilityName
-     * @param hourlyEmployee
+     * @param facilityName   The name of the facility
+     * @param hourlyEmployee An array of hourly employees
      */
     public CareFacility(String facilityName, HourlyEmployee[] hourlyEmployee) {
         this.facilityName = facilityName;
