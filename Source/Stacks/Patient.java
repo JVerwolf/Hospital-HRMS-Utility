@@ -1,5 +1,7 @@
 package Stacks;
 
+import Linked_Queues.CasualEmployee;
+
 /**
  *
  * @author John Verwolf
@@ -9,6 +11,7 @@ public class Patient {
     private Bed bed;
     private java.lang.String name;
     private int priority;
+    private CasualEmployee casualEmployee;
 
     /**
      * Initializes this Patient object's name, priority and Bed the name for the
@@ -89,6 +92,14 @@ public class Patient {
         this.priority = priority;
     }
 
+    public void setCasualEmployee(CasualEmployee casualEmployee) {
+        this.casualEmployee = casualEmployee;
+    }
+
+    public CasualEmployee getCasualEmployee() {
+        return casualEmployee;
+    }
+   
     /**
      * Return a String representation of this Patient object
      *

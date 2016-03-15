@@ -132,8 +132,8 @@ public class LinkedList<T> implements ListADT<T>, Iterable<T> {
     @Override
     public T last() {
         return tail.getElement();
-    }
-
+    }    
+    
     @Override
     public Iterator<T> iterator() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

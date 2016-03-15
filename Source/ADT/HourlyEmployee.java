@@ -15,6 +15,7 @@ public class HourlyEmployee extends FullTimeEmployee {
      * Default constructor
      */
     public HourlyEmployee() {
+        super();
         setDefaultInstanceVaraibleValues();
     }
 
