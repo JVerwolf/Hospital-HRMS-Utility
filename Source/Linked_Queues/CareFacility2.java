@@ -63,9 +63,11 @@ public class CareFacility2 extends Company {
         patientStack = new ArrayStack<>();
     }
 
-    /*
+    /**
      * This method adds a patient to the patient stack and places it in order or
      * priority on the stack.
+     *
+     * @param p patient object to be inserted in order into the priority stack
      */
     public void addPatient(Patient p) {
         insert(patientStack, p);
@@ -166,10 +168,20 @@ public class CareFacility2 extends Company {
         }
     }
 
+    /**
+     * Assign casual employees to patients with the highest priority value
+     */
     public void assignCasualEmployee() {
         AssignCasualE(patientStack, casualEmployee);
     }
 
+    /**
+     * This method recursively assigns casual employees to the patients with the
+     * highest priority value
+     *
+     * @param PatientS The stack of patients to have casual employees assigned
+     * @param CEList   The linked list of casual employees
+     */
     private void AssignCasualE(ArrayStack<Patient> PatientS, LinkedQueue<CasualEmployee> CEList) {
         try {
             if (CEList == null) {
@@ -179,19 +191,24 @@ public class CareFacility2 extends Company {
                 return;
             }
             if (!PatientS.isEmpty()) {
-                Patient p = PatientS.pop();                     //pop temp element off of the stack
-                AssignCasualE(PatientS, CEList);                //recursive call (ie reverse stack by pushing to call-stack)
-                //                                              //recursion unwinds and starts returning to this line
-                if (p.getCasualEmployee() == null && !CEList.isEmpty()) {  //if Patient t does not have a bed and if there are beds available...
-                    p.setCasualEmployee(CEList.dequeue());      //remove bed from bed linked list and give to Patient 
+                Patient p = PatientS.pop();                                 //pop temp element off of the stack
+                AssignCasualE(PatientS, CEList);                            //recursive call (ie reverse stack by pushing to call-stack)
+                //                                                          //recursion unwinds and starts returning to this line
+                if (p.getCasualEmployee() == null && !CEList.isEmpty()) {   //if Patient t does not have a bed and if there are beds available...
+                    p.setCasualEmployee(CEList.dequeue());                  //remove bed from bed linked list and give to Patient 
                 }
-                PatientS.push(p);                               //put temp element back on to stack as recursion unwinds
+                PatientS.push(p);                                           //put temp element back on to stack as recursion unwinds
             }
         } catch (EmptyCollectionException e) {
             System.out.println(e + "Something went wrong in the AssignCasualE() method:\t");
         }
     }
 
+    /**
+     * Assign a bed and a casual employee to each patient in order of highest
+     * priority value first, while there are still beds and casual employees
+     * available
+     */
     public void assignBedAndCasualEmployee() {
         assignBed();
         assignCasualEmployee();

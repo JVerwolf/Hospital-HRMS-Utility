@@ -15,27 +15,16 @@ import static org.junit.Assert.*;
  * @author C0432660
  */
 public class HourlyEmployeeTest {
-    
+
     public HourlyEmployeeTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
-    }
-
-    /**
-     * Test of setDefaultInstanceVaraibleValues method, of class HourlyEmployee.
-     */
-    @Test
-    public void testSetDefaultInstanceVaraibleValues() {
-        System.out.println("setDefaultInstanceVaraibleValues");
-        HourlyEmployee instance = new HourlyEmployee();
-        instance.setDefaultInstanceVaraibleValues();
-        
     }
 
     /**
@@ -48,7 +37,7 @@ public class HourlyEmployeeTest {
         int expResult = 0;
         int result = instance.getHoursWorked();
         assertEquals(expResult, result);
-        
+
     }
 
     /**
@@ -61,7 +50,7 @@ public class HourlyEmployeeTest {
         double expResult = 0.0;
         double result = instance.getPayRate();
         assertEquals(expResult, result, 0.0);
-        
+
     }
 
     /**
@@ -74,7 +63,7 @@ public class HourlyEmployeeTest {
         double expResult = 0.0;
         double result = instance.getRegularPay();
         assertEquals(expResult, result, 0.0);
-        
+
     }
 
     /**
@@ -87,7 +76,7 @@ public class HourlyEmployeeTest {
         double expResult = 0.0;
         double result = instance.getOverTimePay();
         assertEquals(expResult, result, 0.0);
-        
+
     }
 
     /**
@@ -100,7 +89,7 @@ public class HourlyEmployeeTest {
         String expResult = "HourlyEmployee: hoursWorked=0, payRate=0.0, regularPay=0.0, overTimePay=0.0";
         String result = instance.toString();
         assertEquals(expResult, result);
-        
+
     }
-    
+
 }

@@ -1,13 +1,10 @@
 package Linked_Queues;
 
 import Stacks.EmptyCollectionException;
-
-import Stacks.EmptyCollectionException;
-
 /**
- * TODO: sec 5.4
- * <p>
- * <p>
+ * 
+ * @author John Verwolf
+ * @param <T> Type of element to be stored
  */
 public class LinkedQueue<T> implements QueueADT<T> {
 

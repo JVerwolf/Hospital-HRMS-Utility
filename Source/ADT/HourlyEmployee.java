@@ -1,5 +1,7 @@
 package ADT;
 
+import Linked_Queues.BusinessRules;
+
 /**
  *
  * @author C0432660 John Verwolf
@@ -40,14 +42,14 @@ public class HourlyEmployee extends FullTimeEmployee {
         super();
         setDefaultInstanceVaraibleValues();
         super.setName(name);
-        this.hoursWorked = hoursWorked;
+        setHoursWorked(hoursWorked);
         this.payRate = payRate;
     }
 
     /**
      * Sets instance variables to their default values.
      */
-    void setDefaultInstanceVaraibleValues() {
+    private void setDefaultInstanceVaraibleValues() {
         hoursWorked = 0;
         payRate = 0;
         regularPay = 0;
@@ -62,12 +64,27 @@ public class HourlyEmployee extends FullTimeEmployee {
         return payRate;
     }
 
-    public double getRegularPay() {
+    public double getRegularPay() {       
         return regularPay;
     }
 
     public double getOverTimePay() {
         return overTimePay;
+    }
+
+    public final void setHoursWorked(int hoursWorked) {
+        this.hoursWorked = hoursWorked;
+        if (hoursWorked <= BusinessRules.HOURS_BEFORE_OVERTIME) {
+            this.regularPay = hoursWorked * payRate;
+        } else {
+            this.overTimePay = ((BusinessRules.HOURS_BEFORE_OVERTIME - hoursWorked) * BusinessRules.OVERTIME_RATE);
+            this.regularPay = BusinessRules.HOURS_BEFORE_OVERTIME * payRate;
+        }
+
+    }
+
+    public void setPayRate(double payRate) {
+        this.payRate = payRate;
     }
 
     @Override

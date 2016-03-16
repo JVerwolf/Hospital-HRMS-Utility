@@ -25,11 +25,17 @@ public class LinkedList<T> implements ListADT<T>, Iterable<T> {
         head = tail = null;
     }
 
+    /**
+     * Adds an empty element to the beginning of the list
+     */
     @Override
     public void addFirst() {
         addFirst(null);
     }
 
+    /**
+     * Adds an element to the beginning of the list
+     */
     public void addFirst(T element) {
         if (isEmpty()) {
             head = new LinearNode<>(element);
@@ -42,11 +48,17 @@ public class LinkedList<T> implements ListADT<T>, Iterable<T> {
         count++;
     }
 
+    /**
+     * Adds an empty element to the end of the list
+     */
     @Override
     public void addLast() {
         addLast(null);
     }
 
+    /**
+     * Adds an element to the end of the list
+     */
     public void addLast(T element) {
         if (isEmpty()) {
             head = new LinearNode<>(element);
@@ -58,6 +70,12 @@ public class LinkedList<T> implements ListADT<T>, Iterable<T> {
         count++;
     }
 
+    /**
+     * Remove the first item from the list
+     *
+     * @return the first item from the list
+     * @throws EmptyCollectionException if empty
+     */
     @Override
     public T removeFirst() throws EmptyCollectionException {
         if (isEmpty()) {
@@ -69,6 +87,12 @@ public class LinkedList<T> implements ListADT<T>, Iterable<T> {
         return temp.getElement();
     }
 
+    /**
+     * Remove the last item from the list
+     *
+     * @return the last item from the list
+     * @throws EmptyCollectionException if empty
+     */
     @Override
     public T removeLast() throws EmptyCollectionException {
 //        if (isEmpty()) {
@@ -124,16 +148,31 @@ public class LinkedList<T> implements ListADT<T>, Iterable<T> {
         return count;
     }
 
+    /**
+     * Show the first element in the list
+     *
+     * @return the first element in the list
+     */
     @Override
     public T first() {
         return head.getElement();
     }
 
+    /**
+     * Show the last element in the list
+     *
+     * @return the last element in the list
+     */
     @Override
     public T last() {
         return tail.getElement();
-    }    
-    
+    }
+
+    /**
+     * Define how to iterate over the list.
+     *
+     * @return Not implemented yet
+     */
     @Override
     public Iterator<T> iterator() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
