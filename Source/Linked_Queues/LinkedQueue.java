@@ -1,8 +1,9 @@
 package Linked_Queues;
 
 import Stacks.EmptyCollectionException;
+
 /**
- * 
+ *
  * @author John Verwolf
  * @param <T> Type of element to be stored
  */
@@ -59,15 +60,30 @@ public class LinkedQueue<T> implements QueueADT<T> {
 
     }
 
+    /**
+     * Check to see if the queue is empty
+     *
+     * @return true if the queue is empty
+     */
     public boolean isEmpty() {
         return (count == 0);
     }
 
+    /**
+     * Show the first element in the queue without removing it
+     *
+     * @return the first element in the queue
+     */
     @Override
     public T first() {
         return front.getElement();
     }
 
+    /**
+     * Show the last element in the queue without removing it
+     *
+     * @return the last element in the queue
+     */
     @Override
     public int size() {
         return count;

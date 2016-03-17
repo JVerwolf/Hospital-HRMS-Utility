@@ -2,7 +2,7 @@ package Linked_Queues;
 
 import Stacks.ArrayStack;
 import Stacks.Bed;
-
+import Stacks.CareFacility;
 import Stacks.EmptyCollectionException;
 import Stacks.Patient;
 
@@ -29,7 +29,7 @@ public class Queue_List_MainClass {
          * 'priority', with all the bed objects assigned to those with the
          * highest priority.
          */
-        CareFacility2 CF = new CareFacility2("Test lab", stackOfPatients(), listOfBeds(), QueueOfCasualEmployees());
+        CareFacility CF = new CareFacility("Test lab", stackOfPatients(), listOfBeds(), QueueOfCasualEmployees());
         {
 
             //this method assigns beds to patients

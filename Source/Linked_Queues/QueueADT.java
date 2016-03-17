@@ -1,15 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Linked_Queues;
 
 import Stacks.EmptyCollectionException;
 
 /**
+ * This is a queue data structure obeying the first in first out rule
  *
  * @author John Verwolf
+ * @param <T> The generic type
  */
 public interface QueueADT<T> {
 
@@ -24,8 +21,9 @@ public interface QueueADT<T> {
      * Removes and returns the object at the front of this queue.
      *
      * @return the element at the front of this queue
+     * @throws Stacks.EmptyCollectionException
      */
-    public T dequeue()throws EmptyCollectionException ;
+    public T dequeue() throws EmptyCollectionException;
 
     /**
      * Returns without removing the object at the front of this queue.
@@ -40,17 +38,19 @@ public interface QueueADT<T> {
      * @return true if this queue is empty
      */
     public boolean isEmpty();
+
     /**
      * Returns the number of object in this queue.
      *
      * @return the integer representation of the size of this queue
      */
- public int size();
+    public int size();
 
     /**
      * Returns a string representation of this queue.
      *
      * @return the string representation of this queue
      */
+    @Override
     public String toString();
 }
