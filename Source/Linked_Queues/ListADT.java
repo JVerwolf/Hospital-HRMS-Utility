@@ -4,15 +4,17 @@ import Stacks.EmptyCollectionException;
 import java.util.Iterator;
 
 /**
- *
  * @author John Verwolf
+ * 
+ * @param <T> generic type
  */
 public interface ListADT<T> extends Iterable<T> {
+
     /**
      * Add an element at the beginning of a list
      */
     public void addFirst();
-    
+
     /**
      * Add an element at the end of a list
      */
@@ -22,6 +24,7 @@ public interface ListADT<T> extends Iterable<T> {
      * Removes and returns the first element from this list.
      *
      * @return the first element from this list
+     * @throws Stacks.EmptyCollectionException
      */
     public T removeFirst() throws EmptyCollectionException;
 
@@ -29,6 +32,7 @@ public interface ListADT<T> extends Iterable<T> {
      * Removes and returns the last element from this list.
      *
      * @return the last element from this list
+     * @throws Stacks.EmptyCollectionException
      */
     public T removeLast() throws EmptyCollectionException;
 
@@ -38,7 +42,6 @@ public interface ListADT<T> extends Iterable<T> {
      * @param element the element to be removed from the list
      */
     //public T remove(T element) throws EmptyCollectionException, ElementNotFoundException;
-
     /**
      * Returns a reference to the first element in this list.
      *

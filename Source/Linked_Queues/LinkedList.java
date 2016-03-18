@@ -11,10 +11,17 @@ import java.util.Iterator;
 /**
  *
  * @author John Verwolf
+ * @param <T> the Generic type
  */
 public class LinkedList<T> implements ListADT<T>, Iterable<T> {
 
+    /**
+     * Stores the number of elements in the Linked List *
+     */
     protected int count;
+    /**
+     * Stores head and tail pointers
+     */
     protected LinearNode<T> head, tail;
 
     /**
@@ -35,6 +42,8 @@ public class LinkedList<T> implements ListADT<T>, Iterable<T> {
 
     /**
      * Adds an element to the beginning of the list
+     *
+     * @param element the element being added to the Linked List
      */
     public void addFirst(T element) {
         if (isEmpty()) {
@@ -58,6 +67,8 @@ public class LinkedList<T> implements ListADT<T>, Iterable<T> {
 
     /**
      * Adds an element to the end of the list
+     *
+     * @param element the element to be added to the Linked List
      */
     public void addLast(T element) {
         if (isEmpty()) {
@@ -178,10 +189,10 @@ public class LinkedList<T> implements ListADT<T>, Iterable<T> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    /*
-     * Returns a copy of the linked list data structure. Although the list is
-     * new, the elements inside the list are not deep copied and remain as
-     * references to the original data elements
+    /**
+     * Returns a shallow copy of the instance of the linked list
+     *
+     * @returns a shallow copy of the instance of the linked list
      */
     public LinkedList<T> copy() {
         return new LinkedList<>(head);
@@ -199,7 +210,7 @@ public class LinkedList<T> implements ListADT<T>, Iterable<T> {
         LinearNode<T> probeForPassed = passedHead;
 
         while (probeForPassed.getNext() != null) {
-            tail.setElement(probeForPassed.getElement()); 
+            tail.setElement(probeForPassed.getElement());
             probeForPassed = probeForPassed.getNext();
             tail.setNext(new LinearNode<T>());
             tail = tail.getNext();

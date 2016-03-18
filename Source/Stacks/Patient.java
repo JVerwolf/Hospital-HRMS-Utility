@@ -92,10 +92,17 @@ public class Patient {
         this.priority = priority;
     }
 
+    /**
+     * Sets the Casual Employee to be assigned to the patient
+     * @param casualEmployee the Casual Employee to be assigned to the patient
+     */
     public void setCasualEmployee(CasualEmployee casualEmployee) {
         this.casualEmployee = casualEmployee;
     }
-
+    /**
+     * Get the casual employee assigned to the patient
+     * @return the casual employee assigned to the patient
+     */
     public CasualEmployee getCasualEmployee() {
         return casualEmployee;
     }

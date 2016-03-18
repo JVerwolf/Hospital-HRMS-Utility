@@ -3,6 +3,7 @@ package Linked_Queues;
 /**
  *
  * @author John Verwolf
+ * @param <T> The Generic type
  */
 public class LinearNode<T> {
 

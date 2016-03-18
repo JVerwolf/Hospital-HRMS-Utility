@@ -44,7 +44,7 @@ public class ArrayStack<T> implements StackADT<T> {
     }
 
     /**
-     * Private constructor for static factory method copy(). Generates a copy of
+     * Private constructor for factory method copy(). Generates a copy of
      * the instance.
      *
      * @param passedTop   The pointer to the top of the arrayStack.

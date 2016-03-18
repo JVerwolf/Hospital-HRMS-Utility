@@ -89,7 +89,7 @@ public class LinkedQueue<T> implements QueueADT<T> {
         return count;
     }
 
-    /*
+    /**
      * Returns a copy of the linked queue data structure. Although the list is
      * new, the elements inside the list are not deep copied and remain as
      * references to the original data elements
