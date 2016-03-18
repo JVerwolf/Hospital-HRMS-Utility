@@ -251,7 +251,7 @@ public class CareFacilityTest {
         CasualEmployee e3 = new CasualEmployee("Bob3", true);
         LinkedQueue<CasualEmployee> CEQueue = new LinkedQueue<>();
         CEQueue.enqueue(e3);
-        
+
         Bed b1 = new Bed("Bed2", "1");
         LinkedList<Bed> bList = new LinkedList<>();
         bList.addFirst(b1);
@@ -274,6 +274,45 @@ public class CareFacilityTest {
         } catch (EmptyCollectionException e) {
             System.out.println(e);
             fail("at testAssignBed");
+        }
+    }
+
+    /**
+     * Test of getCopyCasualEmployeeQueue method, of class CareFacility.
+     */
+    @Test
+    public void testGetCopyCasualEmployeeQueue() {
+        System.out.println("getCopyCasualEmployeeQueue");
+
+        CasualEmployee e1 = new CasualEmployee("", true);
+        LinkedQueue<CasualEmployee> e = new LinkedQueue<>();
+        e.enqueue(e1);
+
+        CareFacility instance = new CareFacility(null, null, null, e);
+
+        LinkedQueue<CasualEmployee> test = instance.getCopyCasualEmployeeQueue();
+
+        if (test == e) {
+            fail();
+        }
+    }
+
+    /**
+     * Test of getCopyBedList method, of class CareFacility.
+     */
+    public void testGetCopyBedList() {
+        System.out.println("getCopyBedList");
+
+        Bed b1 = new Bed("", "");
+        LinkedList<Bed> bL = new LinkedList<>();
+        bL.addFirst(b1);
+
+        CareFacility instance = new CareFacility(null, null, bL, null);
+
+        LinkedList<Bed> test = instance.getCopyBedList();
+
+        if (test == bL) {
+            fail();
         }
     }
 

@@ -16,6 +16,41 @@ public class Queue_List_MainClass {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        {
+            ArrayStack<Patient> PatientS = stackOfPatients().copy();
+            try {
+                System.out.println("List of Patients:");
+                while (!PatientS.isEmpty()) {               //loop while there are still elements in the patientStack
+                    System.out.println(" " + PatientS.pop().getName());
+
+                }
+            } catch (EmptyCollectionException e) {
+                System.out.println(e);
+            }
+        }
+
+        {
+            LinkedList<Bed> BedList = listOfBeds().copy();
+            try {
+                System.out.println("\nList of beds:");
+                while (!BedList.isEmpty()) {               //loop while there are still elements in the patientStack
+                    System.out.println(" " + BedList.removeLast().getName());
+                }
+            } catch (EmptyCollectionException e) {
+                System.out.println(e);
+            }
+        }
+        {
+            LinkedQueue<CasualEmployee> cEQueue = queueOfCasualEmployees().copy();
+            try {
+                System.out.println("\nList of Casual Employees:");
+                while (!cEQueue.isEmpty()) {               //loop while there are still elements in the patientStack
+                    System.out.println(" " + cEQueue.dequeue().getName());
+                }
+            } catch (EmptyCollectionException e) {
+                System.out.println(e);
+            }
+        }
         /**
          * Here, new instance of the CareFacility class is instantiated. A stack
          * of Patient objects and a stack of Bed objects are passed, and the
@@ -29,7 +64,7 @@ public class Queue_List_MainClass {
          * 'priority', with all the bed objects assigned to those with the
          * highest priority.
          */
-        CareFacility CF = new CareFacility("Test lab", stackOfPatients(), listOfBeds(), QueueOfCasualEmployees());
+        CareFacility CF = new CareFacility("Test lab", stackOfPatients(), listOfBeds(), queueOfCasualEmployees());
         {
 
             //this method assigns beds to patients
@@ -47,21 +82,22 @@ public class Queue_List_MainClass {
              * and 'bed'.
              */
             try {
+                System.out.println("\nPATIENT NAME:\tPATIENT \tBED:\tCASUAL EMPLOYEE:\n\t\tPRIORITY:");
                 while (!tempPatientStack.isEmpty()) {               //loop while there are still elements in the patientStack
                     Patient p = tempPatientStack.pop();             //pop a patient, assign to temp variable
 
-                    String bed = "n/a";                          //instantiate bed variable to default value "NO BED"                                                                                       
+                    String bed = "";                          //instantiate bed variable to default value "NO BED"                                                                                       
                     if (p.getBed() != null) {                       //If the current patient (in the temp variable) has a bed...
                         bed = p.getBed().getName();                 //change bed variable to the name of the bed
                     }
-                    String CEmployee = "n/a";
+                    String CEmployee = "";
                     if (p.getCasualEmployee() != null) {                       //If the current patient (in the temp variable) has a bed...
                         CEmployee = p.getCasualEmployee().getName();        //change bed variable to the name of the bed
                     }
 
                     String name = p.getName();              //instantiate name varaible to hold name of patient
 
-                    System.out.println("PATIENT NAME: " + name + "\tPATIENT PRIORITY: " + p.getPriority() + "\tBED: " + bed + "\tCASUAL EMPLOYEE:" + CEmployee);  //print out properties of current patient in temp vraible
+                    System.out.println(" " + name + "\t\t" + p.getPriority() + "\t\t" + bed + "\t" + CEmployee);  //print out properties of current patient in temp vraible
                 }
             } catch (EmptyCollectionException e) {
                 System.out.println(e);
@@ -116,10 +152,10 @@ public class Queue_List_MainClass {
         return bList;
     }
 
-    private static LinkedQueue<CasualEmployee> QueueOfCasualEmployees() {
-        CasualEmployee e1 = new CasualEmployee("Bob1", true);
-        CasualEmployee e2 = new CasualEmployee("Bob2", true);
-        CasualEmployee e3 = new CasualEmployee("Bob3", true);
+    private static LinkedQueue<CasualEmployee> queueOfCasualEmployees() {
+        CasualEmployee e1 = new CasualEmployee("Emp1", true);
+        CasualEmployee e2 = new CasualEmployee("Emp2", true);
+        CasualEmployee e3 = new CasualEmployee("Emp3", true);
 
         LinkedQueue<CasualEmployee> CEQueue = new LinkedQueue<>();
 

@@ -10,7 +10,7 @@ import Linked_Queues.LinkedQueue;
  *
  * @author John Verwolf
  */
-public  class CareFacility extends Company {
+public class CareFacility extends Company {
 
     private LinkedList<Bed> bedList;
     private java.lang.String facilityName;
@@ -88,7 +88,9 @@ public  class CareFacility extends Company {
      */
     private void sort(ArrayStack<Patient> stack) {
         try {
-            if (stack.isEmpty()) {      //when stack becomes empty, return to right after sort(s); call, before insert(s, t) below.
+            if (stack == null) {
+                return;
+            } else if (stack.isEmpty()) {      //when stack becomes empty, return to right after sort(s); call, before insert(s, t) below.
                 return;
             }
             Patient t = stack.pop();    //Peel every element off of stack and store in call-stack
@@ -221,5 +223,25 @@ public  class CareFacility extends Company {
      */
     public ArrayStack<Patient> getCopyPatientStack() {
         return patientStack.copy();
+    }
+
+    /**
+     * Returns a copy of the casual employee queue. This allows the data to be
+     * printed out without emptying the original stack
+     *
+     * @return copy of casual employee queue
+     */
+    public LinkedQueue<CasualEmployee> getCopyCasualEmployeeQueue() {
+        return casualEmployee.copy();
+    }
+
+    /**
+     * Returns a copy of the bed linked list. This allows the data to be printed
+     * out without emptying the original stack
+     *
+     * @return copy of bed linked list
+     */
+    public LinkedList<Bed> getCopyBedList() {
+        return bedList.copy();
     }
 }
