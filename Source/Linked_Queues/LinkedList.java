@@ -192,6 +192,7 @@ public class LinkedList<T> implements ListADT<T>, Iterable<T> {
     /**
      * Returns a shallow copy of the instance of the linked list
      *
+     * @return new copy of linked list
      * @returns a shallow copy of the instance of the linked list
      */
     public LinkedList<T> copy() {

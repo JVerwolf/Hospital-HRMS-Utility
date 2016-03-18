@@ -93,6 +93,8 @@ public class LinkedQueue<T> implements QueueADT<T> {
      * Returns a copy of the linked queue data structure. Although the list is
      * new, the elements inside the list are not deep copied and remain as
      * references to the original data elements
+     * 
+     * @return  copy of the linked queue instance
      */
     public LinkedQueue<T> copy() {
         return new LinkedQueue<>(front);

@@ -6,7 +6,7 @@ import ADT.HourlyEmployee;
  *
  * @author John Verwolf
  */
-public class CasualEmployee extends HourlyEmployee {
+public class CasualEmployee extends HourlyEmployee implements java.io.Serializable {
 
     /**
      * Availability

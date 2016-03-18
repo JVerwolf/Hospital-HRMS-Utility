@@ -6,7 +6,7 @@ import Linked_Queues.CasualEmployee;
  *
  * @author John Verwolf
  */
-public class Patient {
+public class Patient implements java.io.Serializable{
 
     private Bed bed;
     private java.lang.String name;

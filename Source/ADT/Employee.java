@@ -6,10 +6,25 @@ package ADT;
  */
 public interface Employee {
 
-    String getName(); //Stores name of Employee
+    /**
+     * Stores name of Employee
+     *
+     * @return name of employee
+     */
+    String getName();
 
-    double getGrossPay(); //Stores gross pay of employee
+    /**
+     * returns the gross pay of the employee
+     *
+     * @return
+     */
+    double getGrossPay();
 
+    /**
+     * Return a string representation of the object
+     *
+     * @return a string representation of the object
+     */
     @Override
-    String toString();  //toString must be updated and overridden 
+    String toString();
 }

@@ -17,11 +17,10 @@ public class Company {
         name = "";
         fullTimeEmployee = new FullTimeEmployee[0];
     }
-    /*
+    /**
      * Initializes this Company object's name and array of employees from a
      * specified name and array of employees
      */
-
     public Company(String name, FullTimeEmployee[] fullTimeEmployee) {
         this.name = name;
         this.fullTimeEmployee = fullTimeEmployee;
