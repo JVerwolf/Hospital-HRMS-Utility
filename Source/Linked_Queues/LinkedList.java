@@ -178,4 +178,32 @@ public class LinkedList<T> implements ListADT<T>, Iterable<T> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /*
+     * Returns a copy of the linked list data structure. Although the list is
+     * new, the elements inside the list are not deep copied and remain as
+     * references to the original data elements
+     */
+    public LinkedList<T> copy() {
+        return new LinkedList<>(head);
+    }
+
+    /*
+     * private constructor to be used with the copy method. Builds a new linked
+     * list copy. Although the list is new, the elements inside the list are not
+     * deep copied and remain as references to the original data elements
+     */
+    private LinkedList(LinearNode<T> passedHead) {
+        this.tail = this.head = new LinearNode<>();         //create new linked node that will start the list
+        this.count = 1;
+
+        LinearNode<T> probeForPassed = passedHead;
+
+        while (probeForPassed.getNext() != null) {
+            tail.setElement(probeForPassed.getElement()); 
+            probeForPassed = probeForPassed.getNext();
+            tail.setNext(new LinearNode<T>());
+            tail = tail.getNext();
+            count++;
+        }
+    }
 }

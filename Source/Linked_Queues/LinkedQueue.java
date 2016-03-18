@@ -88,4 +88,22 @@ public class LinkedQueue<T> implements QueueADT<T> {
     public int size() {
         return count;
     }
+    
+    public LinkedQueue<T> copy() {
+        return new LinkedQueue<>(front);
+    }
+    private LinkedQueue(LinearNode<T> passedHead) {
+        this.rear = this.front = new LinearNode<>();         //create new linked node that will start the list
+        this.count = 1;
+
+        LinearNode<T> probeForPassed = passedHead;
+
+        while (probeForPassed.getNext() != null) {
+            rear.setElement(probeForPassed.getElement()); 
+            probeForPassed = probeForPassed.getNext();
+            rear.setNext(new LinearNode<T>());
+            rear = rear.getNext();
+            count++;
+        }
+    }
 }

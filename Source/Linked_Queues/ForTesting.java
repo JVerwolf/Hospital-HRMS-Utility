@@ -27,7 +27,8 @@ public class ForTesting {
         L.addLast("Five");
         L.addLast("Five");
         L.addLast("Five");
-        
+
+        LinkedList<String> P = L.copy();
 
         try {
             System.out.println(L.removeLast());
@@ -37,13 +38,26 @@ public class ForTesting {
             System.out.println(L.removeLast());
             System.out.println(L.removeLast());
             System.out.println(L.removeLast());
-            
-            
-            
+
             System.out.println(L.first());
             System.out.println(L.last());
-            
-            
+
+        } catch (EmptyCollectionException e) {
+            System.out.println(e);
+        }
+
+        try {
+            System.out.println("\n" + P.removeLast());
+            System.out.println(P.removeLast());
+            System.out.println(P.removeLast());
+            System.out.println(P.removeLast());
+            System.out.println(P.removeLast());
+            System.out.println(P.removeLast());
+            System.out.println(P.removeLast());
+
+            System.out.println(P.first());
+            System.out.println(P.last());
+
         } catch (EmptyCollectionException e) {
             System.out.println(e);
         }
