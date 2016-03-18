@@ -18,49 +18,93 @@ public class ForTesting {
      */
     public static void main(String[] args) {
 
-        LinkedList<String> L = new LinkedList<>();
-        L.addFirst("One");
-        L.addFirst("Two");
-        L.addFirst("Three");
-        L.addFirst("Four");
-        L.addLast("Five");
-        L.addLast("Five");
-        L.addLast("Five");
-        L.addLast("Five");
+        LinkedQueue<String> L = new LinkedQueue<>();
+        L.enqueue("One");
+        L.enqueue("Two");
+        L.enqueue("Three");
+        L.enqueue("Four");
+        L.enqueue("Five");
+        L.enqueue("Six");
+        L.enqueue("Seven");
+        L.enqueue("Eight");
 
-        LinkedList<String> P = L.copy();
+        LinkedQueue<String> P = L.copy();
 
         try {
-            System.out.println(L.removeLast());
-            System.out.println(L.removeLast());
-            System.out.println(L.removeLast());
-            System.out.println(L.removeLast());
-            System.out.println(L.removeLast());
-            System.out.println(L.removeLast());
-            System.out.println(L.removeLast());
+            System.out.println(L.dequeue());
+            System.out.println(L.dequeue());
+            System.out.println(L.dequeue());
+            System.out.println(L.dequeue());
+            System.out.println(L.dequeue());
+            System.out.println(L.dequeue());
+            System.out.println(L.dequeue());
 
             System.out.println(L.first());
-            System.out.println(L.last());
 
         } catch (EmptyCollectionException e) {
             System.out.println(e);
         }
 
         try {
-            System.out.println("\n" + P.removeLast());
-            System.out.println(P.removeLast());
-            System.out.println(P.removeLast());
-            System.out.println(P.removeLast());
-            System.out.println(P.removeLast());
-            System.out.println(P.removeLast());
-            System.out.println(P.removeLast());
+            System.out.println("\n\n" + P.dequeue());
+            System.out.println(P.dequeue());
+            System.out.println(P.dequeue());
+            System.out.println(P.dequeue());
+            System.out.println(P.dequeue());
+            System.out.println(P.dequeue());
+            System.out.println(P.dequeue());
 
             System.out.println(P.first());
-            System.out.println(P.last());
 
         } catch (EmptyCollectionException e) {
             System.out.println(e);
         }
     }
-
 }
+//
+//        LinkedList<String> L = new LinkedList<>();
+//        L.addFirst("1 One");
+//        L.addFirst("2 Two");
+//        L.addFirst("3 Three");
+//        L.addFirst("Four");
+//        L.addFirst("5 Five");
+//        L.addFirst("6 Six");
+//        L.addFirst("7 Seven");
+//        L.addFirst("8 Eight");
+//
+//        LinkedList<String> P = L.copy();
+//
+//        try {
+//            System.out.println(L.removeLast());
+//            System.out.println(L.removeLast());
+//            System.out.println(L.removeLast());
+//            System.out.println(L.removeLast());
+//            System.out.println(L.removeLast());
+//            System.out.println(L.removeLast());
+//            System.out.println(L.removeLast());
+//
+//            System.out.println(L.first());
+//            System.out.println(L.last());
+//
+//        } catch (EmptyCollectionException e) {
+//            System.out.println(e);
+//        }
+//
+//        try {
+//            System.out.println("\n" + P.removeLast());
+//            System.out.println(P.removeLast());
+//            System.out.println(P.removeLast());
+//            System.out.println(P.removeLast());
+//            System.out.println(P.removeLast());
+//            System.out.println(P.removeLast());
+//            System.out.println(P.removeLast());
+//
+//            System.out.println(P.first());
+//            System.out.println(P.last());
+//
+//        } catch (EmptyCollectionException e) {
+//            System.out.println(e);
+//        }
+//    }
+//}
+

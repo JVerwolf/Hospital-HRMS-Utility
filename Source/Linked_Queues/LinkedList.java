@@ -205,5 +205,6 @@ public class LinkedList<T> implements ListADT<T>, Iterable<T> {
             tail = tail.getNext();
             count++;
         }
+        tail.setElement(probeForPassed.getElement());
     }
 }

@@ -88,22 +88,34 @@ public class LinkedQueue<T> implements QueueADT<T> {
     public int size() {
         return count;
     }
-    
+
+    /*
+     * Returns a copy of the linked queue data structure. Although the list is
+     * new, the elements inside the list are not deep copied and remain as
+     * references to the original data elements
+     */
     public LinkedQueue<T> copy() {
         return new LinkedQueue<>(front);
     }
-    private LinkedQueue(LinearNode<T> passedHead) {
+
+    /*
+     * private constructor to be used with the copy method. Builds a new linked
+     * list copy. Although the list is new, the elements inside the list are not
+     * deep copied and remain as references to the original data elements
+     */
+    private LinkedQueue(LinearNode<T> passedFront) {
         this.rear = this.front = new LinearNode<>();         //create new linked node that will start the list
         this.count = 1;
 
-        LinearNode<T> probeForPassed = passedHead;
+        LinearNode<T> probeForPassed = passedFront;
 
         while (probeForPassed.getNext() != null) {
-            rear.setElement(probeForPassed.getElement()); 
+            rear.setElement(probeForPassed.getElement());
             probeForPassed = probeForPassed.getNext();
             rear.setNext(new LinearNode<T>());
             rear = rear.getNext();
             count++;
         }
+        rear.setElement(probeForPassed.getElement());
     }
 }
