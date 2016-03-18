@@ -18,9 +18,9 @@ public class BedFileOutput {
     
     
     
-    File file = new File("/sdalk");
-    FileOutputStream TestFOS = new FileOutputStream(file);
-   
+//    File file = new File("/sdalk");
+//    FileOutputStream TestFOS = new FileOutputStream(file);
+//   
     
 
 
