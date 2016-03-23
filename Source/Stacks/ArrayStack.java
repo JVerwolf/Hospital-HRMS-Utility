@@ -1,5 +1,8 @@
 package Stacks;
 
+import SearchAndSort.DataStructure;
+import java.io.Serializable;
+
 /**
  * ArrayStack generates a stack using an array.
  *
@@ -7,7 +10,7 @@ package Stacks;
  *
  * @param <T> The generic type that the stack will be set to operate on
  */
-public class ArrayStack<T> implements StackADT<T> {
+public class ArrayStack<T> implements StackADT<T>, DataStructure<T>, Serializable {
 
     /**
      * constant to represent the default capacity of the array
@@ -44,8 +47,8 @@ public class ArrayStack<T> implements StackADT<T> {
     }
 
     /**
-     * Private constructor for factory method copy(). Generates a copy of
-     * the instance.
+     * Private constructor for factory method copy(). Generates a copy of the
+     * instance.
      *
      * @param passedTop   The pointer to the top of the arrayStack.
      * @param passedArray the array that the stack uses as it's underlying data
@@ -158,14 +161,14 @@ public class ArrayStack<T> implements StackADT<T> {
      *         objects
      */
     @Override
-    public String toString() {     
+    public String toString() {
         return "ArrayStack: " + "size=" + size() + ", number_of_objects=" + top;
-        
+
     }
 
     /**
-     * Factory method to return a new copy instance of the current
-     * arrayStack instance.
+     * Factory method to return a new copy instance of the current arrayStack
+     * instance.
      *
      * @return a copied instance of the original array instance.
      */

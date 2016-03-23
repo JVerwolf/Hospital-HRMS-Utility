@@ -1,13 +1,15 @@
 package Linked_Queues;
 
+import SearchAndSort.DataStructure;
 import Stacks.EmptyCollectionException;
+import java.io.Serializable;
 
 /**
  *
  * @author John Verwolf
  * @param <T> Type of element to be stored
  */
-public class LinkedQueue<T> implements QueueADT<T> {
+public class LinkedQueue<T> implements QueueADT<T>, DataStructure<T>,Serializable {
 
     private int count;
     private LinearNode<T> front, rear;

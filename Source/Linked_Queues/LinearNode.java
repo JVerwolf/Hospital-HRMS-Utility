@@ -1,11 +1,13 @@
 package Linked_Queues;
 
+import java.io.Serializable;
+
 /**
  *
  * @author John Verwolf
  * @param <T> The Generic type
  */
-public class LinearNode<T> {
+public class LinearNode<T> implements Serializable {
 
     /**
      * The reference to the next node in the linked list
@@ -70,5 +72,5 @@ public class LinearNode<T> {
      */
     public void setElement(T elem) {
         this.element = elem;
-    }    
+    }
 }

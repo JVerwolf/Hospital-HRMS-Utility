@@ -6,7 +6,7 @@ package Stacks;
  *
  * @author John Verwolf
  */
-public class Bed implements java.io.Serializable{
+public class Bed {
 
     private String location;
     private String name;

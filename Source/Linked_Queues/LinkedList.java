@@ -5,15 +5,17 @@
  */
 package Linked_Queues;
 
+import SearchAndSort.DataStructure;
 import Stacks.EmptyCollectionException;
 import java.util.Iterator;
+import java.io.Serializable;
 
 /**
  *
  * @author John Verwolf
  * @param <T> the Generic type
  */
-public class LinkedList<T> implements ListADT<T>, Iterable<T> {
+public class LinkedList<T> implements ListADT<T>, Iterable<T>, DataStructure<T>, Serializable{
 
     /**
      * Stores the number of elements in the Linked List *

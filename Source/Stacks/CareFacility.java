@@ -4,18 +4,28 @@ import ADT.Company;
 import Linked_Queues.CasualEmployee;
 import Linked_Queues.LinkedList;
 import Linked_Queues.LinkedQueue;
+import SearchAndSort.DataStructure;
+import SearchAndSort.ReadFile;
+import SearchAndSort.WriteFile;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 /**
  * This class models a care facility with patients, beds, and hourly employees.
  *
  * @author John Verwolf
  */
-public class CareFacility extends Company {
+public class CareFacility extends Company implements Serializable {
 
     private LinkedList<Bed> bedList;
+    private LinkedQueue<CasualEmployee> casualEmployee;
     private java.lang.String facilityName;
     private ArrayStack<Patient> patientStack;
-    private LinkedQueue<CasualEmployee> casualEmployee;
 
     /**
      * Initializes this Care Facility object's name and array of employees,
@@ -63,82 +73,6 @@ public class CareFacility extends Company {
     }
 
     /**
-     * This method adds a patient to the patient stack and places it in order or
-     * priority on the stack.
-     *
-     * @param p patient object to be inserted in order into the priority stack
-     */
-    public void addPatient(Patient p) {
-        insert(patientStack, p);
-    }
-
-    /**
-     * This method will sort the instance object patientStack according to
-     * priority.
-     */
-    public final void sortPatientStack() {
-        sort(patientStack);
-    }
-
-    /**
-     * This method will sort an ArrayObject of generic type Patient by priority.
-     * It is an expensive call, likely O(n^2), so use judiciously.
-     *
-     * @param stack ArrayStack of Patient type to be sorted.
-     */
-    private void sort(ArrayStack<Patient> stack) {
-        try {
-            if (stack == null) {
-                return;
-            } else if (stack.isEmpty()) {      //when stack becomes empty, return to right after sort(s); call, before insert(s, t) below.
-                return;
-            }
-            Patient t = stack.pop();    //Peel every element off of stack and store in call-stack
-            sort(stack);                //recursive call
-            insert(stack, t);           //sort top element of call stack back into stack.
-        } catch (EmptyCollectionException e) {
-            System.out.println("Something went wrong in Carefacility.sort(s):\t" + e);
-        }
-    }
-
-    /**
-     * This method will insert a patient into a stack in order of priority. The
-     * patients with the lowest priority are placed on the top of the stack
-     * because they are most likely to be popped off of the stack, and this will
-     * cause less time for the sorting algorithm to resort whenever a patient
-     * leaves the facility.
-     *
-     * @param stack   ArrayStack of Patients in which patient will be inserted
-     * @param patient Patient to be inserted
-     */
-    private void insert(ArrayStack<Patient> stack, Patient patient) {
-
-        try {
-            if (stack.isEmpty()) {      //if the stack is empty
-                stack.push(patient);    //push patient on stack
-                return;
-            }
-            if (stack.peek().getPriority() < patient.getPriority()) {   //check if priority of top element on stack is lower
-                Patient t = stack.pop();                                //pop top element and store in a temp variable
-                insert(stack, patient);             //recursive call. (Do it all again with one less element on the call-stack).    
-                stack.push(t);                      //put topElement back on to stack as recursion unwinds
-            } else {                                //insert patient when priority is not larger than the top stack element
-                stack.push(patient);                //insert patient in proper place on stack
-            }
-        } catch (EmptyCollectionException e) {
-            System.out.println("Something went wrong in Carefacility.insert(s,p):\t" + e);
-        }
-    }
-
-    /**
-     * Assign registered patients to existing beds, without kicking people
-     * already in beds out.
-     */
-    public void assignBed() {
-        bedTime(patientStack, bedList);
-    }
-
-    /**
      * This class assigns beds (from a stack of Bed objects ) to patients (in a
      * stack of Patient objects). It will recursively call itself till the
      * patient stack is empty, then start assigning beds to the patients with
@@ -160,7 +94,7 @@ public class CareFacility extends Company {
                 bedTime(PatientS, bedS);                        //recursive call (ie reverse stack by pushing to call-stack)
                 //                                              //recursion unwinds and starts returning to this line
                 if (t.getBed() == null && !bedS.isEmpty()) {    //if Patient t does not have a bed and if there are beds available...
-                    t.setBed(bedS.removeFirst());               //remove bed from bed linked list and give to Patient 
+                    t.setBed(bedS.removeFirst());               //remove bed from bed linked list and give to Patient
                 }
                 PatientS.push(t);                               //put temp element back on to stack as recursion unwinds
             }
@@ -170,10 +104,76 @@ public class CareFacility extends Company {
     }
 
     /**
+     * This method adds a patient to the patient stack and places it in order or
+     * priority on the stack.
+     *
+     * @param p patient object to be inserted in order into the priority stack
+     */
+    public void addPatient(Patient p) {
+        insert(patientStack, p);
+    }
+
+    /**
+     * Assign registered patients to existing beds, without kicking people
+     * already in beds out.
+     */
+    public void assignBed() {
+        bedTime(patientStack, bedList);
+    }
+
+    /**
+     * Assign a bed and a casual employee to each patient in order of highest
+     * priority value first, while there are still beds and casual employees
+     * available
+     */
+    public void assignBedAndCasualEmployee() {
+        assignBed();
+        assignCasualEmployee();
+    }
+
+    /**
      * Assign casual employees to patients with the highest priority value
      */
     public void assignCasualEmployee() {
         AssignCasualE(patientStack, casualEmployee);
+    }
+
+    /**
+     * Returns a copy of the bed linked list. This allows the data to be printed
+     * out without emptying the original stack
+     *
+     * @return copy of bed linked list
+     */
+    public LinkedList<Bed> getCopyBedList() {
+        return bedList.copy();
+    }
+
+    /**
+     * Returns a copy of the casual employee queue. This allows the data to be
+     * printed out without emptying the original stack
+     *
+     * @return copy of casual employee queue
+     */
+    public LinkedQueue<CasualEmployee> getCopyCasualEmployeeQueue() {
+        return casualEmployee.copy();
+    }
+
+    /**
+     * Returns a copy of the patient stack. This allows the data to be printed
+     * out without emptying the original stack
+     *
+     * @return copy of patientStack
+     */
+    public ArrayStack<Patient> getCopyPatientStack() {
+        return patientStack.copy();
+    }
+
+    /**
+     * This method will sort the instance object patientStack according to
+     * priority.
+     */
+    public final void sortPatientStack() {
+        sort(patientStack);
     }
 
     /**
@@ -206,42 +206,129 @@ public class CareFacility extends Company {
     }
 
     /**
-     * Assign a bed and a casual employee to each patient in order of highest
-     * priority value first, while there are still beds and casual employees
-     * available
+     * This method will insert a patient into a stack in order of priority. The
+     * patients with the lowest priority are placed on the top of the stack
+     * because they are most likely to be popped off of the stack, and this will
+     * cause less time for the sorting algorithm to resort whenever a patient
+     * leaves the facility.
+     *
+     * @param stack   ArrayStack of Patients in which patient will be inserted
+     * @param patient Patient to be inserted
      */
-    public void assignBedAndCasualEmployee() {
-        assignBed();
-        assignCasualEmployee();
+    private void insert(ArrayStack<Patient> stack, Patient patient) {
+
+        try {
+            if (stack.isEmpty()) {      //if the stack is empty
+                stack.push(patient);    //push patient on stack
+                return;
+            }
+            if (stack.peek().getPriority() < patient.getPriority()) {   //check if priority of top element on stack is lower
+                Patient t = stack.pop();                                //pop top element and store in a temp variable
+                insert(stack, patient);             //recursive call. (Do it all again with one less element on the call-stack).
+                stack.push(t);                      //put topElement back on to stack as recursion unwinds
+            } else {                                //insert patient when priority is not larger than the top stack element
+                stack.push(patient);                //insert patient in proper place on stack
+            }
+        } catch (EmptyCollectionException e) {
+            System.out.println("Something went wrong in Carefacility.insert(s,p):\t" + e);
+        }
     }
 
     /**
-     * Returns a copy of the patient stack. This allows the data to be printed
-     * out without emptying the original stack
+     * This method will sort an ArrayObject of generic type Patient by priority.
+     * It is an expensive call, likely O(n^2), so use judiciously.
      *
-     * @return copy of patientStack
+     * @param stack ArrayStack of Patient type to be sorted.
      */
-    public ArrayStack<Patient> getCopyPatientStack() {
-        return patientStack.copy();
+    private void sort(ArrayStack<Patient> stack) {
+        try {
+            if (stack == null) {
+                return;
+            } else if (stack.isEmpty()) {      //when stack becomes empty, return to right after sort(s); call, before insert(s, t) below.
+                return;
+            }
+            Patient t = stack.pop();    //Peel every element off of stack and store in call-stack
+            sort(stack);                //recursive call
+            insert(stack, t);           //sort top element of call stack back into stack.
+        } catch (EmptyCollectionException e) {
+            System.out.println("Something went wrong in Carefacility.sort(s):\t" + e);
+        }
     }
 
-    /**
-     * Returns a copy of the casual employee queue. This allows the data to be
-     * printed out without emptying the original stack
-     *
-     * @return copy of casual employee queue
-     */
-    public LinkedQueue<CasualEmployee> getCopyCasualEmployeeQueue() {
-        return casualEmployee.copy();
+    public void SaveInstanceVariables() {
+        File f = new File("saves");
+        try {
+            if (!f.mkdir()) {
+                System.out.println("Error: No Directory Created");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        new WriteFile<>(bedList).writeTo("saves/bedList.ser");
+        new WriteFile<>(casualEmployee).writeTo("saves/casualEmployee.ser");
+        new WriteFile<>(patientStack).writeTo("saves/patientStack.ser");
     }
 
-    /**
-     * Returns a copy of the bed linked list. This allows the data to be printed
-     * out without emptying the original stack
-     *
-     * @return copy of bed linked list
-     */
-    public LinkedList<Bed> getCopyBedList() {
-        return bedList.copy();
+    public void Save() {
+        File f = new File("saves");
+        try {
+            f.mkdir();
+            if (!f.exists()) {
+                System.out.println("No Directory Created");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        FileOutputStream fileOut = null;
+        ObjectOutputStream objOut = null;
+        try {
+            fileOut = new FileOutputStream("saves/CareFacility.ser");
+            objOut = new ObjectOutputStream(fileOut);
+            objOut.writeObject(this);
+        } catch (IOException i) {
+            System.out.println("Failure to write file:" + i);
+        } finally {
+            try {
+                if (objOut != null) {
+                    objOut.close();
+                }
+                if (fileOut != null) {
+                    fileOut.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+    
+    public static CareFacility load() {
+        CareFacility CF = null;
+        FileInputStream fileInput = null;
+        ObjectInputStream in = null;
+        try {
+            fileInput = new FileInputStream("saves/CareFacility.ser");
+            in = new ObjectInputStream(fileInput);
+            CF = (CareFacility) in.readObject();
+        } catch (IOException e) {
+            System.out.println("There was an IO error: " + e);
+            System.exit(1);
+        } catch (ClassNotFoundException e) {
+            System.out.println("The file was not found: " + e);
+            System.exit(1);
+        } finally {
+            try {
+                if (in != null) {
+                    in.close();
+                }
+                if (fileInput != null) {
+                    fileInput.close();
+                }
+            } catch (IOException e) {
+                System.out.println("There was an IO error: " + e);
+            }
+        }
+        return CF;
     }
 }
