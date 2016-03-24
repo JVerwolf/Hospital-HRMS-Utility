@@ -3,7 +3,7 @@
  */
 package Assignments;
 
-import Stacks.EmptyCollectionException;
+
 
 /**
  *
@@ -12,33 +12,22 @@ import Stacks.EmptyCollectionException;
 public class TestList {
 
     public static void main(String[] args) {
-        TempListWorker<String> L = new TempListWorker<>();
-
-        L.addLast("1 One");
-        L.addLast("2 Two");
-        L.addLast("3 Three");
-        L.addLast("4 Four");
-        L.addLast("5 Five");
-        L.addLast("6 Six");
-        L.addLast("7 Seven");
-        L.addLast("8 Eight");
         
-        //L.reverse(L.getHead());
-
-        try {
-            System.out.println(L.removeFirst());
-            System.out.println(L.removeFirst());
-            System.out.println(L.removeFirst());
-            System.out.println(L.removeFirst());
-            System.out.println(L.removeFirst());
-            System.out.println(L.removeFirst());
-            System.out.println(L.removeFirst());
-            System.out.println(L.removeFirst());
-
-            
-
-        } catch (EmptyCollectionException e) {
-            System.out.println(e);
+       
+        List L = new List("1",new List("2",new List("3",new List("4",new List("5",new List("6",null))))));
+        
+        ListWorker LW = new ListWorker(L);
+        //LW.reverse(L); //comment this line to toggle list reversal
+        LW.everyOther(L);
+        
+        List probe = LW.head;
+        
+        
+        while (probe.next != null){
+            System.out.println(probe.data);
+            probe = probe.next;
         }
+        System.out.println(probe.data);
+//        
     }
 }
