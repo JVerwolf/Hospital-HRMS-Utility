@@ -15,7 +15,12 @@ public class ReadFile<T> {
     private DataStructure<T> fileObject;
 
     /**
-     * Reads and object from a .ser file and returns the object
+     * Reads and object from a .ser file and returns the object.
+     * <p>
+     * Proper use example:
+     * <p>
+     * <code> Bedlist = (LinkedList<Bed>) new
+     * ReadFile("saves/bedList.ser").getFile(); </code>
      *
      * @param filepath The filepath of the .ser file
      *

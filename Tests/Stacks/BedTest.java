@@ -10,20 +10,19 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-
 /**
  *
  * @author C0432660 John Verwolf
  */
 public class BedTest {
-    
+
     public BedTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
@@ -34,11 +33,11 @@ public class BedTest {
     @Test
     public void testGetName() {
         System.out.println("getName");
-        Bed instance = new Bed("TestName","");
+        Bed instance = new Bed("TestName", "");
         String expResult = "TestName";
         String result = instance.getName();
         assertEquals(expResult, result);
-        
+
     }
 
     /**
@@ -48,7 +47,7 @@ public class BedTest {
     public void testSetName() {
         System.out.println("setName");
         String name = "";
-        Bed instance = new Bed("","");
+        Bed instance = new Bed("", "");
         instance.setName("TestName");
         String expResult = "TestName";
         String result = instance.getName();
@@ -61,12 +60,12 @@ public class BedTest {
     @Test
     public void testToString() {
         System.out.println("toString");
-        Bed instance = new Bed("TestName","TestLocation");
+        Bed instance = new Bed("TestName", "TestLocation");
         String expResult = "Bed: location=TestLocation, name=TestName";
         String result = instance.toString();
         //System.out.println(instance.toString());
         assertEquals(expResult, result);
-        
+
     }
-    
+
 }

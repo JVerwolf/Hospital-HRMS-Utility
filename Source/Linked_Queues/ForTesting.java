@@ -17,49 +17,7 @@ public class ForTesting {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        {
-            LinkedQueue<String> L = new LinkedQueue<>();
-            L.enqueue("One");
-            L.enqueue("Two");
-            L.enqueue("Three");
-            L.enqueue("Four");
-            L.enqueue("Five");
-            L.enqueue("Six");
-            L.enqueue("Seven");
-            L.enqueue("Eight");
-
-            LinkedQueue<String> P = L.copy();
-
-            try {
-                System.out.println(L.dequeue());
-                System.out.println(L.dequeue());
-                System.out.println(L.dequeue());
-                System.out.println(L.dequeue());
-                System.out.println(L.dequeue());
-                System.out.println(L.dequeue());
-                System.out.println(L.dequeue());
-
-                System.out.println(L.first());
-
-            } catch (EmptyCollectionException e) {
-                System.out.println(e);
-            }
-
-            try {
-                System.out.println("\n\n" + P.dequeue());
-                System.out.println(P.dequeue());
-                System.out.println(P.dequeue());
-                System.out.println(P.dequeue());
-                System.out.println(P.dequeue());
-                System.out.println(P.dequeue());
-                System.out.println(P.dequeue());
-
-                System.out.println(P.first());
-
-            } catch (EmptyCollectionException e) {
-                System.out.println(e);
-            }
-        }
+       
 
         {
 
@@ -83,25 +41,25 @@ public class ForTesting {
                 System.out.println(L.removeLast());
                 System.out.println(L.removeLast());
                 System.out.println(L.removeLast());
+                System.out.println(L.removeLast());
 
-                System.out.println(L.first());
-                System.out.println(L.last());
+                
 
             } catch (EmptyCollectionException e) {
                 System.out.println(e);
             }
 
             try {
-                System.out.println("\n" + P.removeLast());
-                System.out.println(P.removeLast());
-                System.out.println(P.removeLast());
-                System.out.println(P.removeLast());
-                System.out.println(P.removeLast());
-                System.out.println(P.removeLast());
-                System.out.println(P.removeLast());
+                System.out.println("\n" + P.removeFirst());
+                System.out.println(P.removeFirst());
+                System.out.println(P.removeFirst());
+                System.out.println(P.removeFirst());
+                System.out.println(P.removeFirst());
+                System.out.println(P.removeFirst());
+                System.out.println(P.removeFirst());
+                System.out.println(P.removeFirst());
 
-                System.out.println(P.first());
-                System.out.println(P.last());
+                
 
             } catch (EmptyCollectionException e) {
                 System.out.println(e);

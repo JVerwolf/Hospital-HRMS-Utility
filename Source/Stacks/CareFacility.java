@@ -255,7 +255,74 @@ public class CareFacility extends Company implements Serializable {
         }
     }
 
-    public void SaveInstanceVariables() {
+    /**
+     * Saves the list of beds to a file
+     */
+    public void saveBeds() {
+        makeSavesFolder();
+        new WriteFile<>(bedList).writeTo("saves/bedList.ser");
+    }
+
+    /**
+     * Saves the list of casual employees to a file
+     */
+    public void saveCasualEmployee() {
+        makeSavesFolder();
+        new WriteFile<>(casualEmployee).writeTo("saves/casualEmployee.ser");
+    }
+
+    /**
+     * Saves the list of patients to a file
+     */
+    public void savePatientStack() {
+        makeSavesFolder();
+        new WriteFile<>(patientStack).writeTo("saves/patientStack.ser");
+    }
+
+    /**
+     * Loads a list of patients from a file, provided it exists
+     */
+    public void loadPatientStack() {
+        File f = new File("saves/bedList.ser");
+
+        if (f.isFile()) {
+            patientStack = (ArrayStack<Patient>) new ReadFile("saves/patientStack.ser").getFile();
+        } else {
+            System.out.println("Save file does not exist");
+        }
+    }
+
+    /**
+     * Loads a list of beds from a file, provided it exists
+     */
+    public void loadBeds() {
+        File f = new File("saves/bedList.ser");
+
+        if (f.isFile()) {
+            bedList = (LinkedList<Bed>) new ReadFile("saves/bedList.ser").getFile();
+        } else {
+            System.out.println("Save file does not exist");
+        }
+    }
+
+    /**
+     * Loads a list of casual employees from a file, provided it exists
+     */
+    public void loadCasualEmployee() {
+        File f = new File("saves/casualEmployee.ser");
+
+        if (f.isFile()) {
+            casualEmployee = (LinkedQueue<CasualEmployee>) new ReadFile("saves/casualEmployee.ser").getFile();
+        } else {
+            System.out.println("Save file does not exist");
+        }
+    }
+
+    /**
+     * makes a folder called "saves" if one is not already in the folder from
+     * which the program is being run.
+     */
+    private void makeSavesFolder() {
         File f = new File("saves");
         try {
             if (!f.mkdir()) {
@@ -264,9 +331,6 @@ public class CareFacility extends Company implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        new WriteFile<>(bedList).writeTo("saves/bedList.ser");
-        new WriteFile<>(casualEmployee).writeTo("saves/casualEmployee.ser");
-        new WriteFile<>(patientStack).writeTo("saves/patientStack.ser");
     }
 
     public void Save() {
@@ -287,7 +351,8 @@ public class CareFacility extends Company implements Serializable {
             objOut = new ObjectOutputStream(fileOut);
             objOut.writeObject(this);
         } catch (IOException i) {
-            System.out.println("Failure to write file:" + i);
+            System.out.println("Failure to write file:");
+            i.printStackTrace();
         } finally {
             try {
                 if (objOut != null) {
@@ -302,7 +367,7 @@ public class CareFacility extends Company implements Serializable {
         }
 
     }
-    
+
     public static CareFacility load() {
         CareFacility CF = null;
         FileInputStream fileInput = null;

@@ -70,12 +70,15 @@ public class SearchAndSortMainClass {
          * 'priority', with all the bed objects assigned to those with the
          * highest priority.
          */
-        {
-//            CareFacility CF = new CareFacility("Test lab", stackOfPatients(), listOfBeds(), queueOfCasualEmployees());
+//        {
+            CareFacility CF = new CareFacility("Test lab", stackOfPatients(), listOfBeds(), queueOfCasualEmployees());
             
-//            CF.Save();
-        }
-        CareFacility CF = CareFacility.load();
+            CF.saveBeds();
+            CF.assignBed();
+            
+            CF.loadBeds();
+//        }
+//        CareFacility CF = CareFacility.load();
         {
 
             //this method assigns beds to patients

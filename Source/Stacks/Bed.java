@@ -1,4 +1,5 @@
 package Stacks;
+import java.io.Serializable;
 
 /**
  * This class is used to represent a Bed object in a care facility or hospital.
@@ -6,7 +7,7 @@ package Stacks;
  *
  * @author John Verwolf
  */
-public class Bed {
+public class Bed implements Serializable{
 
     private String location;
     private String name;
