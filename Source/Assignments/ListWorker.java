@@ -36,25 +36,25 @@ public class ListWorker {
         return L.next;
     }
 
-    public void reverse(List passedHead) {
+    public void reverse(List L) {
         //New list that will be built from reversed passed TempListWorker
         List ReversedList = new List(null, null);           
         //New list that will be built from reversed passed TempListWorker
         List ReversedListProbe = ReversedList;              
         //Probe to use as a tool to find the end of the list
-        List probe = passedHead;                            
+        List probe = L;                            
 
-        while (passedHead.next != null) {
-            while (probe.next.next != null) {
+        while (L.next != null) {
+            while (probe.next.next != null) { 
                 probe = probe.next;
             }
             ReversedListProbe.data = probe.next.data;    //copy data to new list
             ReversedListProbe.next = new List(null, null);//add node to new list
             ReversedListProbe = ReversedListProbe.next;
             probe.next = null;                    //delete last node from master
-            probe = passedHead;                   //Reset probe
+            probe = L;                   //Reset probe
         }        
-        ReversedListProbe.data = passedHead.data; //copy data to new list
+        ReversedListProbe.data = L.data; //copy data to new list
         head = ReversedList;
     }
 }
