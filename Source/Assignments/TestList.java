@@ -1,7 +1,7 @@
 /*
  *
  */
-package SearchAndSort;
+package Assignments;
 
 import Stacks.EmptyCollectionException;
 

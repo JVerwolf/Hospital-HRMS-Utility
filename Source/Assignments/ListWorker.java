@@ -1,10 +1,11 @@
 /*
  *
  */
-package SearchAndSort;
+package Assignments;
 
 import Linked_Queues.LinearNode;
 import Linked_Queues.ListADT;
+import SearchAndSort.DataStructure;
 import SearchAndSort.DataStructure;
 import Stacks.EmptyCollectionException;
 import java.util.Iterator;
