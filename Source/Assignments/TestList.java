@@ -12,28 +12,28 @@ import Stacks.EmptyCollectionException;
 public class TestList {
 
     public static void main(String[] args) {
-        ListWorker<String> L = new ListWorker<>();
+        TempListWorker<String> L = new TempListWorker<>();
 
-        L.addFirst("1 One");
-        L.addFirst("2 Two");
-        L.addFirst("3 Three");
-        L.addFirst("4 Four");
-        L.addFirst("5 Five");
-        L.addFirst("6 Six");
-        L.addFirst("7 Seven");
-        L.addFirst("8 Eight");
+        L.addLast("1 One");
+        L.addLast("2 Two");
+        L.addLast("3 Three");
+        L.addLast("4 Four");
+        L.addLast("5 Five");
+        L.addLast("6 Six");
+        L.addLast("7 Seven");
+        L.addLast("8 Eight");
         
-        L.reverse(L.getHead());
+        //L.reverse(L.getHead());
 
         try {
-            System.out.println(L.removeLast());
-            System.out.println(L.removeLast());
-            System.out.println(L.removeLast());
-            System.out.println(L.removeLast());
-            System.out.println(L.removeLast());
-            System.out.println(L.removeLast());
-            System.out.println(L.removeLast());
-            System.out.println(L.removeLast());
+            System.out.println(L.removeFirst());
+            System.out.println(L.removeFirst());
+            System.out.println(L.removeFirst());
+            System.out.println(L.removeFirst());
+            System.out.println(L.removeFirst());
+            System.out.println(L.removeFirst());
+            System.out.println(L.removeFirst());
+            System.out.println(L.removeFirst());
 
             
 
