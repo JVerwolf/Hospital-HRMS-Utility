@@ -1,6 +1,3 @@
-/*
- *
- */
 package SearchAndSort;
 
 import Stacks.ArrayStack;
