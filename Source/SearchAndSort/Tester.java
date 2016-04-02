@@ -21,15 +21,25 @@ public class Tester {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        ArrayStack<Patient> testStack = stackOfPatients();
-        
-        new WriteFile<>(testStack).writeTo("TempSerFiles/testStack.ser");
-        ArrayStack<Patient> testInputStack = (ArrayStack<Patient>)new ReadFile<Patient>("TempSerFiles/testStack.ser").getFile();
-        
+        ArrayStack<Patient> testFileIOStack = stackOfPatients();
+
+        new WriteFile<>(testFileIOStack).writeTo("TempSerFiles/testStack.ser");
+        ArrayStack<Patient> testInputStack = (ArrayStack<Patient>) new ReadFile<Patient>("TempSerFiles/testStack.ser").getFile();
+
         try {
             while (!testInputStack.isEmpty()) {               //loop while there are still elements in the patientStack
                 System.out.println(testInputStack.pop().getName());             //pop a patient, assign to temp variable
-                
+
+            }
+        } catch (EmptyCollectionException e) {
+            System.out.println(e);
+        }
+
+        ArrayStack<Patient> testSSortStack = SelectionSort.SortPatients(stackOfPatients());               
+        try {
+            while (!testSSortStack.isEmpty()) {               //loop while there are still elements in the patientStack
+                System.out.println(testSSortStack.pop().getName());             //pop a patient, assign to temp variable
+
             }
         } catch (EmptyCollectionException e) {
             System.out.println(e);

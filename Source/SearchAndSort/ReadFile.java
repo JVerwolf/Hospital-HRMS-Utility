@@ -37,8 +37,6 @@ public class ReadFile<T> {
             System.out.println("There was an IO error: " + e);
             System.exit(1);
         } catch (ClassNotFoundException e) {
-            //fileObject = null;
-            //e.printStackTrace();
             System.out.println("The file was not found: " + e);
             System.exit(1);
         } finally {

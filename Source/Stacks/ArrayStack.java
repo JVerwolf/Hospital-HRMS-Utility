@@ -150,7 +150,7 @@ public class ArrayStack<T> implements StackADT<T>, DataStructure<T>, Serializabl
      */
     @Override
     public int size() {
-        return stackArray.length;
+        return top;
     }
 
     /**
@@ -173,6 +173,6 @@ public class ArrayStack<T> implements StackADT<T>, DataStructure<T>, Serializabl
      * @return a copied instance of the original array instance.
      */
     public ArrayStack<T> copy() {
-        return new ArrayStack<>(this.top, this.stackArray, stackArray.length);
+        return new ArrayStack<>(this.top, this.stackArray, this.size());
     }
 }
