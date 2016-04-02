@@ -34,8 +34,10 @@ public class Tester {
         } catch (EmptyCollectionException e) {
             System.out.println(e);
         }
-
-        ArrayStack<Patient> testSSortStack = SelectionSort.SortPatients(stackOfPatients());               
+        
+        System.out.println("\nSorting Output:");
+        
+        ArrayStack<Patient> testSSortStack = SortUtilities.insertionSort(stackOfPatients());
         try {
             while (!testSSortStack.isEmpty()) {               //loop while there are still elements in the patientStack
                 System.out.println(testSSortStack.pop().getName());             //pop a patient, assign to temp variable

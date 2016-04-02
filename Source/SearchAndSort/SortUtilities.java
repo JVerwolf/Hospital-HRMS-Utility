@@ -11,12 +11,65 @@ import java.util.Collections;
  *
  * @author John Verwolf
  */
-public class SelectionSort {
+public class SortUtilities {
 
     /**
      * Class not to be instantiated
      */
-    private SelectionSort() {
+    private SortUtilities() {
+    }
+
+    public static <T extends Comparable> ArrayStack<T> insertionSort(ArrayStack<T> inputStack) {
+        ArrayStack<T> tempStack = inputStack.copy();   //pass a copy of the stack so that the original stack is not mutated        
+        insSort(tempStack);
+        return tempStack;
+    }
+
+    /**
+     * recursive insertion sort method
+     *
+     * @param <T>   Type that extends Comparable
+     * @param stack ArrayStack collection
+     */
+    private static <T extends Comparable> void insSort(ArrayStack<T> stack) {
+        try {
+            if (stack == null) {                //base case: null input
+                return;
+            } else if (stack.isEmpty()) {       //base case: when stack is empty 
+                return;
+            }
+            T element = stack.pop();          //Peel every element off of stack and store in call-stack
+            insSort(stack);                //recursive call
+            insert(stack, element);           //sort top element of call stack back into stack.
+        } catch (EmptyCollectionException e) {
+            System.out.println("Something went wrong in Carefacility.sort(s):\t" + e);
+        }
+    }
+
+    /**
+     * This method works with insSort to recursively insert an element into a
+     * stack with highest priority value at the bottom
+     *
+     * @param <T>     Type that extends Comparable
+     * @param stack   ArrayStack collection
+     * @param element Element to be inserted
+     */
+    private static <T extends Comparable> void insert(ArrayStack<T> stack, T element) {
+        try {
+            if (stack.isEmpty()) {      //if the stack is empty
+                stack.push(element);    //push patient on stack
+                return;
+            }
+            if (stack.peek().compareTo(element) < 0) {  //check if priority of top element on stack is lower
+                T temp = stack.pop();                   //pop top element and store in a temp variable
+                insert(stack, element);                 //recursive call. (Do it all again with one less element on the call-stack).
+                stack.push(temp);                       //put topElement back on to stack as recursion unwinds
+            } else {                                    //insert patient when priority is not larger than the top stack element
+                stack.push(element);                    //insert patient in proper place on stack
+            }
+        } catch (EmptyCollectionException e) {
+            System.out.println("Something went wrong in Carefacility.insert(s,p):\t" + e);
+        }
     }
 
     /**
@@ -28,9 +81,8 @@ public class SelectionSort {
      * @return A reference to the sorted array stack is returned (the original
      *         stack is unmodified)
      */
-    public static <T extends Comparable> ArrayStack<T> SortPatients(ArrayStack<T> inputStack) {
-        ArrayStack<T> tempStack = inputStack.copy();
-        T[] sortArray = makeArray(tempStack);   //pass a copy of the stack so that the original stack is not mutated
+    public static <T extends Comparable> ArrayStack<T> selectionSort(ArrayStack<T> inputStack) {
+        T[] sortArray = makeArray(inputStack.copy());   //pass a copy of the stack so that the original stack is not mutated
 
         int minIndex;
         for (int i = 0; i < sortArray.length - 1; i++) {
