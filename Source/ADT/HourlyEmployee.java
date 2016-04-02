@@ -56,22 +56,42 @@ public class HourlyEmployee extends FullTimeEmployee {
         overTimePay = 0;
     }
 
+    /**
+     * get hours worked 
+     * @return hours worked
+     */
     public int getHoursWorked() {
         return hoursWorked;
     }
 
+    /**
+     *get the pay rate
+     * @return pay rate
+     */
     public double getPayRate() {
         return payRate;
     }
 
+    /**
+     *get regular pay
+     * @return regular pay
+     */
     public double getRegularPay() {       
         return regularPay;
     }
 
+    /**
+     *get over time pay
+     * @return overtime pay
+     */
     public double getOverTimePay() {
         return overTimePay;
     }
 
+    /**
+     * set hours worked
+     * @param hoursWorked
+     */
     public final void setHoursWorked(int hoursWorked) {
         this.hoursWorked = hoursWorked;
         if (hoursWorked <= BusinessRules.HOURS_BEFORE_OVERTIME) {
@@ -83,6 +103,10 @@ public class HourlyEmployee extends FullTimeEmployee {
 
     }
 
+    /**
+     * set pay rate
+     * @param payRate
+     */
     public void setPayRate(double payRate) {
         this.payRate = payRate;
     }

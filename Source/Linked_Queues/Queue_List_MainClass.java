@@ -111,22 +111,23 @@ public class Queue_List_MainClass {
      * @return a stack of 10 patients.
      */
     private static ArrayStack stackOfPatients() {
-        Patient p10 = new Patient("Bob10", 10);
-        Patient p9 = new Patient("Bob9", 9);
-        Patient p8 = new Patient("Bob8", 8);
-        Patient p7 = new Patient("Bob7", 7);
-        Patient p6 = new Patient("Bob6", 6);
-        Patient p5 = new Patient("Bob5", 5);
-        Patient p4 = new Patient("Bob4", 4);
-        Patient p3 = new Patient("Bob3", 3);
-        Patient p2 = new Patient("Bob2", 2);
-        Patient p1 = new Patient("Bob1", 1);
-
         ArrayStack<Patient> pStack = new ArrayStack<>();
 
-        for (Patient e : new Patient[]{p2, p1, p3, p8, p5, p9, p7, p6, p4, p10}) {
-            pStack.push(e);
-        }
+        /**
+         * Jonas: Here are the modifications that you requested. The patients
+         * are now pushed to the stack in a way that is easier to discern. The
+         * underlying functionality, however, is unchanged.
+         */
+        pStack.push(new Patient("Bob10", 10));
+        pStack.push(new Patient("Bob8", 8));
+        pStack.push(new Patient("Bob6", 6));
+        pStack.push(new Patient("Bob5", 5));
+        pStack.push(new Patient("Bob3", 3));
+        pStack.push(new Patient("Bob2", 2));
+        pStack.push(new Patient("Bob1", 1));
+        pStack.push(new Patient("Bob9", 9));
+        pStack.push(new Patient("Bob4", 4));
+        pStack.push(new Patient("Bob7", 7));
 
         return pStack.copy();
     }

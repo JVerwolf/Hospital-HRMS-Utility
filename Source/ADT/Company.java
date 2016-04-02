@@ -20,6 +20,8 @@ public class Company {
     /**
      * Initializes this Company object's name and array of employees from a
      * specified name and array of employees
+     * @param name name of company
+     * @param fullTimeEmployee full time  employees
      */
     public Company(String name, FullTimeEmployee[] fullTimeEmployee) {
         this.name = name;

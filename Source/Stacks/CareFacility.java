@@ -333,6 +333,9 @@ public class CareFacility extends Company implements Serializable {
         }
     }
 
+    /**
+     * Save the class to a file
+     */
     public void Save() {
         File f = new File("saves");
         try {
@@ -368,6 +371,10 @@ public class CareFacility extends Company implements Serializable {
 
     }
 
+    /**
+     * Loads the class from a file
+     * @return the care facility class loaded from the file
+     */
     public static CareFacility load() {
         CareFacility CF = null;
         FileInputStream fileInput = null;
