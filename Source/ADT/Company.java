@@ -6,8 +6,8 @@ package ADT;
  */
 public class Company {
 
-    protected String name; //holds name of company
-    protected FullTimeEmployee[] fullTimeEmployee; //holds array of employees
+    private String name; //holds name of company
+    private FullTimeEmployee[] fullTimeEmployee; //holds array of employees
 
     /**
      * Initialize this company object by assigning it a "no name" name and an
@@ -17,11 +17,12 @@ public class Company {
         name = "";
         fullTimeEmployee = new FullTimeEmployee[0];
     }
-    /*
+    /**
      * Initializes this Company object's name and array of employees from a
      * specified name and array of employees
+     * @param name name of company
+     * @param fullTimeEmployee full time  employees
      */
-
     public Company(String name, FullTimeEmployee[] fullTimeEmployee) {
         this.name = name;
         this.fullTimeEmployee = fullTimeEmployee;

@@ -5,6 +5,9 @@
  */
 package Stacks;
 
+import Linked_Queues.CasualEmployee;
+import Linked_Queues.LinkedList;
+import Linked_Queues.LinkedQueue;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -141,15 +144,15 @@ public class CareFacilityTest {
          */
         Bed b1 = new Bed("Bed1", "1");
         Bed b2 = new Bed("Bed2", "1");
-        ArrayStack<Bed> bStack = new ArrayStack<>();
-        bStack.push(b1);
-        bStack.push(b2);
+        LinkedList<Bed> bList = new LinkedList<>();
+        bList.addFirst(b1);
+        bList.addFirst(b2);
 
         /**
          * Generate CareFacility object and pass both stacks. Call assignBed
          * method
          */
-        CareFacility CF = new CareFacility("TestLab", pStack, bStack, null);
+        CareFacility CF = new CareFacility("TestLab", pStack, bList, null);
         CF.assignBed();
 
         /**
@@ -191,7 +194,7 @@ public class CareFacilityTest {
             ArrayStack<Patient> copyStack2 = instance.getCopyPatientStack();
             /**
              * check to make sure that popping patient off of copyStack1 does
-             * not affect original CareFacility instance.  
+             * not affect original CareFacility instance.
              */
             assertEquals(p1, copyStack2.pop());
         } catch (EmptyCollectionException e) {
@@ -199,6 +202,118 @@ public class CareFacilityTest {
             fail("at testAssignBed");
         }
 
+    }
+
+    /**
+     * Test of assignCasualEmployee method, of class CareFacility.
+     */
+    @Test
+    public void testAssignCasualEmployee() {
+        System.out.println("assignCasualEmployee");
+
+        Patient p0 = new Patient("", 0);
+        ArrayStack<Patient> pStack = new ArrayStack<>();
+        pStack.push(p0);
+
+        CasualEmployee e3 = new CasualEmployee("Bob3", true);
+        LinkedQueue<CasualEmployee> CEQueue = new LinkedQueue<>();
+        CEQueue.enqueue(e3);
+
+        CareFacility instance = new CareFacility("TestLab", pStack, null, CEQueue);
+        instance.assignCasualEmployee();
+
+        /**
+         * pop each patient and check to make sure that they have been assigned
+         * beds in the correct order
+         */
+        try {
+            ArrayStack<Patient> pStackCopy = instance.getCopyPatientStack();
+            if (pStackCopy.pop().getCasualEmployee() == null) {
+                fail("at testAssignBed");
+            }
+        } catch (EmptyCollectionException e) {
+            System.out.println(e);
+            fail("at testAssignBed");
+        }
+    }
+
+    /**
+     * Test of assignBedAndCasualEmployee method, of class CareFacility.
+     */
+    @Test
+    public void testAssignBedAndCasualEmployee() {
+        System.out.println("assignBedAndCasualEmployee");
+
+        Patient p0 = new Patient("", 0);
+        ArrayStack<Patient> pStack = new ArrayStack<>();
+        pStack.push(p0);
+
+        CasualEmployee e3 = new CasualEmployee("Bob3", true);
+        LinkedQueue<CasualEmployee> CEQueue = new LinkedQueue<>();
+        CEQueue.enqueue(e3);
+
+        Bed b1 = new Bed("Bed2", "1");
+        LinkedList<Bed> bList = new LinkedList<>();
+        bList.addFirst(b1);
+
+        CareFacility instance = new CareFacility("TestLab", pStack, bList, CEQueue);
+        instance.assignBedAndCasualEmployee();
+        /**
+         * pop each patient and check to make sure that they have been assigned
+         * beds in the correct order
+         */
+        try {
+            ArrayStack<Patient> pStackCopy = instance.getCopyPatientStack();
+            Patient p = pStackCopy.pop();
+            if (p.getCasualEmployee() == null) {
+                fail("at testAssignBed");
+            }
+            if (p.getBed() == null) {
+                fail("at testAssignBed");
+            }
+        } catch (EmptyCollectionException e) {
+            System.out.println(e);
+            fail("at testAssignBed");
+        }
+    }
+
+    /**
+     * Test of getCopyCasualEmployeeQueue method, of class CareFacility.
+     */
+    @Test
+    public void testGetCopyCasualEmployeeQueue() {
+        System.out.println("getCopyCasualEmployeeQueue");
+
+        CasualEmployee e1 = new CasualEmployee("", true);
+        LinkedQueue<CasualEmployee> e = new LinkedQueue<>();
+        e.enqueue(e1);
+
+        CareFacility instance = new CareFacility(null, null, null, e);
+
+        LinkedQueue<CasualEmployee> test = instance.getCopyCasualEmployeeQueue();
+
+        if (test == e) {
+            fail();
+        }
+    }
+
+    /**
+     * Test of getCopyBedList method, of class CareFacility.
+     */
+    public void testGetCopyBedList() {
+        System.out.println("getCopyBedList");
+
+        Bed b1 = new Bed("", "");
+        LinkedList<Bed> bL = new LinkedList<>();
+        bL.addFirst(b1);
+
+        CareFacility instance = new CareFacility(null, null, bL, null);
+
+        LinkedList<Bed> test = instance.getCopyBedList();
+
+        if (test == bL) {
+            fail();
+        }
     }
 
 }

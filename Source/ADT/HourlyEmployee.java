@@ -1,20 +1,23 @@
 package ADT;
 
+import Linked_Queues.BusinessRules;
+
 /**
  *
  * @author C0432660 John Verwolf
  */
 public class HourlyEmployee extends FullTimeEmployee {
 
-    protected int hoursWorked;
-    protected double payRate;
-    protected double regularPay;
-    protected double overTimePay;
+    private int hoursWorked;
+    private double payRate;
+    private double regularPay;
+    private double overTimePay;
 
     /**
      * Default constructor
      */
     public HourlyEmployee() {
+        super();
         setDefaultInstanceVaraibleValues();
     }
 
@@ -38,35 +41,74 @@ public class HourlyEmployee extends FullTimeEmployee {
     public HourlyEmployee(String name, int hoursWorked, double payRate) {
         super();
         setDefaultInstanceVaraibleValues();
-        super.name = name;
-        this.hoursWorked = hoursWorked;
+        super.setName(name);
+        setHoursWorked(hoursWorked);
         this.payRate = payRate;
     }
 
     /**
      * Sets instance variables to their default values.
      */
-    void setDefaultInstanceVaraibleValues() {
+    private void setDefaultInstanceVaraibleValues() {
         hoursWorked = 0;
         payRate = 0;
         regularPay = 0;
         overTimePay = 0;
     }
 
+    /**
+     * get hours worked 
+     * @return hours worked
+     */
     public int getHoursWorked() {
         return hoursWorked;
     }
 
+    /**
+     *get the pay rate
+     * @return pay rate
+     */
     public double getPayRate() {
         return payRate;
     }
 
-    public double getRegularPay() {
+    /**
+     *get regular pay
+     * @return regular pay
+     */
+    public double getRegularPay() {       
         return regularPay;
     }
 
+    /**
+     *get over time pay
+     * @return overtime pay
+     */
     public double getOverTimePay() {
         return overTimePay;
+    }
+
+    /**
+     * set hours worked
+     * @param hoursWorked
+     */
+    public final void setHoursWorked(int hoursWorked) {
+        this.hoursWorked = hoursWorked;
+        if (hoursWorked <= BusinessRules.HOURS_BEFORE_OVERTIME) {
+            this.regularPay = hoursWorked * payRate;
+        } else {
+            this.overTimePay = ((BusinessRules.HOURS_BEFORE_OVERTIME - hoursWorked) * BusinessRules.OVERTIME_RATE);
+            this.regularPay = BusinessRules.HOURS_BEFORE_OVERTIME * payRate;
+        }
+
+    }
+
+    /**
+     * set pay rate
+     * @param payRate
+     */
+    public void setPayRate(double payRate) {
+        this.payRate = payRate;
     }
 
     @Override

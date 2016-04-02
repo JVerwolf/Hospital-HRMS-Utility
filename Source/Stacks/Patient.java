@@ -1,14 +1,17 @@
 package Stacks;
 
+import Linked_Queues.CasualEmployee;
+
 /**
  *
  * @author John Verwolf
  */
-public class Patient {
+public class Patient implements java.io.Serializable, Comparable<Patient> {
 
     private Bed bed;
     private java.lang.String name;
     private int priority;
+    private CasualEmployee casualEmployee;
 
     /**
      * Initializes this Patient object's name, priority and Bed the name for the
@@ -90,6 +93,24 @@ public class Patient {
     }
 
     /**
+     * Sets the Casual Employee to be assigned to the patient
+     *
+     * @param casualEmployee the Casual Employee to be assigned to the patient
+     */
+    public void setCasualEmployee(CasualEmployee casualEmployee) {
+        this.casualEmployee = casualEmployee;
+    }
+
+    /**
+     * Get the casual employee assigned to the patient
+     *
+     * @return the casual employee assigned to the patient
+     */
+    public CasualEmployee getCasualEmployee() {
+        return casualEmployee;
+    }
+
+    /**
      * Return a String representation of this Patient object
      *
      * @return a String representation of this Patient object
@@ -99,4 +120,14 @@ public class Patient {
         return "Patient: " + "bed=" + bed + ", name=" + name + ", priority=" + priority;
     }
 
+    /**
+     * Compares Patient objects by order of priority
+     * @param p Patient object to be compared against.
+     * @return -int if this patient has lower priority than passed object, +int if it
+     *         has higher priority, and 0 if they are equal.
+     */
+    @Override
+    public int compareTo(Patient p) {
+        return Integer.compare(this.priority, p.getPriority());
+    }
 }

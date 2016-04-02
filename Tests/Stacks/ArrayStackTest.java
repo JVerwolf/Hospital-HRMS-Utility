@@ -55,7 +55,6 @@ public class ArrayStackTest {
         instance.push(element1);
         Object result = instance.peek();
         assertEquals(element1, result);
-
     }
 
     /**
