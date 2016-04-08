@@ -4,6 +4,7 @@
 package SearchAndSort;
 
 import Linked_Queues.CasualEmployee;
+import Linked_Queues.ElementNotFoundException;
 import Linked_Queues.LinkedList;
 import Linked_Queues.LinkedQueue;
 import Stacks.ArrayStack;
@@ -21,11 +22,13 @@ public class Tester {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
         ArrayStack<Patient> testFileIOStack = stackOfPatients();
-
+        //write file
         new WriteFile<>(testFileIOStack).writeTo("TempSerFiles/testStack.ser");
+        //read file
         ArrayStack<Patient> testInputStack = (ArrayStack<Patient>) new ReadFile<Patient>("TempSerFiles/testStack.ser").getFile();
-
+        //output copy to screen
         try {
             while (!testInputStack.isEmpty()) {               //loop while there are still elements in the patientStack
                 System.out.println(testInputStack.pop().getName());             //pop a patient, assign to temp variable
@@ -33,11 +36,21 @@ public class Tester {
             }
         } catch (EmptyCollectionException e) {
             System.out.println(e);
-        }
-        
-        System.out.println("\nSorting Output:");
-        
+        }        
+        //sort and output to screen
+        System.out.println("\nSearching Output:");        
         ArrayStack<Patient> testSSortStack = SortUtilities.insertionSort(stackOfPatients());
+        
+        //Search for a given value
+        int searchFor = 7;        
+        try{
+            Patient p =  SearchUtilities.binarySearch(searchFor, testSSortStack);
+            System.out.println(p.getName() + "\t" + p.getPriority());
+        }catch (ElementNotFoundException e){
+            System.out.println(e);
+        }
+                 
+                
         try {
             while (!testSSortStack.isEmpty()) {               //loop while there are still elements in the patientStack
                 System.out.println(testSSortStack.pop().getName());             //pop a patient, assign to temp variable
@@ -46,6 +59,8 @@ public class Tester {
         } catch (EmptyCollectionException e) {
             System.out.println(e);
         }
+        
+        
     }
 
     /**
