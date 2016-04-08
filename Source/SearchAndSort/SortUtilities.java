@@ -95,11 +95,16 @@ public class SortUtilities {
     }
 
     /**
-     * makes an array out of a copy of the stack
+     * makes an array out of a copy of the stack. The top of the stack goes into
+     * the beginning of the array.
+     * <p>
+     * Protected for use elsewhere in this package.
      *
+     * @param <T>        A type that implements Comparable
+     * @param inputStack An ArrayStack of Comparable Objects
      * @return Array of elements from the original stack
      */
-    private static <T extends Comparable> T[] makeArray(ArrayStack<T> inputStack) {
+    protected static <T extends Comparable> T[] makeArray(ArrayStack<T> inputStack) {
         T[] returnArray = (T[]) (new Comparable[inputStack.size()]);
         try {
             int i = 0;
