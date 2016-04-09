@@ -1,4 +1,4 @@
-package employee_types;
+package hospital_components;
 
 /**
  *

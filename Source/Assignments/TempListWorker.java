@@ -5,8 +5,8 @@ package Assignments;
 
 import data_structures.LinearNode;
 import data_structures.ListADT;
-import SearchAndSort.DataStructure;
-import SearchAndSort.DataStructure;
+import search_and_sort_utils.DataStructure;
+import search_and_sort_utils.DataStructure;
 import data_structures.EmptyCollectionException;
 import java.util.Iterator;
 import java.io.Serializable;

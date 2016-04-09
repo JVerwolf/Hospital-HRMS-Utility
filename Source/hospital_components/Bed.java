@@ -1,4 +1,4 @@
-package Stacks;
+package hospital_components;
 import java.io.Serializable;
 
 /**

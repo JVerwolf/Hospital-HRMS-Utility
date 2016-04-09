@@ -1,6 +1,4 @@
-package ADT;
-
-import employee_types.FullTimeEmployee;
+package hospital_components;
 
 /**
  *

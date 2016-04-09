@@ -1,7 +1,7 @@
 /*
  *
  */
-package SearchAndSort;
+package search_and_sort_utils;
 
 /**
  * Tagging interface for list Data Structure objects

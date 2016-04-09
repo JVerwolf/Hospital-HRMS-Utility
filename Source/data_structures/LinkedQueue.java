@@ -1,7 +1,7 @@
 package data_structures;
 
 import data_structures.QueueADT;
-import SearchAndSort.DataStructure;
+import search_and_sort_utils.DataStructure;
 import data_structures.EmptyCollectionException;
 import java.io.Serializable;
 

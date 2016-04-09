@@ -1,7 +1,7 @@
-package SearchAndSort;
+package search_and_sort_utils;
 
 import data_structures.ArrayStack;
-import Stacks.Patient;
+import hospital_components.Patient;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;

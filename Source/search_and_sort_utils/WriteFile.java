@@ -1,8 +1,8 @@
-package SearchAndSort;
+package search_and_sort_utils;
 
-import employee_types.CasualEmployee;
+import hospital_components.CasualEmployee;
 import data_structures.ArrayStack;
-import Stacks.Patient;
+import hospital_components.Patient;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;

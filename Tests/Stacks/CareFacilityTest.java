@@ -5,9 +5,12 @@
  */
 package Stacks;
 
+import hospital_components.Patient;
+import hospital_components.CareFacility;
+import hospital_components.Bed;
 import data_structures.EmptyCollectionException;
 import data_structures.ArrayStack;
-import employee_types.CasualEmployee;
+import hospital_components.CasualEmployee;
 import data_structures.LinkedList;
 import data_structures.LinkedQueue;
 import org.junit.AfterClass;

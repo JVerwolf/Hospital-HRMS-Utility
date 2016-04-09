@@ -1,4 +1,6 @@
-package employee_types;
+package hospital_components;
+
+import hospital_components.Employee;
 
 /**
  *

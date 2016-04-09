@@ -1,13 +1,13 @@
-package Stacks;
+package hospital_components;
 
+import hospital_components.Bed;
 import data_structures.EmptyCollectionException;
 import data_structures.ArrayStack;
-import ADT.Company;
-import employee_types.CasualEmployee;
+import hospital_components.Company;
 import data_structures.LinkedList;
 import data_structures.LinkedQueue;
-import SearchAndSort.ReadFile;
-import SearchAndSort.WriteFile;
+import search_and_sort_utils.ReadFile;
+import search_and_sort_utils.WriteFile;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

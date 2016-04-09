@@ -5,6 +5,7 @@
  */
 package Stacks;
 
+import hospital_components.Patient;
 import data_structures.EmptyCollectionException;
 import data_structures.ArrayStack;
 import org.junit.AfterClass;

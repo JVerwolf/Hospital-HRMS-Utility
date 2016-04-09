@@ -1,6 +1,4 @@
-package employee_types;
-
-import employee_types.HourlyEmployee;
+package hospital_components;
 
 /**
  *

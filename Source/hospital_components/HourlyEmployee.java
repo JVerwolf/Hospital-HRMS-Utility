@@ -1,6 +1,7 @@
-package employee_types;
+package hospital_components;
 
-import Linked_Queues.BusinessRules;
+import hospital_components.FullTimeEmployee;
+import hospital_components.BusinessRules;
 
 /**
  *

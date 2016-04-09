@@ -3,7 +3,7 @@
  */
 package Linked_Queues;
 
-import employee_types.CasualEmployee;
+import hospital_components.CasualEmployee;
 import junit.framework.TestCase;
 
 /**

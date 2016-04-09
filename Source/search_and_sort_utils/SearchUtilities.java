@@ -1,9 +1,9 @@
-package SearchAndSort;
+package search_and_sort_utils;
 
 import data_structures.ElementNotFoundException;
 import data_structures.ArrayStack;
 import data_structures.EmptyCollectionException;
-import Stacks.Patient;
+import hospital_components.Patient;
 
 /**
  *

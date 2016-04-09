@@ -5,7 +5,8 @@
  */
 package ADT;
 
-import employee_types.FullTimeEmployee;
+import hospital_components.Company;
+import hospital_components.FullTimeEmployee;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;

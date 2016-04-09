@@ -1,13 +1,13 @@
-package Linked_Queues;
+package old_mains;
 
 import data_structures.LinkedList;
 import data_structures.LinkedQueue;
-import employee_types.CasualEmployee;
+import hospital_components.CasualEmployee;
 import data_structures.ArrayStack;
-import Stacks.Bed;
-import Stacks.CareFacility;
+import hospital_components.Bed;
+import hospital_components.CareFacility;
 import data_structures.EmptyCollectionException;
-import Stacks.Patient;
+import hospital_components.Patient;
 
 /**
  *

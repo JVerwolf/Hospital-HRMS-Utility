@@ -1,6 +1,6 @@
-package Stacks;
+package hospital_components;
 
-import employee_types.CasualEmployee;
+import hospital_components.Bed;
 
 /**
  *
