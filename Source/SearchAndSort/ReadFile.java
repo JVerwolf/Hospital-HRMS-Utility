@@ -1,6 +1,8 @@
 package SearchAndSort;
 
 import Stacks.ArrayStack;
+import Stacks.Patient;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -25,32 +27,38 @@ public class ReadFile<T> {
      * @param filepath The filepath of the .ser file
      *
      */
-    public ReadFile(String filepath) {
-
-        FileInputStream fileInput = null;
-        ObjectInputStream in = null;
-        try {
-            fileInput = new FileInputStream(filepath);
-            in = new ObjectInputStream(fileInput);
-            fileObject = (DataStructure<T>) in.readObject();
-        } catch (IOException e) {
-            System.out.println("There was an IO error: " + e);
-            System.exit(1);
-        } catch (ClassNotFoundException e) {
-            System.out.println("The file was not found: " + e);
-            System.exit(1);
-        } finally {
+    public ReadFile(String fileName) {
+        String dirName = "saves";                               //name of dir
+        String filePath = dirName + "/" + fileName + ".ser";    //concatonate file path                          
+        if (new File(dirName).isDirectory() && new File(filePath).isFile()) { //check to make sure the dir and the save exist
+            FileInputStream fileInput = null;
+            ObjectInputStream in = null;
             try {
-                if (in != null) {
-                    in.close();
-                }
-                if (fileInput != null) {
-                    fileInput.close();
-                }
+                fileInput = new FileInputStream(filePath);
+                in = new ObjectInputStream(fileInput);
+                fileObject = (DataStructure<T>) in.readObject();
             } catch (IOException e) {
                 System.out.println("There was an IO error: " + e);
+                System.exit(1);
+            } catch (ClassNotFoundException e) {
+                System.out.println("The file was not found: " + e);
+                System.exit(1);
+            } finally {
+                try {
+                    if (in != null) {
+                        in.close();
+                    }
+                    if (fileInput != null) {
+                        fileInput.close();
+                    }
+                } catch (IOException e) {
+                    System.out.println("There was an IO error: " + e);
+                }
             }
+        } else {
+            System.out.println("Save file does not exist");
         }
+
     }
 
     /**

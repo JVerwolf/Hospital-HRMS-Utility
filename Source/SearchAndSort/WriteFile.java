@@ -20,16 +20,20 @@ public class WriteFile<T> {
         this.fileObject = FILEOBJECT;
     }
 
-    public void writeTo(String filePath) {
+    public void writeTo(String fileName) {
+        String dirName = "saves";
+        String filePath = dirName + "/" + fileName + ".ser";
+        File f = new File(dirName);                
         FileOutputStream fileOut = null;
         ObjectOutputStream objOut = null;
         try {
+            f.mkdir(); //make a new dir called "saves" if one doesn't exist        
             fileOut = new FileOutputStream(filePath, true);
             objOut = new ObjectOutputStream(fileOut);
-            objOut.writeObject(fileObject);                       
-        } catch (IOException i) {            
+            objOut.writeObject(fileObject);
+        } catch (IOException i) {
             System.out.println("Failure to write file:" + i);
-        }finally {
+        } finally {
             try {
                 if (objOut != null) {
                     objOut.close();

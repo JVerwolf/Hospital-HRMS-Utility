@@ -1,7 +1,6 @@
 package SearchAndSort;
 
 import Linked_Queues.ElementNotFoundException;
-import static SearchAndSort.SortUtilities.makeArray;
 import Stacks.ArrayStack;
 import Stacks.EmptyCollectionException;
 import Stacks.Patient;
@@ -47,18 +46,19 @@ public class SearchUtilities {
 
     public static Patient binarySearch(int target, ArrayStack<Patient> inputStack) throws ElementNotFoundException {
         //TODO: call sort on stack
-        Patient[] returnArray = new Patient[inputStack.size()];
+
+        Patient[] a = new Patient[inputStack.size()];//make array
         try {
             int i = 0;
             while (!inputStack.isEmpty()) {
-                returnArray[i] = inputStack.pop();
+                a[i] = inputStack.pop();
                 i++;
             }
         } catch (EmptyCollectionException e) {
             System.out.println(e);
         }
-                
-        int first = 0;                    
+
+        int first = 0;
         int last = a.length - 1;
         int result = -1;                    //holds location of result,default value -1
         while (first <= last) {             // do the search
@@ -74,29 +74,21 @@ public class SearchUtilities {
         }
         if (result == -1) {
             throw new ElementNotFoundException();
-        }        
+        }
         return a[result];
     }
-//    public static Patient binarySearch(int target, ArrayStack<Patient> inputStack) throws ElementNotFoundException {
-//        //TODO: call sort on stack
-//        Patient[] a = makeArray(inputStack.copy());   //pass a copy of the stack so that the original stack is not mutated                       
-//        int first = 0;                    
-//        int last = a.length - 1;
-//        int result = -1;                    //holds location of result,default value -1
-//        while (first <= last) {             // do the search
-//            int mid = (first + last) / 2;   // compute midpoint
-//            if (a[mid].getPriority() == target) {
-//                result = mid; // found target
-//                break;
-//            } else if (a[mid].getPriority() > target) {
-//                last = mid - 1; // search left half
-//            } else {
-//                first = mid + 1; // search right half
-//            }
-//        }
-//        if (result == -1) {
-//            throw new ElementNotFoundException();
-//        }        
-//        return a[result];
-//    }
+
+    private static Patient[] makeArray(ArrayStack<Patient> inputStack) {
+        Patient[] a = new Patient[inputStack.size()];//make array
+        try {
+            int i = 0;
+            while (!inputStack.isEmpty()) {
+                a[i] = inputStack.pop();
+                i++;
+            }
+        } catch (EmptyCollectionException e) {
+            System.out.println(e);
+        }
+        return a;
+    }
 }

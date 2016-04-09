@@ -104,8 +104,8 @@ public class SortUtilities {
      * @param inputStack An ArrayStack of Comparable Objects
      * @return Array of elements from the original stack
      */
-    protected static <T> T[] makeArray(ArrayStack<T> inputStack) {
-        T[] returnArray = (T[]) (new Object[inputStack.size()]);
+    protected static <T extends Comparable> T[] makeArray(ArrayStack<T> inputStack) {
+        T[] returnArray = (T[]) (new Comparable[inputStack.size()]);
         try {
             int i = 0;
             while (!inputStack.isEmpty()) {
