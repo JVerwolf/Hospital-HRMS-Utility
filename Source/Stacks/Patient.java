@@ -1,6 +1,6 @@
 package Stacks;
 
-import Linked_Queues.CasualEmployee;
+import employee_types.CasualEmployee;
 
 /**
  *

@@ -1,4 +1,4 @@
-package Linked_Queues;
+package data_structures;
 
 import java.io.Serializable;
 

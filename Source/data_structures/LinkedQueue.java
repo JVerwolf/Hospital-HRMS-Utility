@@ -1,7 +1,8 @@
-package Linked_Queues;
+package data_structures;
 
+import data_structures.QueueADT;
 import SearchAndSort.DataStructure;
-import Stacks.EmptyCollectionException;
+import data_structures.EmptyCollectionException;
 import java.io.Serializable;
 
 /**

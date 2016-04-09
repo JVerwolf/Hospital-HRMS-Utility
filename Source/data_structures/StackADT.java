@@ -1,4 +1,6 @@
-package Stacks;
+package data_structures;
+
+import data_structures.EmptyCollectionException;
 
 /**
  * This is an interface for a stack.

@@ -5,6 +5,8 @@
  */
 package Stacks;
 
+import data_structures.EmptyCollectionException;
+import data_structures.ArrayStack;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;

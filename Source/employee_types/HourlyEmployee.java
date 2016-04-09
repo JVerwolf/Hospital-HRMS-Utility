@@ -1,4 +1,4 @@
-package ADT;
+package employee_types;
 
 import Linked_Queues.BusinessRules;
 

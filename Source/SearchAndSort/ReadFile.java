@@ -1,6 +1,6 @@
 package SearchAndSort;
 
-import Stacks.ArrayStack;
+import data_structures.ArrayStack;
 import Stacks.Patient;
 import java.io.File;
 import java.io.FileInputStream;

@@ -1,7 +1,7 @@
 package SearchAndSort;
 
-import Linked_Queues.CasualEmployee;
-import Stacks.ArrayStack;
+import employee_types.CasualEmployee;
+import data_structures.ArrayStack;
 import Stacks.Patient;
 import java.io.File;
 import java.io.FileOutputStream;

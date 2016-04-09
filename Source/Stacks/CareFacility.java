@@ -1,9 +1,11 @@
 package Stacks;
 
+import data_structures.EmptyCollectionException;
+import data_structures.ArrayStack;
 import ADT.Company;
-import Linked_Queues.CasualEmployee;
-import Linked_Queues.LinkedList;
-import Linked_Queues.LinkedQueue;
+import employee_types.CasualEmployee;
+import data_structures.LinkedList;
+import data_structures.LinkedQueue;
 import SearchAndSort.ReadFile;
 import SearchAndSort.WriteFile;
 import java.io.File;

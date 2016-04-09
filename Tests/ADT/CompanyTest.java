@@ -5,6 +5,7 @@
  */
 package ADT;
 
+import employee_types.FullTimeEmployee;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;

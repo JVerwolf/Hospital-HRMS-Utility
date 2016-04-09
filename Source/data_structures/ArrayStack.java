@@ -1,4 +1,4 @@
-package Stacks;
+package data_structures;
 
 import SearchAndSort.DataStructure;
 import java.io.Serializable;

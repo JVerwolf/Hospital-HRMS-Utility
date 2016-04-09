@@ -3,11 +3,11 @@
  */
 package Assignments;
 
-import Linked_Queues.LinearNode;
-import Linked_Queues.ListADT;
+import data_structures.LinearNode;
+import data_structures.ListADT;
 import SearchAndSort.DataStructure;
 import SearchAndSort.DataStructure;
-import Stacks.EmptyCollectionException;
+import data_structures.EmptyCollectionException;
 import java.util.Iterator;
 import java.io.Serializable;
 

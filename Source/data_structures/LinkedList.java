@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Linked_Queues;
+package data_structures;
 
+import data_structures.ListADT;
 import SearchAndSort.DataStructure;
-import Stacks.EmptyCollectionException;
+import data_structures.EmptyCollectionException;
 import java.util.Iterator;
 import java.io.Serializable;
 

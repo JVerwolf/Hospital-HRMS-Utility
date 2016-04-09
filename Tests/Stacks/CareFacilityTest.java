@@ -5,9 +5,11 @@
  */
 package Stacks;
 
-import Linked_Queues.CasualEmployee;
-import Linked_Queues.LinkedList;
-import Linked_Queues.LinkedQueue;
+import data_structures.EmptyCollectionException;
+import data_structures.ArrayStack;
+import employee_types.CasualEmployee;
+import data_structures.LinkedList;
+import data_structures.LinkedQueue;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;

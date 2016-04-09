@@ -1,5 +1,8 @@
 package Stacks;
 
+import data_structures.EmptyCollectionException;
+import data_structures.ArrayStack;
+
 /**
  * Note: This Class is unused in this Lab, This was just for personal
  * experimentation with recursion.

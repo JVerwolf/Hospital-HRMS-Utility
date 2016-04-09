@@ -3,8 +3,8 @@
  */
 package SearchAndSort;
 
-import Stacks.ArrayStack;
-import Stacks.EmptyCollectionException;
+import data_structures.ArrayStack;
+import data_structures.EmptyCollectionException;
 import java.util.Collections;
 
 /**

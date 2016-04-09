@@ -1,8 +1,8 @@
 package SearchAndSort;
 
-import Linked_Queues.ElementNotFoundException;
-import Stacks.ArrayStack;
-import Stacks.EmptyCollectionException;
+import data_structures.ElementNotFoundException;
+import data_structures.ArrayStack;
+import data_structures.EmptyCollectionException;
 import Stacks.Patient;
 
 /**

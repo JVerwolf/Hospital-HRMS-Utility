@@ -1,6 +1,6 @@
-package Linked_Queues;
+package data_structures;
 
-import Stacks.EmptyCollectionException;
+import data_structures.EmptyCollectionException;
 import java.util.Iterator;
 
 /**
@@ -24,7 +24,7 @@ public interface ListADT<T> extends Iterable<T> {
      * Removes and returns the first element from this list.
      *
      * @return the first element from this list
-     * @throws Stacks.EmptyCollectionException
+     * @throws data_structures.EmptyCollectionException
      */
     public T removeFirst() throws EmptyCollectionException;
 
@@ -32,7 +32,7 @@ public interface ListADT<T> extends Iterable<T> {
      * Removes and returns the last element from this list.
      *
      * @return the last element from this list
-     * @throws Stacks.EmptyCollectionException
+     * @throws data_structures.EmptyCollectionException
      */
     public T removeLast() throws EmptyCollectionException;
 

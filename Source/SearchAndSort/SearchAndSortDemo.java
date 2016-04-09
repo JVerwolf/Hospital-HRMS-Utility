@@ -3,13 +3,13 @@
  */
 package SearchAndSort;
 
-import Linked_Queues.CasualEmployee;
-import Linked_Queues.ElementNotFoundException;
-import Linked_Queues.LinkedList;
-import Linked_Queues.LinkedQueue;
-import Stacks.ArrayStack;
+import employee_types.CasualEmployee;
+import data_structures.ElementNotFoundException;
+import data_structures.LinkedList;
+import data_structures.LinkedQueue;
+import data_structures.ArrayStack;
 import Stacks.Bed;
-import Stacks.EmptyCollectionException;
+import data_structures.EmptyCollectionException;
 import Stacks.Patient;
 
 /**

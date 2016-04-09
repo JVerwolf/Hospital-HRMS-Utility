@@ -1,4 +1,4 @@
-package Stacks;
+package data_structures;
 
 /**
  * This exception is thrown when a collection element is called for that does

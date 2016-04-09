@@ -1,6 +1,6 @@
-package Linked_Queues;
+package data_structures;
 
-import Stacks.EmptyCollectionException;
+import data_structures.EmptyCollectionException;
 
 /**
  * This is a queue data structure obeying the first in first out rule
@@ -21,7 +21,7 @@ public interface QueueADT<T> {
      * Removes and returns the object at the front of this queue.
      *
      * @return the element at the front of this queue
-     * @throws Stacks.EmptyCollectionException
+     * @throws data_structures.EmptyCollectionException
      */
     public T dequeue() throws EmptyCollectionException;
 

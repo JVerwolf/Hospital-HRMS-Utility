@@ -1,9 +1,12 @@
 package Linked_Queues;
 
-import Stacks.ArrayStack;
+import data_structures.LinkedList;
+import data_structures.LinkedQueue;
+import employee_types.CasualEmployee;
+import data_structures.ArrayStack;
 import Stacks.Bed;
 import Stacks.CareFacility;
-import Stacks.EmptyCollectionException;
+import data_structures.EmptyCollectionException;
 import Stacks.Patient;
 
 /**

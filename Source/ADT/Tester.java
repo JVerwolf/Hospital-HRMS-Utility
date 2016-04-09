@@ -1,5 +1,8 @@
 package ADT;
 
+import employee_types.HourlyEmployee;
+import employee_types.FullTimeEmployee;
+
 /**
  *
  * @author C0432660 John Verwolf

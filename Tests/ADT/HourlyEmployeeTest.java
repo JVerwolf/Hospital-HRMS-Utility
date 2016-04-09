@@ -5,6 +5,7 @@
  */
 package ADT;
 
+import employee_types.HourlyEmployee;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;

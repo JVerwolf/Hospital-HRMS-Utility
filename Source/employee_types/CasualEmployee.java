@@ -1,6 +1,6 @@
-package Linked_Queues;
+package employee_types;
 
-import ADT.HourlyEmployee;
+import employee_types.HourlyEmployee;
 
 /**
  *

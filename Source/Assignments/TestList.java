@@ -3,7 +3,7 @@
  */
 package Assignments;
 
-import Stacks.EmptyCollectionException;
+import data_structures.EmptyCollectionException;
 
 /**
  *
