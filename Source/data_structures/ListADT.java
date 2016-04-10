@@ -8,7 +8,7 @@ import java.util.Iterator;
  * 
  * @param <T> generic type
  */
-public interface ListADT<T> extends Iterable<T> {
+public interface ListADT<T> {
 
     /**
      * Add an element at the beginning of a list
@@ -70,15 +70,7 @@ public interface ListADT<T> extends Iterable<T> {
      */
     public int size();
 
-    /**
-     * Returns an iterator for the elements in this list.
-     *
-     * @return an iterator over the elements in this list
-     */
-    @Override
-    public Iterator<T> iterator();
-
-    /**
+     /**
      * Returns a string representation of this list.
      *
      * @return a string representation of this list

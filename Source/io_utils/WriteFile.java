@@ -1,4 +1,4 @@
-package search_and_sort_utils;
+package io_utils;
 
 import hospital_components.CasualEmployee;
 import data_structures.ArrayStack;
@@ -19,10 +19,10 @@ public class WriteFile<T> {
     public WriteFile(DataStructure<T> FILEOBJECT) {
         this.fileObject = FILEOBJECT;
     }
-
+    
     public void writeTo(String fileName) {
         String dirName = "saves";
-        String filePath = dirName + "/" + fileName + ".ser";
+        String filePath = dirName + "/" + fileName + ".cf";
         File f = new File(dirName);                
         FileOutputStream fileOut = null;
         ObjectOutputStream objOut = null;

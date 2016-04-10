@@ -1,13 +1,11 @@
 package hospital_components;
 
-import hospital_components.Bed;
 import data_structures.EmptyCollectionException;
 import data_structures.ArrayStack;
-import hospital_components.Company;
 import data_structures.LinkedList;
 import data_structures.LinkedQueue;
-import search_and_sort_utils.ReadFile;
-import search_and_sort_utils.WriteFile;
+import io_utils.ReadFile;
+import io_utils.WriteFile;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -15,6 +13,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Iterator;
 
 /**
  * This class models a care facility with patients, beds, and hourly employees.
@@ -23,7 +22,8 @@ import java.io.Serializable;
  */
 public class CareFacility extends Company implements Serializable {
 
-    private LinkedList<Bed> bedList;
+    private LinkedList<Bed> bedListAvailable;
+    private LinkedList<Bed> bedListUnavailable;
     private LinkedQueue<CasualEmployee> casualEmployee;
     private java.lang.String facilityName;
     private ArrayStack<Patient> patientStack;
@@ -35,8 +35,21 @@ public class CareFacility extends Company implements Serializable {
     public CareFacility() {
         facilityName = "";
         casualEmployee = new LinkedQueue<>();
-        bedList = new LinkedList<>();
+        bedListAvailable = new LinkedList<>();
+        bedListUnavailable = new LinkedList<>();
         patientStack = new ArrayStack<>();
+    }
+
+    /**
+     * Initializes this Care Facility object. Initializes this Care Facility
+     * object's name and array of employees, array of beds and array of patients
+     * to empty lists.
+     *
+     * @param name Sets the name of the care facility
+     */
+    public CareFacility(String name) {
+        this();
+        facilityName = name;        
     }
 
     /**
@@ -50,11 +63,11 @@ public class CareFacility extends Company implements Serializable {
      * @param casualEmployee An linked list of hourly employees
      */
     public CareFacility(String facilityName, ArrayStack<Patient> patientStack, LinkedList<Bed> bedList, LinkedQueue<CasualEmployee> casualEmployee) {
+        this();
         this.facilityName = facilityName;
         this.patientStack = patientStack;
-        this.bedList = bedList;
+        sortBeds(bedList); //assigns beds to bedListUnavailable and bedListAvailable
         this.casualEmployee = casualEmployee;
-
         sortPatientStack(); //sort data in  passed stack of patients
     }
 
@@ -69,13 +82,48 @@ public class CareFacility extends Company implements Serializable {
     public CareFacility(String facilityName, LinkedQueue<CasualEmployee> casualEmployee) {
         this.facilityName = facilityName;
         this.casualEmployee = casualEmployee;
-        bedList = new LinkedList<>();
+        bedListAvailable = new LinkedList<>();
         patientStack = new ArrayStack<>();
     }
 
     /**
+     * Loads the class from a file
+     *
+     * @param f file to load
+     * @return the care facility class loaded from the file
+     */
+    public static CareFacility load(File f) {
+        CareFacility CF = null;
+        FileInputStream fileInput = null;
+        ObjectInputStream in = null;
+        try {
+            fileInput = new FileInputStream(f);
+            in = new ObjectInputStream(fileInput);
+            CF = (CareFacility) in.readObject();
+        } catch (IOException e) {
+            System.out.println("There was an IO error: " + e);
+            System.exit(1);
+        } catch (ClassNotFoundException e) {
+            System.out.println("The file was not found: " + e);
+            System.exit(1);
+        } finally {
+            try {
+                if (in != null) {
+                    in.close();
+                }
+                if (fileInput != null) {
+                    fileInput.close();
+                }
+            } catch (IOException e) {
+                System.out.println("There was an IO error: " + e);
+            }
+        }
+        return CF;
+    }
+
+    /**
      * This class assigns beds (from a stack of Bed objects ) to patients (in a
-     * stack of Patient objects). It will recursively call itself till the
+     * stack of Patient objects). It will recursively call itself until the
      * patient stack is empty, then start assigning beds to the patients with
      * the highest priority which reside at the bottom of the patient stack.
      *
@@ -105,6 +153,36 @@ public class CareFacility extends Company implements Serializable {
     }
 
     /**
+     * Save the class to a file
+     *
+     * @param f file object holding location of save
+     */
+    public void Save(File f) {
+        FileOutputStream fileOut = null;
+        ObjectOutputStream objOut = null;
+        try {
+            fileOut = new FileOutputStream(f);
+            objOut = new ObjectOutputStream(fileOut);
+            objOut.writeObject(this);
+        } catch (IOException i) {
+            System.out.println("Failure to write file:");
+            i.printStackTrace();
+        } finally {
+            try {
+                if (objOut != null) {
+                    objOut.close();
+                }
+                if (fileOut != null) {
+                    fileOut.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    /**
      * This method adds a patient to the patient stack and places it in order or
      * priority on the stack.
      *
@@ -119,7 +197,7 @@ public class CareFacility extends Company implements Serializable {
      * already in beds out.
      */
     public void assignBed() {
-        bedTime(patientStack, bedList);
+        bedTime(patientStack, bedListAvailable);
     }
 
     /**
@@ -146,7 +224,7 @@ public class CareFacility extends Company implements Serializable {
      * @return copy of bed linked list
      */
     public LinkedList<Bed> getCopyBedList() {
-        return bedList.copy();
+        return bedListAvailable.copy();
     }
 
     /**
@@ -167,6 +245,118 @@ public class CareFacility extends Company implements Serializable {
      */
     public ArrayStack<Patient> getCopyPatientStack() {
         return patientStack.copy();
+    }
+
+    /**
+     * Returns a copy of the bedListAvailable. This allows the data to be
+     * printed out without emptying the original Data Structure
+     *
+     * @return copy of bedListAvailable
+     */
+    public LinkedList<Bed> getCopybedListAvailable() {
+        return bedListAvailable.copy();
+    }
+    /**
+     * Returns a copy of the bedListAvailable. This allows the data to be
+     * printed out without emptying the original Data Structure
+     *
+     * @return copy of bedListUnavailable
+     */
+    public LinkedList<Bed> getCopybedListUnAvailable() {
+        return bedListUnavailable.copy();
+    }
+
+    /**
+     * Loads a list of beds from a file, provided it exists
+     */
+    public void loadBeds() {
+        File f = new File("saves/bedList.ser");
+
+        if (f.isFile()) {
+            bedListAvailable = (LinkedList<Bed>) new ReadFile("saves/bedList.ser").getFile();
+        } else {
+            System.out.println("Save file does not exist");
+        }
+    }
+
+    /**
+     * Loads a list of casual employees from a file, provided it exists
+     */
+    public void loadCasualEmployee() {
+        File f = new File("saves/casualEmployee.ser");
+
+        if (f.isFile()) {
+            casualEmployee = (LinkedQueue<CasualEmployee>) new ReadFile("saves/casualEmployee.ser").getFile();
+        } else {
+            System.out.println("Save file does not exist");
+        }
+    }
+
+    /**
+     * Loads a list of patients from a file, provided it exists
+     */
+    public void loadPatientStack() {
+        File f = new File("saves/bedList.ser");
+
+        if (f.isFile()) {
+            patientStack = (ArrayStack<Patient>) new ReadFile("saves/patientStack.ser").getFile();
+        } else {
+            System.out.println("Save file does not exist");
+        }
+    }
+
+    /**
+     * Saves the list of beds to a file
+     */
+    public void saveBeds() {
+        makeSavesFolder();
+        new WriteFile<>(bedListAvailable).writeTo("saves/bedList.ser");
+    }
+
+    /**
+     * Saves the list of casual employees to a file
+     */
+    public void saveCasualEmployee() {
+        makeSavesFolder();
+        new WriteFile<>(casualEmployee).writeTo("saves/casualEmployee.ser");
+    }
+
+    /**
+     * Saves the list of patients to a file
+     */
+    public void savePatientStack() {
+        makeSavesFolder();
+        new WriteFile<>(patientStack).writeTo("saves/patientStack.ser");
+    }
+
+    /**
+     * Sorts beds by availability and puts them into thier respective lists.
+     *
+     * @param bedList list of beds to be sorted
+     */
+    public final void sortBeds(LinkedList<Bed> bedList) {
+        while (!bedList.isEmpty()) {
+            try {
+                if (bedList.first().getavailable() && bedList.first().getPatient() == null) {
+                    bedListAvailable.addLast(bedList.removeFirst());
+                } else {
+                    bedListUnavailable.addLast(bedList.removeFirst());
+                }
+            } catch (EmptyCollectionException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * adds a Bed to the Care Facility
+     *
+     * @param bed bed to be added
+     */
+    public void addBed(Bed bed) {
+        LinkedList<Bed> temp = new LinkedList<>();
+        temp.addLast(bed);
+        sortBeds(temp);
     }
 
     /**
@@ -236,6 +426,21 @@ public class CareFacility extends Company implements Serializable {
     }
 
     /**
+     * makes a folder called "saves" if one is not already in the folder from
+     * which the program is being run.
+     */
+    private void makeSavesFolder() {
+        File f = new File("saves");
+        try {
+            if (!f.mkdir()) {
+                System.out.println("Error: No Directory Created");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * This method will sort an ArrayObject of generic type Patient by priority.
      * It is an expensive call, likely O(n^2), so use judiciously.
      *
@@ -256,152 +461,4 @@ public class CareFacility extends Company implements Serializable {
         }
     }
 
-    /**
-     * Saves the list of beds to a file
-     */
-    public void saveBeds() {
-        makeSavesFolder();
-        new WriteFile<>(bedList).writeTo("saves/bedList.ser");
-    }
-
-    /**
-     * Saves the list of casual employees to a file
-     */
-    public void saveCasualEmployee() {
-        makeSavesFolder();
-        new WriteFile<>(casualEmployee).writeTo("saves/casualEmployee.ser");
-    }
-
-    /**
-     * Saves the list of patients to a file
-     */
-    public void savePatientStack() {
-        makeSavesFolder();
-        new WriteFile<>(patientStack).writeTo("saves/patientStack.ser");
-    }
-
-    /**
-     * Loads a list of patients from a file, provided it exists
-     */
-    public void loadPatientStack() {
-        File f = new File("saves/bedList.ser");
-
-        if (f.isFile()) {
-            patientStack = (ArrayStack<Patient>) new ReadFile("saves/patientStack.ser").getFile();
-        } else {
-            System.out.println("Save file does not exist");
-        }
-    }
-
-    /**
-     * Loads a list of beds from a file, provided it exists
-     */
-    public void loadBeds() {
-        File f = new File("saves/bedList.ser");
-
-        if (f.isFile()) {
-            bedList = (LinkedList<Bed>) new ReadFile("saves/bedList.ser").getFile();
-        } else {
-            System.out.println("Save file does not exist");
-        }
-    }
-
-    /**
-     * Loads a list of casual employees from a file, provided it exists
-     */
-    public void loadCasualEmployee() {
-        File f = new File("saves/casualEmployee.ser");
-
-        if (f.isFile()) {
-            casualEmployee = (LinkedQueue<CasualEmployee>) new ReadFile("saves/casualEmployee.ser").getFile();
-        } else {
-            System.out.println("Save file does not exist");
-        }
-    }
-
-    /**
-     * makes a folder called "saves" if one is not already in the folder from
-     * which the program is being run.
-     */
-    private void makeSavesFolder() {
-        File f = new File("saves");
-        try {
-            if (!f.mkdir()) {
-                System.out.println("Error: No Directory Created");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Save the class to a file
-     */
-    public void Save() {
-        File f = new File("saves");
-        try {
-            f.mkdir();
-            if (!f.exists()) {
-                System.out.println("No Directory Created");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        FileOutputStream fileOut = null;
-        ObjectOutputStream objOut = null;
-        try {
-            fileOut = new FileOutputStream("saves/CareFacility.ser");
-            objOut = new ObjectOutputStream(fileOut);
-            objOut.writeObject(this);
-        } catch (IOException i) {
-            System.out.println("Failure to write file:");
-            i.printStackTrace();
-        } finally {
-            try {
-                if (objOut != null) {
-                    objOut.close();
-                }
-                if (fileOut != null) {
-                    fileOut.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
-
-    /**
-     * Loads the class from a file
-     * @return the care facility class loaded from the file
-     */
-    public static CareFacility load() {
-        CareFacility CF = null;
-        FileInputStream fileInput = null;
-        ObjectInputStream in = null;
-        try {
-            fileInput = new FileInputStream("saves/CareFacility.ser");
-            in = new ObjectInputStream(fileInput);
-            CF = (CareFacility) in.readObject();
-        } catch (IOException e) {
-            System.out.println("There was an IO error: " + e);
-            System.exit(1);
-        } catch (ClassNotFoundException e) {
-            System.out.println("The file was not found: " + e);
-            System.exit(1);
-        } finally {
-            try {
-                if (in != null) {
-                    in.close();
-                }
-                if (fileInput != null) {
-                    fileInput.close();
-                }
-            } catch (IOException e) {
-                System.out.println("There was an IO error: " + e);
-            }
-        }
-        return CF;
-    }
 }

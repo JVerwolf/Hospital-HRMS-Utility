@@ -1,4 +1,4 @@
-package search_and_sort_utils;
+package io_utils;
 
 import data_structures.ArrayStack;
 import hospital_components.Patient;
@@ -29,7 +29,7 @@ public class ReadFile<T> {
      */
     public ReadFile(String fileName) {
         String dirName = "saves";                               //name of dir
-        String filePath = dirName + "/" + fileName + ".ser";    //concatonate file path                          
+        String filePath = dirName + "/" + fileName + ".cf";    //concatonate file path                          
         if (new File(dirName).isDirectory() && new File(filePath).isFile()) { //check to make sure the dir and the save exist
             FileInputStream fileInput = null;
             ObjectInputStream in = null;

@@ -6,7 +6,7 @@
 package data_structures;
 
 import data_structures.ListADT;
-import search_and_sort_utils.DataStructure;
+import io_utils.DataStructure;
 import data_structures.EmptyCollectionException;
 import java.util.Iterator;
 import java.io.Serializable;
@@ -16,7 +16,7 @@ import java.io.Serializable;
  * @author John Verwolf
  * @param <T> the Generic type
  */
-public class LinkedList<T> implements ListADT<T>, Iterable<T>, DataStructure<T>, Serializable{
+public class LinkedList<T> implements ListADT<T>, DataStructure<T>, Serializable {
 
     /**
      * Stores the number of elements in the Linked List *
@@ -183,16 +183,6 @@ public class LinkedList<T> implements ListADT<T>, Iterable<T>, DataStructure<T>,
     }
 
     /**
-     * Define how to iterate over the list.
-     *
-     * @return Not implemented yet
-     */
-    @Override
-    public Iterator<T> iterator() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    /**
      * Returns a shallow copy of the instance of the linked list
      *
      * @return new copy of linked list
@@ -208,18 +198,23 @@ public class LinkedList<T> implements ListADT<T>, Iterable<T>, DataStructure<T>,
      * deep copied and remain as references to the original data elements
      */
     private LinkedList(LinearNode<T> passedHead) {
-        this.tail = this.head = new LinearNode<>();         //create new linked node that will start the list
-        this.count = 1;
+        if (passedHead != null) {
+            this.tail = this.head = new LinearNode<>();         //create new linked node that will start the list
+            this.count = 1;
 
-        LinearNode<T> probeForPassed = passedHead;
+            LinearNode<T> probeForPassed = passedHead;
 
-        while (probeForPassed.getNext() != null) {
+            while (probeForPassed.getNext() != null) {
+                tail.setElement(probeForPassed.getElement());
+                probeForPassed = probeForPassed.getNext();
+                tail.setNext(new LinearNode<T>());
+                tail = tail.getNext();
+                count++;
+            }
             tail.setElement(probeForPassed.getElement());
-            probeForPassed = probeForPassed.getNext();
-            tail.setNext(new LinearNode<T>());
-            tail = tail.getNext();
-            count++;
+        }else{
+            this.tail = this.head = null;
+            this.count = 0;
         }
-        tail.setElement(probeForPassed.getElement());
     }
 }

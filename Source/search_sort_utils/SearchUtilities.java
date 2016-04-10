@@ -1,4 +1,4 @@
-package search_and_sort_utils;
+package search_sort_utils;
 
 import data_structures.ElementNotFoundException;
 import data_structures.ArrayStack;

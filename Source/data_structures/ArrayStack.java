@@ -1,6 +1,6 @@
 package data_structures;
 
-import search_and_sort_utils.DataStructure;
+import io_utils.DataStructure;
 import java.io.Serializable;
 
 /**
