@@ -68,14 +68,16 @@ public class FunctionalityUtils {
         bedDisplay.append("BED NAME:\tlOCATION:\t AVAILABLE:");
         try {
             while (!availableBeds.isEmpty()) {
-                System.out.println(availableBeds.removeLast().getName()
-                        + "\t" + availableBeds.removeLast().getLocation()
-                        + "Yes");
+                Bed tempBed = availableBeds.removeLast();
+                bedDisplay.append("\n" + tempBed.getName()
+                        + "\t" + tempBed.getLocation()
+                        + "\tYes");
             }
             while (!unAvailableBeds.isEmpty()) {
-                System.out.println(unAvailableBeds.removeLast().getName()
-                        + "\t" + unAvailableBeds.removeLast().getLocation()
-                        + "No");
+                Bed tempBed = unAvailableBeds.removeLast();
+                bedDisplay.append("\n" + tempBed.getName()
+                        + "\t" + tempBed.getLocation()
+                        + "\tNo");
             }
         } catch (EmptyCollectionException e) {
             System.out.println(e);
