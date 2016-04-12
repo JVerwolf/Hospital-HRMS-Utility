@@ -27,13 +27,13 @@ public class SearchAndSortDemo {
      */
     public static void main(String[] args) {
         //Demonstrate file Read/Write
-        {       
+        {
             //get unsorted list of patients from method
             ArrayStack<Patient> testFileIOStack = stackOfPatients();
-            
-            System.out.println("\nWriting to file");            
+
+            System.out.println("\nWriting to file");
             new WriteFile<>(testFileIOStack).writeTo("testStack");
-            
+
             System.out.println("\nReading from file");
             ArrayStack<Patient> testInputStack = (ArrayStack<Patient>) new ReadFile<Patient>("testStack").getFile();
 
@@ -101,15 +101,32 @@ public class SearchAndSortDemo {
                 System.out.println(e);
             }
         }
-        
-    }
+        //Test removeAt method in linked list
+        {
+        System.out.println("\ntest removeAt method:");    
+        LinkedList<Bed> bedList = listOfBeds();        
+            try {
+                Bed testBed = bedList.removeAt(7);
+                
+                //LinkedList<Bed> test = bedList.copy();
+                while (!bedList.isEmpty()) {
+                    System.out.println(bedList.removeFirst().getName());
+                }
+            } catch (EmptyCollectionException e) {
+                System.out.println(e);
+            }
+           
+        }
+    
 
-    /**
-     * Generate and return a stack of 10 patients.
-     *
-     * @return a stack of 10 patients.
-     */
-    private static ArrayStack stackOfPatients() {
+}
+
+/**
+ * Generate and return a stack of 10 patients.
+ *
+ * @return a stack of 10 patients.
+ */
+private static ArrayStack stackOfPatients() {
         Patient p10 = new Patient("Bob10", 10);
         Patient p9 = new Patient("Bob9", 9);
         Patient p8 = new Patient("Bob8", 8);
@@ -136,16 +153,17 @@ public class SearchAndSortDemo {
      * @return a stack of beds with 4 beds.
      */
     private static LinkedList<Bed> listOfBeds() {
-        Bed b1 = new Bed("Bed1", "1",true, null);
-        Bed b2 = new Bed("Bed2", "1",true, null);
-        Bed b3 = new Bed("Bed3", "1",true, null);
-        Bed b4 = new Bed("Bed4", "1",true, null);
-        Bed b5 = new Bed("Bed5", "1",true, null);
-        Bed b6 = new Bed("Bed6", "1",true, null);
+        Bed b1 = new Bed("Bed1", "1", true, null);
+        Bed b2 = new Bed("Bed2", "1", true, null);
+        Bed b3 = new Bed("Bed3", "1", true, null);
+        Bed b4 = new Bed("Bed4", "1", true, null);
+        Bed b5 = new Bed("Bed5", "1", true, null);
+        Bed b6 = new Bed("Bed6", "1", true, null);
+        Bed b7 = new Bed("Bed7", "1", true, null);
 
         LinkedList<Bed> bList = new LinkedList<>();
 
-        for (Bed e : new Bed[]{b1, b2, b3, b4, b5, b6}) {
+        for (Bed e : new Bed[]{b1, b2, b3, b4, b5, b6, b7}) {
             bList.addLast(e);
         }
         return bList;

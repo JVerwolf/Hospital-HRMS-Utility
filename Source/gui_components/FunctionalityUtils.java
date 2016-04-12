@@ -6,6 +6,7 @@ import data_structures.LinkedList;
 import hospital_components.Bed;
 import hospital_components.CareFacility;
 import hospital_components.Patient;
+import javax.swing.DefaultListModel;
 import javax.swing.JTextArea;
 
 /**
@@ -54,8 +55,17 @@ public class FunctionalityUtils {
         }
     }
 
-    public static void updateBedDisplay(CareFacility CF, JTextArea bedDisplay) {
+//    private static String[] convertBedListToArray(CareFacility CF) {
+//        /**
+//         * Get a copy of the patientStack instance variable of CF CareFacility
+//         * object.
+//         */
+//        LinkedList<Bed> availableBeds = CF.getCopybedListAvailable();
+//        LinkedList<Bed> unAvailableBeds = CF.getCopybedListUnAvailable();
+//
+//    }
 
+    public static void updateBedDisplay(CareFacility CF, javax.swing.JList bedList) {
         /**
          * Get a copy of the patientStack instance variable of CF CareFacility
          * object.
@@ -63,24 +73,62 @@ public class FunctionalityUtils {
         LinkedList<Bed> availableBeds = CF.getCopybedListAvailable();
         LinkedList<Bed> unAvailableBeds = CF.getCopybedListUnAvailable();
 
-        bedDisplay.setText(null);//clear text area
+        //clear list
+        DefaultListModel listModel = (DefaultListModel) bedList.getModel();
+        listModel.removeAllElements();
 
-        bedDisplay.append("BED NAME:\tlOCATION:\t AVAILABLE:");
         try {
+            int count = 1;
             while (!availableBeds.isEmpty()) {
                 Bed tempBed = availableBeds.removeLast();
-                bedDisplay.append("\n" + tempBed.getName()
-                        + "\t" + tempBed.getLocation()
-                        + "\tYes");
+                listModel.addElement(count + "  " + tempBed.getName()
+                        + "  " + tempBed.getLocation()
+                        + " Available");
+                count++;
             }
             while (!unAvailableBeds.isEmpty()) {
                 Bed tempBed = unAvailableBeds.removeLast();
-                bedDisplay.append("\n" + tempBed.getName()
-                        + "\t" + tempBed.getLocation()
-                        + "\tNo");
+                listModel.addElement(count + "  " + tempBed.getName()
+                        + "  " + tempBed.getLocation()
+                        + "  Unavailable");
+                count++;
             }
         } catch (EmptyCollectionException e) {
             System.out.println(e);
         }
+
     }
+
+//    public static void updateBedDisplay(CareFacility CF, JTextArea bedDisplay) {
+//
+//        /**
+//         * Get a copy of the patientStack instance variable of CF CareFacility
+//         * object.
+//         */
+//        LinkedList<Bed> availableBeds = CF.getCopybedListAvailable();
+//        LinkedList<Bed> unAvailableBeds = CF.getCopybedListUnAvailable();
+//
+//        bedDisplay.setText(null);//clear text area
+//
+//        bedDisplay.append("BED NAME:\tlOCATION:\t AVAILABLE:");
+//        try {
+//            int count = 1;
+//            while (!availableBeds.isEmpty()) {
+//                Bed tempBed = availableBeds.removeLast();
+//                bedDisplay.append("\n" + count + "\t" + tempBed.getName()
+//                        + "\t" + tempBed.getLocation()
+//                        + "\tYes");
+//                count++;
+//            }
+//            while (!unAvailableBeds.isEmpty()) {
+//                Bed tempBed = unAvailableBeds.removeLast();
+//                bedDisplay.append("\n" + count + "\t" + tempBed.getName()
+//                        + "\t" + tempBed.getLocation()
+//                        + "\tNo");
+//                count++;
+//            }
+//        } catch (EmptyCollectionException e) {
+//            System.out.println(e);
+//        }
+//    }
 }

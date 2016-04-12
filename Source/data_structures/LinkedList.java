@@ -59,6 +59,41 @@ public class LinkedList<T> implements ListADT<T>, DataStructure<T>, Serializable
         }
         count++;
     }
+    /**
+     * TODO: test
+     * @param n
+     * @return
+     * @throws EmptyCollectionException 
+     */
+    public T removeAt(int n) throws EmptyCollectionException {
+        LinearNode<T> probe = head;
+        LinearNode<T> temp = null;
+        
+        if (n < 1) {
+            throw new EmptyCollectionException();
+        } else if (n == 1) {
+            return removeFirst();
+        } else {            
+            int i = 1;
+            while (probe != null && i < n-1) {
+                probe = probe.getNext();
+                i++;
+            }
+            if (probe.getNext() != null) {
+                temp = probe.getNext();
+                if (probe.getNext().getNext() != null) {
+                    probe.setNext(probe.getNext().getNext());
+                } else {
+//                    probe = probe.getNext();
+//                    probe = null;
+                }
+            } else {
+                throw new EmptyCollectionException();
+            }
+        }
+        count--;
+        return temp.getElement();
+    }
 
     /**
      * Adds an empty element to the end of the list
@@ -212,7 +247,7 @@ public class LinkedList<T> implements ListADT<T>, DataStructure<T>, Serializable
                 count++;
             }
             tail.setElement(probeForPassed.getElement());
-        }else{
+        } else {
             this.tail = this.head = null;
             this.count = 0;
         }
