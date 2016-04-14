@@ -103,11 +103,11 @@ public class SearchAndSortDemo {
         }
         //Test removeAt method in linked list
         {
-        System.out.println("\ntest removeAt method:");    
-        LinkedList<Bed> bedList = listOfBeds();        
+
+            LinkedList<Bed> bedList = listOfBeds();
             try {
-                Bed testBed = bedList.removeAt(7);
-                
+                Bed testBed = bedList.get(1);
+                System.out.println("\ntest removeAt method:" + testBed.getName());
                 //LinkedList<Bed> test = bedList.copy();
                 while (!bedList.isEmpty()) {
                     System.out.println(bedList.removeFirst().getName());
@@ -115,18 +115,35 @@ public class SearchAndSortDemo {
             } catch (EmptyCollectionException e) {
                 System.out.println(e);
             }
-           
+
         }
-    
 
-}
+    }
 
-/**
- * Generate and return a stack of 10 patients.
- *
- * @return a stack of 10 patients.
- */
-private static ArrayStack stackOfPatients() {
+    /**
+     * Generate and return a stack of beds with 4 beds.
+     *
+     * @return a stack of beds with 4 beds.
+     */
+    private static LinkedList<Bed> listOfBeds() {
+        LinkedList<Bed> bList = new LinkedList<>();
+        bList.addLast(new Bed("Bed1", "1", true, null));
+//        bList.addLast(new Bed("Bed2", "1", true, null));
+//        bList.addLast(new Bed("Bed3", "1", true, null));
+//        bList.addLast(new Bed("Bed4", "1", true, null));
+//        bList.addLast(new Bed("Bed5", "1", true, null));
+//        bList.addLast(new Bed("Bed6", "1", true, null));
+//        bList.addLast(new Bed("Bed7", "1", true, null));
+
+        return bList;
+    }
+
+    /**
+     * Generate and return a stack of 10 patients.
+     *
+     * @return a stack of 10 patients.
+     */
+    private static ArrayStack stackOfPatients() {
         Patient p10 = new Patient("Bob10", 10);
         Patient p9 = new Patient("Bob9", 9);
         Patient p8 = new Patient("Bob8", 8);
@@ -145,28 +162,6 @@ private static ArrayStack stackOfPatients() {
         }
 
         return pStack.copy();
-    }
-
-    /**
-     * Generate and return a stack of beds with 4 beds.
-     *
-     * @return a stack of beds with 4 beds.
-     */
-    private static LinkedList<Bed> listOfBeds() {
-        Bed b1 = new Bed("Bed1", "1", true, null);
-        Bed b2 = new Bed("Bed2", "1", true, null);
-        Bed b3 = new Bed("Bed3", "1", true, null);
-        Bed b4 = new Bed("Bed4", "1", true, null);
-        Bed b5 = new Bed("Bed5", "1", true, null);
-        Bed b6 = new Bed("Bed6", "1", true, null);
-        Bed b7 = new Bed("Bed7", "1", true, null);
-
-        LinkedList<Bed> bList = new LinkedList<>();
-
-        for (Bed e : new Bed[]{b1, b2, b3, b4, b5, b6, b7}) {
-            bList.addLast(e);
-        }
-        return bList;
     }
 
     private static LinkedQueue<CasualEmployee> queueOfCasualEmployees() {

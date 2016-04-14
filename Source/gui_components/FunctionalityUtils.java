@@ -7,6 +7,7 @@ import hospital_components.Bed;
 import hospital_components.CareFacility;
 import hospital_components.Patient;
 import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JTextArea;
 
 /**
@@ -131,4 +132,8 @@ public class FunctionalityUtils {
 //            System.out.println(e);
 //        }
 //    }
+
+    static void modifyBeds(CareFacility cF, JList bedList) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

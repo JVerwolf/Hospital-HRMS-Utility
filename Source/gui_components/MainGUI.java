@@ -5,11 +5,8 @@ package gui_components;
 
 import hospital_components.Bed;
 import hospital_components.CareFacility;
-import hospital_components.Patient;
 import java.awt.CardLayout;
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -226,6 +223,11 @@ public class MainGUI extends javax.swing.JFrame {
         });
 
         jButton1.setText("Edit");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Delete");
 
@@ -575,6 +577,10 @@ public class MainGUI extends javax.swing.JFrame {
     private void bedNameAdd2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bedNameAdd2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_bedNameAdd2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        FunctionalityUtils.modifyBeds(cF, bedList);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * opens an file open dialog to open the specified file

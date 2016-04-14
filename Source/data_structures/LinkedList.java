@@ -59,41 +59,57 @@ public class LinkedList<T> implements ListADT<T>, DataStructure<T>, Serializable
         }
         count++;
     }
+
     /**
      * TODO: test
+     *
      * @param n
      * @return
-     * @throws EmptyCollectionException 
+     * @throws EmptyCollectionException
      */
     public T removeAt(int n) throws EmptyCollectionException {
         LinearNode<T> probe = head;
         LinearNode<T> temp = null;
-        
-        if (n < 1) {
+        if (n <= 0 || n > count) {
             throw new EmptyCollectionException();
         } else if (n == 1) {
             return removeFirst();
-        } else {            
+        } else {
             int i = 1;
-            while (probe != null && i < n-1) {
+            while (probe != null && i < n - 1) {    //get the adress before node number n and assign to probe
                 probe = probe.getNext();
                 i++;
             }
-            if (probe.getNext() != null) {
-                temp = probe.getNext();
-                if (probe.getNext().getNext() != null) {
-                    probe.setNext(probe.getNext().getNext());
+            if (probe.getNext() != null) {      //If node n is not null...
+                temp = probe.getNext();         //assign temp variable to node n.
+                if (probe.getNext().getNext() != null) {        //If node after n is not null...
+                    probe.setNext(probe.getNext().getNext());   //remove n from between nodes.
+                    count--;
+                    return temp.getElement();
                 } else {
-//                    probe = probe.getNext();
-//                    probe = null;
+                    return removeLast();                        //otherwise cut last node, n, off of list
                 }
             } else {
                 throw new EmptyCollectionException();
             }
         }
-        count--;
-        return temp.getElement();
     }
+   
+    public T get(int n) throws EmptyCollectionException {
+        LinearNode<T> probe = head;        
+        if (n <= 0 || n > count) {
+            throw new EmptyCollectionException();        
+        } else {
+            int i = 1;
+            while (i < n) {    
+                probe = probe.getNext();
+                i++;
+            }
+            return probe.getElement();             
+        }        
+    }
+
+
 
     /**
      * Adds an empty element to the end of the list
