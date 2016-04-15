@@ -303,7 +303,7 @@ public class CareFacilityTest {
     }
 
     /**
-     * Test of getCopyBedList method, of class CareFacility.
+     * Test of getCopyBedListAvailable method, of class CareFacility.
      */
     public void testGetCopyBedList() {
         System.out.println("getCopyBedList");
@@ -314,7 +314,7 @@ public class CareFacilityTest {
 
         CareFacility instance = new CareFacility(null, null, bL, null);
 
-        LinkedList<Bed> test = instance.getCopyBedList();
+        LinkedList<Bed> test = instance.getCopyBedListAvailable();
 
         if (test == bL) {
             fail();

@@ -3,6 +3,7 @@
  */
 package gui_components;
 
+import data_structures.EmptyCollectionException;
 import hospital_components.Bed;
 import hospital_components.CareFacility;
 import java.awt.CardLayout;
@@ -290,10 +291,9 @@ public class MainGUI extends javax.swing.JFrame {
                                     .addGroup(panelModifyLayout.createSequentialGroup()
                                         .addComponent(bedLocation2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(bedDelete)))
-                                .addGap(6, 6, 6))
+                                        .addComponent(bedDelete))))
                             .addComponent(bedEdit))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 6, Short.MAX_VALUE))
                     .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelModifyLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -330,6 +330,11 @@ public class MainGUI extends javax.swing.JFrame {
                 bedListAMouseClicked(evt);
             }
         });
+        bedListA.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                bedListAFocusGained(evt);
+            }
+        });
         jScrollPane1.setViewportView(bedListA);
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -342,6 +347,11 @@ public class MainGUI extends javax.swing.JFrame {
         bedListU.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 bedListUMouseClicked(evt);
+            }
+        });
+        bedListU.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                bedListUFocusGained(evt);
             }
         });
         jScrollPane2.setViewportView(bedListU);
@@ -638,15 +648,7 @@ public class MainGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_saveAsMenuItemActionPerformed
 
     private void bedListAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bedListAMouseClicked
-        if (!bedListA.isSelectionEmpty()) {
-            bedListAvailableIndexSelected = bedListA.getSelectedIndex();
-            bedListUnavailableIndexSelected = -1;
-            bedDelete.setEnabled(true);
-            bedEdit.setEnabled(true);
-            bedListU.clearSelection();
-        }
-        //bedLocation2.setText(Integer.toString(bedListA.getSelectedIndex() + 1)); //for testing
-
+        bedListASelect();
     }//GEN-LAST:event_bedListAMouseClicked
 
     private void bedDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bedDeleteActionPerformed
@@ -656,6 +658,8 @@ public class MainGUI extends javax.swing.JFrame {
     private void bedEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bedEditActionPerformed
         FunctionalityUtils.modifyBeds(cF, bedListAvailableIndexSelected, bedListUnavailableIndexSelected, bedNameAdd2, bedLocation2, bedAvailable2);
         FunctionalityUtils.updateBedDisplay(cF, bedListA, bedListU);
+        bedListUnavailableIndexSelected = -1; //reset to unselected after modification
+        bedListAvailableIndexSelected = -1; //reset to unselected after modification
     }//GEN-LAST:event_bedEditActionPerformed
 
     private void bedNameAdd2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bedNameAdd2ActionPerformed
@@ -681,15 +685,7 @@ public class MainGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_bedNameAddActionPerformed
 
     private void bedListUMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bedListUMouseClicked
-
-        if (!bedListU.isSelectionEmpty()) {
-            bedListUnavailableIndexSelected = bedListU.getSelectedIndex() + 1;
-            bedListAvailableIndexSelected = -1;
-            bedDelete.setEnabled(true);
-            bedEdit.setEnabled(true);
-            bedListA.clearSelection();
-        }
-        //bedNameAdd2.setText(Integer.toString(bedListU.getSelectedIndex() + 1)); //for testing
+        bedListUSelect();
     }//GEN-LAST:event_bedListUMouseClicked
 
     private void bedAvailable2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bedAvailable2ActionPerformed
@@ -707,6 +703,61 @@ public class MainGUI extends javax.swing.JFrame {
             bedAvailable2.setSelected(true);
         }
     }//GEN-LAST:event_bedUnavailable2ActionPerformed
+
+    private void bedListAFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_bedListAFocusGained
+        bedListASelect();
+    }//GEN-LAST:event_bedListAFocusGained
+
+    private void bedListUFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_bedListUFocusGained
+        bedListUSelect();
+    }//GEN-LAST:event_bedListUFocusGained
+    private void bedListASelect() {
+        if (!isChanging && !bedListA.isSelectionEmpty()) {
+            isChanging = true; //flag to prevent listener conflicts
+            bedListAvailableIndexSelected = bedListA.getSelectedIndex() + 1; //            
+            bedDelete.setEnabled(true);
+            bedEdit.setEnabled(true);
+            bedListU.clearSelection(); //undo selection
+
+            //Fill forms with data from selected bed            
+            try {
+                Bed temp = cF.getAvailableBed(bedListAvailableIndexSelected);
+                bedNameAdd2.setText(temp.getName()); //set name text
+                bedLocation2.setText(temp.getLocation()); //set location text                
+                bedAvailable2.setSelected(temp.getUsable());
+                bedUnavailable2.setSelected(!temp.getUsable());
+                isChanging = false; //flag to prevent listener conflicts
+            } catch (EmptyCollectionException e) {
+                isChanging = false; //flag to prevent listener conflicts
+                System.out.println(e);
+            }
+            bedListUnavailableIndexSelected = -1;
+        }
+    }
+
+    private void bedListUSelect() {
+        if (!isChanging && !bedListU.isSelectionEmpty()) {
+            isChanging = true; //flag to prevent listener conflicts
+            bedListUnavailableIndexSelected = bedListU.getSelectedIndex() + 1; //            
+            bedDelete.setEnabled(true);
+            bedEdit.setEnabled(true);
+            bedListA.clearSelection(); //undo selection
+
+            //Fill forms with data from selected bed            
+            try {
+                Bed temp = cF.getUnavailableBed(bedListUnavailableIndexSelected);
+                bedNameAdd2.setText(temp.getName()); //set name text
+                bedLocation2.setText(temp.getLocation()); //set location text                
+                bedAvailable2.setSelected(temp.getUsable());
+                bedUnavailable2.setSelected(!temp.getUsable());
+                isChanging = false; //flag to prevent listener conflicts
+            } catch (EmptyCollectionException e) {
+                isChanging = false; //flag to prevent listener conflicts
+                System.out.println(e);
+            }
+            bedListAvailableIndexSelected = -1;
+        }
+    }
 
     /**
      * opens an file open dialog to open the specified file
@@ -827,6 +878,9 @@ public class MainGUI extends javax.swing.JFrame {
     //for bedCard
     private int bedListAvailableIndexSelected;
     private int bedListUnavailableIndexSelected;
+
+    //flag to prevent listener conflics    
+    boolean isChanging = false;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutMenuItem;

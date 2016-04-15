@@ -95,19 +95,19 @@ public class LinkedList<T> implements ListADT<T>, DataStructure<T>, Serializable
         }
     }
    
-//    public T get(int n) throws EmptyCollectionException {
-//        LinearNode<T> probe = head;        
-//        if (n <= 0 || n > count) {
-//            throw new EmptyCollectionException();        
-//        } else {
-//            int i = 1;
-//            while (i < n) {    
-//                probe = probe.getNext();
-//                i++;
-//            }
-//            return probe.getElement();             
-//        }        
-//    }
+    public T get(int n) throws EmptyCollectionException {
+        LinearNode<T> probe = head;        
+        if (n <= 0 || n > count) {
+            throw new EmptyCollectionException();        
+        } else {
+            int i = 1;
+            while (i < n) {    
+                probe = probe.getNext();
+                i++;
+            }
+            return probe.getElement();             
+        }        
+    }
 
 
 

@@ -212,6 +212,28 @@ public class CareFacility extends Company implements Serializable {
     }
 
     /**
+     * returns the bed object by removing it.
+     *
+     * @param n index of bed in list
+     * @return bed object at index n
+     * @throws EmptyCollectionException
+     */
+    public Bed removeAvailableBed(int n) throws EmptyCollectionException {
+        return bedListAvailable.removeAt(n);
+    }
+
+    /**
+     * returns the bed object by removing it.
+     *
+     * @param n index of bed in list
+     * @return bed object at index n
+     * @throws EmptyCollectionException
+     */
+    public Bed removeUnavailableBed(int n) throws EmptyCollectionException {
+        return bedListUnavailable.removeAt(n);
+    }    
+    
+    /**
      * returns the bed object without removing it.
      *
      * @param n index of bed in list
@@ -219,7 +241,7 @@ public class CareFacility extends Company implements Serializable {
      * @throws EmptyCollectionException
      */
     public Bed getAvailableBed(int n) throws EmptyCollectionException {
-        return bedListAvailable.removeAt(n);
+        return bedListAvailable.get(n);
     }
 
     /**
@@ -230,7 +252,7 @@ public class CareFacility extends Company implements Serializable {
      * @throws EmptyCollectionException
      */
     public Bed getUnavailableBed(int n) throws EmptyCollectionException {
-        return bedListUnavailable.removeAt(n);
+        return bedListUnavailable.get(n);
     }    
 
     /**
@@ -246,8 +268,18 @@ public class CareFacility extends Company implements Serializable {
      *
      * @return copy of bed linked list
      */
-    public LinkedList<Bed> getCopyBedList() {
+    public LinkedList<Bed> getCopyBedListAvailable() {
         return bedListAvailable.copy();
+    }
+    
+    /**
+     * Returns a copy of the bed linked list. This allows the data to be printed
+     * out without emptying the original stack
+     *
+     * @return copy of bed linked list
+     */
+    public LinkedList<Bed> getCopyBedListUnavailable() {
+        return bedListUnavailable.copy();
     }
 
     /**
@@ -361,10 +393,10 @@ public class CareFacility extends Company implements Serializable {
     public final void sortBeds(LinkedList<Bed> bedList) {
         while (!bedList.isEmpty()) {
             try {
-                if (bedList.first().getavailable() && bedList.first().getPatient() == null) {
-                    bedListAvailable.addLast(bedList.removeFirst());
+                if (bedList.first().getUsable() && bedList.first().getPatient() == null) {
+                    bedListAvailable.addFirst(bedList.removeFirst());
                 } else {
-                    bedListUnavailable.addLast(bedList.removeFirst());
+                    bedListUnavailable.addFirst(bedList.removeFirst());
                 }
             } catch (EmptyCollectionException e) {
                 e.printStackTrace();

@@ -70,7 +70,7 @@ public class Bed implements Serializable {
      *
      * @return True if usable, false if not usable.
      */
-    public boolean getavailable() {
+    public boolean getUsable() {
         return usable;
     }
 

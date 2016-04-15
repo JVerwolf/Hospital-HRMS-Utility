@@ -86,14 +86,14 @@ public class FunctionalityUtils {
         try {
             int count = 1;
             while (!availableBeds.isEmpty()) {
-                Bed tempBed = availableBeds.removeLast();
+                Bed tempBed = availableBeds.removeFirst();
                 listModelA.addElement(count + "  " + tempBed.getName()
                         + "  " + tempBed.getLocation()
                         + " Available");
                 count++;
             }
             while (!unAvailableBeds.isEmpty()) {
-                Bed tempBed = unAvailableBeds.removeLast();
+                Bed tempBed = unAvailableBeds.removeFirst();
                 listModelU.addElement(count + "  " + tempBed.getName()
                         + "  " + tempBed.getLocation()
                         + "  Unavailable");
@@ -144,7 +144,7 @@ public class FunctionalityUtils {
         try {
            
             if (nA >= 0) {
-                Bed temp = cF.getAvailableBed(nA);
+                Bed temp = cF.removeAvailableBed(nA);
                 if (!name.equals("")) {
                     temp.setName(name);
                 }
@@ -158,7 +158,7 @@ public class FunctionalityUtils {
                 }
                 cF.addBed(temp);
             } else if(nU >= 0) {
-                Bed temp2 = cF.getUnavailableBed(nU);
+                Bed temp2 = cF.removeUnavailableBed(nU);
                 if (!name.equals("")) {
                     temp2.setName(name);
                 }
