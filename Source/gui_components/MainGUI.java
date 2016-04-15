@@ -21,6 +21,11 @@ public class MainGUI extends javax.swing.JFrame {
      */
     public MainGUI() {
         savePath = null;
+
+        //bedCard components
+        bedListAvailableIndexSelected = -1;
+        bedListUnavailableIndexSelected = -1;
+
         initComponents();
     }
 
@@ -41,7 +46,6 @@ public class MainGUI extends javax.swing.JFrame {
         startLoad = new javax.swing.JButton();
         startNew = new javax.swing.JButton();
         cardBeds = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         bedAvailable = new javax.swing.JCheckBox();
@@ -49,17 +53,24 @@ public class MainGUI extends javax.swing.JFrame {
         bedLocation = new javax.swing.JTextField();
         bedNameAdd = new javax.swing.JTextField();
         bedNew = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        panelModify = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         bedAvailable2 = new javax.swing.JCheckBox();
         jLabel7 = new javax.swing.JLabel();
         bedLocation2 = new javax.swing.JTextField();
         bedNameAdd2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        bedEdit = new javax.swing.JButton();
+        bedDelete = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
+        bedUnavailable2 = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
-        bedList = new javax.swing.JList();
+        bedListA = new javax.swing.JList();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        bedListU = new javax.swing.JList();
         cardPatients = new javax.swing.JPanel();
         cardEmployees = new javax.swing.JPanel();
         cardReport = new javax.swing.JPanel();
@@ -129,7 +140,7 @@ public class MainGUI extends javax.swing.JFrame {
                 .addGroup(startLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(250, Short.MAX_VALUE))
+                .addContainerGap(155, Short.MAX_VALUE))
         );
         startLayout.setVerticalGroup(
             startLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,7 +149,7 @@ public class MainGUI extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 245, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 155, Short.MAX_VALUE)
                 .addGroup(startLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(startNew)
                     .addComponent(startLoad))
@@ -147,11 +158,9 @@ public class MainGUI extends javax.swing.JFrame {
 
         mainPanel.add(start, "start");
 
-        jLabel3.setText("To add a bed, fill in the forms and press New");
-
         jLabel5.setText("Location:");
 
-        bedAvailable.setText("Available");
+        bedAvailable.setText("Working");
 
         jLabel4.setText("Name:");
 
@@ -171,29 +180,39 @@ public class MainGUI extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setText("To add a bed, fill in the forms and press New");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(bedNameAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(bedLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(bedAvailable)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(bedNew)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bedNameAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(bedLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(bedAvailable)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
@@ -202,14 +221,20 @@ public class MainGUI extends javax.swing.JFrame {
                     .addComponent(bedNameAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bedLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bedAvailable))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(bedNew)
                 .addGap(25, 25, 25))
         );
 
         jLabel6.setText("Location:");
 
-        bedAvailable2.setText("Available");
+        bedAvailable2.setSelected(true);
+        bedAvailable2.setText("Working");
+        bedAvailable2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bedAvailable2ActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("Name:");
 
@@ -222,93 +247,148 @@ public class MainGUI extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Edit");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        bedEdit.setText("Edit");
+        bedEdit.setEnabled(false);
+        bedEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                bedEditActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Delete");
+        bedDelete.setText("Delete");
+        bedDelete.setEnabled(false);
+        bedDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bedDeleteActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("To modify a bed, select it from the list and press edit");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        bedUnavailable2.setText("Broken");
+        bedUnavailable2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bedUnavailable2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelModifyLayout = new javax.swing.GroupLayout(panelModify);
+        panelModify.setLayout(panelModifyLayout);
+        panelModifyLayout.setHorizontalGroup(
+            panelModifyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelModifyLayout.createSequentialGroup()
+                .addGroup(panelModifyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelModifyLayout.createSequentialGroup()
+                        .addGroup(panelModifyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelModifyLayout.createSequentialGroup()
+                                .addGroup(panelModifyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(bedNameAdd2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel7))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(panelModifyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addGroup(panelModifyLayout.createSequentialGroup()
                                         .addComponent(bedLocation2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jButton2)
-                                            .addComponent(bedAvailable2)))))
-                            .addComponent(jButton1))
+                                        .addComponent(bedDelete)))
+                                .addGap(6, 6, 6))
+                            .addComponent(bedEdit))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panelModifyLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(panelModifyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bedUnavailable2)
+                            .addComponent(bedAvailable2))))
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+        panelModifyLayout.setVerticalGroup(
+            panelModifyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelModifyLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelModifyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel6))
+                    .addComponent(jLabel6)
+                    .addComponent(bedAvailable2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelModifyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bedNameAdd2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bedLocation2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bedAvailable2))
+                    .addComponent(bedUnavailable2))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addGroup(panelModifyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bedEdit)
+                    .addComponent(bedDelete))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        bedList.setModel(new javax.swing.DefaultListModel());
-        jScrollPane1.setViewportView(bedList);
+        bedListA.setModel(new javax.swing.DefaultListModel());
+        bedListA.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bedListAMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(bedListA);
+
+        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        jLabel9.setText("Available:");
+
+        jLabel10.setText("Unavailable:");
+
+        bedListU.setModel(new javax.swing.DefaultListModel());
+        bedListU.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bedListUMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(bedListU);
 
         javax.swing.GroupLayout cardBedsLayout = new javax.swing.GroupLayout(cardBeds);
         cardBeds.setLayout(cardBedsLayout);
         cardBedsLayout.setHorizontalGroup(
             cardBedsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cardBedsLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(cardBedsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(cardBedsLayout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(8, 8, 8))
+                        .addContainerGap()
+                        .addGroup(cardBedsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel10))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(cardBedsLayout.createSequentialGroup()
+                        .addGroup(cardBedsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
+                            .addGroup(cardBedsLayout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(10, 10, 10)))
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(cardBedsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelModify, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         cardBedsLayout.setVerticalGroup(
             cardBedsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cardBedsLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67))
-            .addComponent(jScrollPane1)
+                .addGroup(cardBedsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(cardBedsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(panelModify, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jSeparator1)
         );
 
         mainPanel.add(cardBeds, "cardBeds");
@@ -317,11 +397,11 @@ public class MainGUI extends javax.swing.JFrame {
         cardPatients.setLayout(cardPatientsLayout);
         cardPatientsLayout.setHorizontalGroup(
             cardPatientsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 685, Short.MAX_VALUE)
+            .addGap(0, 590, Short.MAX_VALUE)
         );
         cardPatientsLayout.setVerticalGroup(
             cardPatientsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 435, Short.MAX_VALUE)
+            .addGap(0, 345, Short.MAX_VALUE)
         );
 
         mainPanel.add(cardPatients, "cardPatients");
@@ -330,11 +410,11 @@ public class MainGUI extends javax.swing.JFrame {
         cardEmployees.setLayout(cardEmployeesLayout);
         cardEmployeesLayout.setHorizontalGroup(
             cardEmployeesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 685, Short.MAX_VALUE)
+            .addGap(0, 590, Short.MAX_VALUE)
         );
         cardEmployeesLayout.setVerticalGroup(
             cardEmployeesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 435, Short.MAX_VALUE)
+            .addGap(0, 345, Short.MAX_VALUE)
         );
 
         mainPanel.add(cardEmployees, "cardEmployees");
@@ -356,7 +436,7 @@ public class MainGUI extends javax.swing.JFrame {
         cardReport.setLayout(cardReportLayout);
         cardReportLayout.setHorizontalGroup(
             cardReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(reportScrollArea, javax.swing.GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE)
+            .addComponent(reportScrollArea, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
             .addGroup(cardReportLayout.createSequentialGroup()
                 .addComponent(reportUpdate)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -364,7 +444,7 @@ public class MainGUI extends javax.swing.JFrame {
         cardReportLayout.setVerticalGroup(
             cardReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cardReportLayout.createSequentialGroup()
-                .addComponent(reportScrollArea, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
+                .addComponent(reportScrollArea, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(reportUpdate))
         );
@@ -553,9 +633,35 @@ public class MainGUI extends javax.swing.JFrame {
         FunctionalityUtils.updateReport(cF, reportDisplay);
     }//GEN-LAST:event_reportUpdateActionPerformed
 
-    private void bedNameAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bedNameAddActionPerformed
+    private void saveAsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAsMenuItemActionPerformed
+        fileSaveDialog(evt);
+    }//GEN-LAST:event_saveAsMenuItemActionPerformed
+
+    private void bedListAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bedListAMouseClicked
+        if (!bedListA.isSelectionEmpty()) {
+            bedListAvailableIndexSelected = bedListA.getSelectedIndex();
+            bedListUnavailableIndexSelected = -1;
+            bedDelete.setEnabled(true);
+            bedEdit.setEnabled(true);
+            bedListU.clearSelection();
+        }
+        //bedLocation2.setText(Integer.toString(bedListA.getSelectedIndex() + 1)); //for testing
+
+    }//GEN-LAST:event_bedListAMouseClicked
+
+    private void bedDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bedDeleteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_bedNameAddActionPerformed
+    }//GEN-LAST:event_bedDeleteActionPerformed
+
+    private void bedEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bedEditActionPerformed
+        FunctionalityUtils.modifyBeds(cF, bedListAvailableIndexSelected, bedListUnavailableIndexSelected, bedNameAdd2, bedLocation2, bedAvailable2);
+        FunctionalityUtils.updateBedDisplay(cF, bedListA, bedListU);
+    }//GEN-LAST:event_bedEditActionPerformed
+
+    private void bedNameAdd2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bedNameAdd2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bedNameAdd2ActionPerformed
+
     /**
      * adds a bed to the care facility
      *
@@ -567,20 +673,40 @@ public class MainGUI extends javax.swing.JFrame {
         Boolean available = bedAvailable.isSelected();
         Bed bed = new Bed(name, location, available, null);
         cF.addBed(bed);
-        FunctionalityUtils.updateBedDisplay(cF, bedList);
+        FunctionalityUtils.updateBedDisplay(cF, bedListA, bedListU);
     }//GEN-LAST:event_bedNewActionPerformed
 
-    private void saveAsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAsMenuItemActionPerformed
-        fileSaveDialog(evt);
-    }//GEN-LAST:event_saveAsMenuItemActionPerformed
-
-    private void bedNameAdd2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bedNameAdd2ActionPerformed
+    private void bedNameAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bedNameAddActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_bedNameAdd2ActionPerformed
+    }//GEN-LAST:event_bedNameAddActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        FunctionalityUtils.modifyBeds(cF, bedList);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void bedListUMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bedListUMouseClicked
+
+        if (!bedListU.isSelectionEmpty()) {
+            bedListUnavailableIndexSelected = bedListU.getSelectedIndex() + 1;
+            bedListAvailableIndexSelected = -1;
+            bedDelete.setEnabled(true);
+            bedEdit.setEnabled(true);
+            bedListA.clearSelection();
+        }
+        //bedNameAdd2.setText(Integer.toString(bedListU.getSelectedIndex() + 1)); //for testing
+    }//GEN-LAST:event_bedListUMouseClicked
+
+    private void bedAvailable2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bedAvailable2ActionPerformed
+        if (bedAvailable2.isSelected()) {
+            bedUnavailable2.setSelected(false);
+        } else {
+            bedUnavailable2.setSelected(true);
+        }
+    }//GEN-LAST:event_bedAvailable2ActionPerformed
+
+    private void bedUnavailable2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bedUnavailable2ActionPerformed
+        if (bedUnavailable2.isSelected()) {
+            bedAvailable2.setSelected(false);
+        } else {
+            bedAvailable2.setSelected(true);
+        }
+    }//GEN-LAST:event_bedUnavailable2ActionPerformed
 
     /**
      * opens an file open dialog to open the specified file
@@ -621,7 +747,6 @@ public class MainGUI extends javax.swing.JFrame {
             File tempPath = fileChooser.getSelectedFile();  //get file path from filechooser
             String filename = tempPath.toString();
 
-            
             if (!filename.isEmpty() && !filename.startsWith(".")) { //sanitize imput
                 if (!filename.endsWith(".cf")) {            //ensure the file type is correct
                     filename += ".cf";
@@ -694,18 +819,29 @@ public class MainGUI extends javax.swing.JFrame {
             }
         });
     }
+    //Holds the filepath for the save feature
     private File savePath;
+
     private CareFacility cF;
+
+    //for bedCard
+    private int bedListAvailableIndexSelected;
+    private int bedListUnavailableIndexSelected;
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JCheckBox bedAvailable;
     private javax.swing.JCheckBox bedAvailable2;
-    private javax.swing.JList bedList;
+    private javax.swing.JButton bedDelete;
+    private javax.swing.JButton bedEdit;
+    private javax.swing.JList bedListA;
+    private javax.swing.JList bedListU;
     private javax.swing.JTextField bedLocation;
     private javax.swing.JTextField bedLocation2;
     private javax.swing.JTextField bedNameAdd;
     private javax.swing.JTextField bedNameAdd2;
     private javax.swing.JButton bedNew;
+    private javax.swing.JCheckBox bedUnavailable2;
     private javax.swing.JPanel cardBeds;
     private javax.swing.JPanel cardEmployees;
     private javax.swing.JPanel cardPatients;
@@ -718,9 +854,8 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JFileChooser fileChooser;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -728,12 +863,15 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
+    private javax.swing.JPanel panelModify;
     private javax.swing.JTextArea reportDisplay;
     private javax.swing.JScrollPane reportScrollArea;
     private javax.swing.JButton reportUpdate;

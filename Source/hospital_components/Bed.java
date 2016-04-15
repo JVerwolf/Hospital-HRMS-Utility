@@ -12,27 +12,36 @@ public class Bed implements Serializable {
 
     private String location;
     private String name;
-    boolean available;
+    boolean usable;
     Patient patient;
 
     /**
      * Initializes this Bed object's name and location to a specified name and
      * location
      *
-     * @param name         The specified name for the bed
-     * @param location     the specified location where this bed is located
-     * @param availability -1 indicates unavailable, 0 indicates filled, 1
-     *                     indicates available
+     * @param name     The specified name for the bed
+     * @param location the specified location where this bed is located
      */
     public Bed(String name, String location, boolean available, Patient patient) {
         this.location = location;
         this.name = name;
-        this.available = available;
+        this.usable = available;
         this.patient = patient;
     }
+
+    /**
+     * sets location
+     *
+     * @param location location
+     */
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
     /**
      * get location
-     * @return location 
+     *
+     * @return location
      */
     public String getLocation() {
         return location;
@@ -59,19 +68,19 @@ public class Bed implements Serializable {
     /**
      * returns availability
      *
-     * @return True if available, false if not available.
+     * @return True if usable, false if not usable.
      */
     public boolean getavailable() {
-        return available;
+        return usable;
     }
 
     /**
      * sets availability
      *
-     * @param availability True if available, false if not available.
+     * @param availability True if usable, false if not usable.
      */
-    public void setAvailable(boolean available) {
-        this.available = available;
+    public void setUsable(boolean usable) {
+        this.usable = usable;
     }
 
     /**

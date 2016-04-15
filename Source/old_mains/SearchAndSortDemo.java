@@ -106,7 +106,7 @@ public class SearchAndSortDemo {
 
             LinkedList<Bed> bedList = listOfBeds();
             try {
-                Bed testBed = bedList.get(1);
+                Bed testBed = bedList.removeAt(1);
                 System.out.println("\ntest removeAt method:" + testBed.getName());
                 //LinkedList<Bed> test = bedList.copy();
                 while (!bedList.isEmpty()) {

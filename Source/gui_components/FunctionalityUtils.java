@@ -7,8 +7,10 @@ import hospital_components.Bed;
 import hospital_components.CareFacility;
 import hospital_components.Patient;
 import javax.swing.DefaultListModel;
+import javax.swing.JCheckBox;
 import javax.swing.JList;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 /**
  *
@@ -65,8 +67,7 @@ public class FunctionalityUtils {
 //        LinkedList<Bed> unAvailableBeds = CF.getCopybedListUnAvailable();
 //
 //    }
-
-    public static void updateBedDisplay(CareFacility CF, javax.swing.JList bedList) {
+    public static void updateBedDisplay(CareFacility CF, javax.swing.JList bedListA, javax.swing.JList bedListU) {
         /**
          * Get a copy of the patientStack instance variable of CF CareFacility
          * object.
@@ -75,21 +76,25 @@ public class FunctionalityUtils {
         LinkedList<Bed> unAvailableBeds = CF.getCopybedListUnAvailable();
 
         //clear list
-        DefaultListModel listModel = (DefaultListModel) bedList.getModel();
-        listModel.removeAllElements();
+        DefaultListModel listModelA = (DefaultListModel) bedListA.getModel();
+        DefaultListModel listModelU = (DefaultListModel) bedListU.getModel();
+
+        //Make listModels
+        listModelA.removeAllElements();
+        listModelU.removeAllElements();
 
         try {
             int count = 1;
             while (!availableBeds.isEmpty()) {
                 Bed tempBed = availableBeds.removeLast();
-                listModel.addElement(count + "  " + tempBed.getName()
+                listModelA.addElement(count + "  " + tempBed.getName()
                         + "  " + tempBed.getLocation()
                         + " Available");
                 count++;
             }
             while (!unAvailableBeds.isEmpty()) {
                 Bed tempBed = unAvailableBeds.removeLast();
-                listModel.addElement(count + "  " + tempBed.getName()
+                listModelU.addElement(count + "  " + tempBed.getName()
                         + "  " + tempBed.getLocation()
                         + "  Unavailable");
                 count++;
@@ -132,8 +137,43 @@ public class FunctionalityUtils {
 //            System.out.println(e);
 //        }
 //    }
-
-    static void modifyBeds(CareFacility cF, JList bedList) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    static void modifyBeds(CareFacility cF, int nA, int nU, JTextField nameTF, JTextField locationTF, JCheckBox isAvailable) {
+        String name = nameTF.getText();
+        String location = locationTF.getText();
+        
+        try {
+           
+            if (nA >= 0) {
+                Bed temp = cF.getAvailableBed(nA);
+                if (!name.equals("")) {
+                    temp.setName(name);
+                }
+                if (!location.equals("")) {
+                    temp.setLocation(location);
+                }
+                if (isAvailable.isSelected()) {
+                    temp.setUsable(true);
+                }else{
+                    temp.setUsable(false);
+                }
+                cF.addBed(temp);
+            } else if(nU >= 0) {
+                Bed temp2 = cF.getUnavailableBed(nU);
+                if (!name.equals("")) {
+                    temp2.setName(name);
+                }
+                if (!location.equals("")) {
+                    temp2.setLocation(location);
+                }
+                if (isAvailable.isSelected()) {
+                    temp2.setUsable(true);                    
+                }else{
+                    temp2.setUsable(false);
+                }
+                cF.addBed(temp2);
+            }            
+        } catch (EmptyCollectionException e) {
+            System.out.println(e);
+        }
     }
 }

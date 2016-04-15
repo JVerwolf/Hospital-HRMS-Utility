@@ -2,6 +2,7 @@ package hospital_components;
 
 import data_structures.EmptyCollectionException;
 import data_structures.ArrayStack;
+import data_structures.ElementNotFoundException;
 import data_structures.LinkedList;
 import data_structures.LinkedQueue;
 import io_utils.ReadFile;
@@ -49,7 +50,7 @@ public class CareFacility extends Company implements Serializable {
      */
     public CareFacility(String name) {
         this();
-        facilityName = name;        
+        facilityName = name;
     }
 
     /**
@@ -211,6 +212,28 @@ public class CareFacility extends Company implements Serializable {
     }
 
     /**
+     * returns the bed object without removing it.
+     *
+     * @param n index of bed in list
+     * @return bed object at index n
+     * @throws EmptyCollectionException
+     */
+    public Bed getAvailableBed(int n) throws EmptyCollectionException {
+        return bedListAvailable.removeAt(n);
+    }
+
+    /**
+     * returns the bed object without removing it.
+     *
+     * @param n index of bed in list
+     * @return bed object at index n
+     * @throws EmptyCollectionException
+     */
+    public Bed getUnavailableBed(int n) throws EmptyCollectionException {
+        return bedListUnavailable.removeAt(n);
+    }    
+
+    /**
      * Assign casual employees to patients with the highest priority value
      */
     public void assignCasualEmployee() {
@@ -256,6 +279,7 @@ public class CareFacility extends Company implements Serializable {
     public LinkedList<Bed> getCopybedListAvailable() {
         return bedListAvailable.copy();
     }
+
     /**
      * Returns a copy of the bedListAvailable. This allows the data to be
      * printed out without emptying the original Data Structure
