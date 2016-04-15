@@ -231,8 +231,8 @@ public class CareFacility extends Company implements Serializable {
      */
     public Bed removeUnavailableBed(int n) throws EmptyCollectionException {
         return bedListUnavailable.removeAt(n);
-    }    
-    
+    }
+
     /**
      * returns the bed object without removing it.
      *
@@ -253,7 +253,7 @@ public class CareFacility extends Company implements Serializable {
      */
     public Bed getUnavailableBed(int n) throws EmptyCollectionException {
         return bedListUnavailable.get(n);
-    }    
+    }
 
     /**
      * Assign casual employees to patients with the highest priority value
@@ -271,7 +271,7 @@ public class CareFacility extends Company implements Serializable {
     public LinkedList<Bed> getCopyBedListAvailable() {
         return bedListAvailable.copy();
     }
-    
+
     /**
      * Returns a copy of the bed linked list. This allows the data to be printed
      * out without emptying the original stack
@@ -512,6 +512,27 @@ public class CareFacility extends Company implements Serializable {
             Patient t = stack.pop();    //Peel every element off of stack and store in call-stack
             sort(stack);                //recursive call
             insert(stack, t);           //sort top element of call stack back into stack.
+        } catch (EmptyCollectionException e) {
+            System.out.println("Something went wrong in Carefacility.sort(s):\t" + e);
+        }
+    }
+
+    public void removePatient(int n) {
+        removeP(patientStack, n);
+    }
+
+    private void removeP(ArrayStack<Patient> stack, int n) {
+        //TODO: code case where n is outside of stack
+        try {
+            if (stack == null) {
+                return;
+            } else if (stack.isEmpty()) {
+                return;
+            } if (stack.size() - n == n) 
+               
+             
+            Patient t = stack.pop();
+            
         } catch (EmptyCollectionException e) {
             System.out.println("Something went wrong in Carefacility.sort(s):\t" + e);
         }
