@@ -26,26 +26,26 @@ public class SearchAndSortDemo {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        //Demonstrate file Read/Write
-        {
-            //get unsorted list of patients from method
-            ArrayStack<Patient> testFileIOStack = stackOfPatients();
-
-            System.out.println("\nWriting to file");
-            new WriteFile<>(testFileIOStack).writeTo("testStack");
-
-            System.out.println("\nReading from file");
-            ArrayStack<Patient> testInputStack = (ArrayStack<Patient>) new ReadFile<Patient>("testStack").getFile();
-
-            //output unsorted list of patients to screen
-            try {
-                while (!testInputStack.isEmpty()) {
-                    System.out.println(testInputStack.pop().getName());
-                }
-            } catch (EmptyCollectionException e) {
-                System.out.println(e);
-            }
-        }
+//        //Demonstrate file Read/Write
+//        {
+//            //get unsorted list of patients from method
+//            ArrayStack<Patient> testFileIOStack = stackOfPatients();
+//
+//            System.out.println("\nWriting to file");
+//            new WriteFile<>(testFileIOStack).writeTo("testStack");
+//
+//            System.out.println("\nReading from file");
+//            ArrayStack<Patient> testInputStack = (ArrayStack<Patient>) new ReadFile<Patient>("testStack").getFile();
+//
+//            //output unsorted list of patients to screen
+//            try {
+//                while (!testInputStack.isEmpty()) {
+//                    System.out.println(testInputStack.pop().getName());
+//                }
+//            } catch (EmptyCollectionException e) {
+//                System.out.println(e);
+//            }
+//        }
         //demonstrate linear search        
         {
             String searchFor = "Bob2";  //Priority value of patient to be searched for                 
@@ -116,6 +116,23 @@ public class SearchAndSortDemo {
                 System.out.println(e);
             }
 
+        }
+
+        //demonstrate remove()
+        {            
+            //call the search
+            ArrayStack<Patient> testSSortStack = SortUtilities.insertionSort(stackOfPatients());
+            
+            System.out.println("Remove; " + testSSortStack.remove(4).getName());
+            //print to screen
+            try {
+                while (!testSSortStack.isEmpty()) {
+                    System.out.println(testSSortStack.pop().getName());
+
+                }
+            } catch (EmptyCollectionException e) {
+                System.out.println(e);
+            }
         }
 
     }

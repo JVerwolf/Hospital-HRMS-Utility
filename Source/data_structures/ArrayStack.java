@@ -94,9 +94,11 @@ public class ArrayStack<T> implements StackADT<T>, DataStructure<T>, Serializabl
     public T remove(int n) {
         T temp = stackArray[n];
         while (n < stackArray.length - 1) {
-            stackArray[n] =stackArray[n+1]
+            stackArray[n] = stackArray[n + 1];
+            stackArray[n + 1] = null;
+            n++;
         }
-        stackArray[n+1]=null;
+        top--;
         return temp;
     }
 
