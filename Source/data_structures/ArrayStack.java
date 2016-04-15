@@ -54,16 +54,13 @@ public class ArrayStack<T> implements StackADT<T>, DataStructure<T>, Serializabl
      * @param passedArray the array that the stack uses as it's underlying data
      *                    container.
      */
-    private ArrayStack(int passedTop, T[] passedArray, int passedLength) {
+    private ArrayStack(int passedTop, T[] passedArray, int passedSize) {
         this.top = passedTop;
-
-        this.stackArray = (T[]) (new Object[passedLength]);
-
+        this.stackArray = (T[]) (new Object[passedTop]);
         /**
-         * manual deep copy of passed array into instance variable
-         * this.stackArray
+         * manual copy of passed array into instance variable this.stackArray
          */
-        for (int i = 0; i < passedArray.length; i++) {
+        for (int i = 0; i < stackArray.length; i++) {
             this.stackArray[i] = passedArray[i];
         }
     }
@@ -75,12 +72,32 @@ public class ArrayStack<T> implements StackADT<T>, DataStructure<T>, Serializabl
      * @param element generic element to be pushed onto stack
      */
     @Override
-    public void push(T element) {
+    public void push(T element
+    ) {
         if (size() == stackArray.length) {
             expandCapacity();
         }
         stackArray[top] = element;
         top++;
+    }
+
+    /**
+     * Returns reference, for modification.
+     *
+     * @param n
+     * @return
+     */
+    public T get(int n) {
+        return stackArray[n];
+    }
+
+    public T remove(int n) {
+        T temp = stackArray[n];
+        while (n < stackArray.length - 1) {
+            stackArray[n] =stackArray[n+1]
+        }
+        stackArray[n+1]=null;
+        return temp;
     }
 
     /**

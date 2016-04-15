@@ -58,15 +58,6 @@ public class FunctionalityUtils {
         }
     }
 
-//    private static String[] convertBedListToArray(CareFacility CF) {
-//        /**
-//         * Get a copy of the patientStack instance variable of CF CareFacility
-//         * object.
-//         */
-//        LinkedList<Bed> availableBeds = CF.getCopybedListAvailable();
-//        LinkedList<Bed> unAvailableBeds = CF.getCopybedListUnAvailable();
-//
-//    }
     public static void updateBedDisplay(CareFacility CF, javax.swing.JList bedListA, javax.swing.JList bedListU) {
         /**
          * Get a copy of the patientStack instance variable of CF CareFacility
@@ -105,44 +96,45 @@ public class FunctionalityUtils {
 
     }
 
-//    public static void updateBedDisplay(CareFacility CF, JTextArea bedDisplay) {
-//
-//        /**
-//         * Get a copy of the patientStack instance variable of CF CareFacility
-//         * object.
-//         */
-//        LinkedList<Bed> availableBeds = CF.getCopybedListAvailable();
-//        LinkedList<Bed> unAvailableBeds = CF.getCopybedListUnAvailable();
-//
-//        bedDisplay.setText(null);//clear text area
-//
-//        bedDisplay.append("BED NAME:\tlOCATION:\t AVAILABLE:");
-//        try {
-//            int count = 1;
-//            while (!availableBeds.isEmpty()) {
-//                Bed tempBed = availableBeds.removeLast();
-//                bedDisplay.append("\n" + count + "\t" + tempBed.getName()
-//                        + "\t" + tempBed.getLocation()
-//                        + "\tYes");
-//                count++;
-//            }
-//            while (!unAvailableBeds.isEmpty()) {
-//                Bed tempBed = unAvailableBeds.removeLast();
-//                bedDisplay.append("\n" + count + "\t" + tempBed.getName()
-//                        + "\t" + tempBed.getLocation()
-//                        + "\tNo");
-//                count++;
-//            }
-//        } catch (EmptyCollectionException e) {
-//            System.out.println(e);
-//        }
-//    }
+    public static void updatePatientDisplay(CareFacility CF, javax.swing.JList patientList) {
+        /**
+         * Get a copy of the patientStack instance variable of CF CareFacility
+         * object.
+         */
+        ArrayStack<Patient> pStack = CF.getCopyPatientStack();
+        
+
+        //clear list
+        DefaultListModel listModelA = (DefaultListModel) patientList.getModel();
+
+        //Make listModels
+        listModelA.removeAllElements();
+
+        try {
+            while (!pStack.isEmpty()) {
+                Patient tempP = pStack.pop();
+                
+                String bed = "no bed";
+                if (tempP.getBed() != null) {
+                    bed = tempP.getBed().getName();
+                }
+                String employee = "no employee";
+                if (tempP.getCasualEmployee() != null) {
+                    employee = tempP.getCasualEmployee().getName();
+                }
+                listModelA.addElement(tempP.getName() + "  " + tempP.getPriority() + "  " + bed + "  " + employee);
+            }
+        } catch (EmptyCollectionException e) {
+            System.out.println(e);
+        }
+    }
+
     static void modifyBeds(CareFacility cF, int nA, int nU, JTextField nameTF, JTextField locationTF, JCheckBox isAvailable) {
         String name = nameTF.getText();
         String location = locationTF.getText();
-        
+
         try {
-           
+
             if (nA >= 0) {
                 Bed temp = cF.removeAvailableBed(nA);
                 if (!name.equals("")) {
@@ -153,11 +145,11 @@ public class FunctionalityUtils {
                 }
                 if (isAvailable.isSelected()) {
                     temp.setUsable(true);
-                }else{
+                } else {
                     temp.setUsable(false);
                 }
                 cF.addBed(temp);
-            } else if(nU >= 0) {
+            } else if (nU >= 0) {
                 Bed temp2 = cF.removeUnavailableBed(nU);
                 if (!name.equals("")) {
                     temp2.setName(name);
@@ -166,12 +158,12 @@ public class FunctionalityUtils {
                     temp2.setLocation(location);
                 }
                 if (isAvailable.isSelected()) {
-                    temp2.setUsable(true);                    
-                }else{
+                    temp2.setUsable(true);
+                } else {
                     temp2.setUsable(false);
                 }
                 cF.addBed(temp2);
-            }            
+            }
         } catch (EmptyCollectionException e) {
             System.out.println(e);
         }
