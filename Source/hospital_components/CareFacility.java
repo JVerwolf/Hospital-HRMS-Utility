@@ -2,7 +2,6 @@ package hospital_components;
 
 import data_structures.EmptyCollectionException;
 import data_structures.ArrayStack;
-import data_structures.ElementNotFoundException;
 import data_structures.LinkedList;
 import data_structures.LinkedQueue;
 import io_utils.ReadFile;
@@ -14,7 +13,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class models a care facility with patients, beds, and hourly employees.
@@ -23,8 +23,8 @@ import java.util.Iterator;
  */
 public class CareFacility extends Company implements Serializable {
 
-    private LinkedList<Bed> bedListAvailable;
-    private LinkedList<Bed> bedListUnavailable;
+    private LinkedList<Bed> bedListInWorkingOrder;
+    private LinkedList<Bed> bedListInRepair;
     private LinkedQueue<CasualEmployee> casualEmployee;
     private java.lang.String facilityName;
     private ArrayStack<Patient> patientStack;
@@ -36,8 +36,8 @@ public class CareFacility extends Company implements Serializable {
     public CareFacility() {
         facilityName = "";
         casualEmployee = new LinkedQueue<>();
-        bedListAvailable = new LinkedList<>();
-        bedListUnavailable = new LinkedList<>();
+        bedListInWorkingOrder = new LinkedList<>();
+        bedListInRepair = new LinkedList<>();
         patientStack = new ArrayStack<>();
     }
 
@@ -83,7 +83,7 @@ public class CareFacility extends Company implements Serializable {
     public CareFacility(String facilityName, LinkedQueue<CasualEmployee> casualEmployee) {
         this.facilityName = facilityName;
         this.casualEmployee = casualEmployee;
-        bedListAvailable = new LinkedList<>();
+        bedListInWorkingOrder = new LinkedList<>();
         patientStack = new ArrayStack<>();
     }
 
@@ -132,32 +132,63 @@ public class CareFacility extends Company implements Serializable {
      * @param bedS     A stack of Bed objects
      */
     private static void bedTime(ArrayStack<Patient> PatientS, LinkedList<Bed> bedS) {
-        try {
-            if (bedS == null) {
-                return;
-            }
-            if (bedS.isEmpty()) {
-                return;
-            }
-            if (!PatientS.isEmpty()) {
-                Patient t = PatientS.pop();                     //pop temp element off of the stack
-                bedTime(PatientS, bedS);                        //recursive call (ie reverse stack by pushing to call-stack)
-                //                                              //recursion unwinds and starts returning to this line
-                if (t.getBed() == null && !bedS.isEmpty()) {    //if Patient t does not have a bed and if there are beds available...
-                    t.setBed(bedS.removeFirst());               //remove bed from bed linked list and give to Patient
-                }
-                PatientS.push(t);                               //put temp element back on to stack as recursion unwinds
-            }
-        } catch (EmptyCollectionException e) {
-            System.out.println("Something went wrong in the .bedTime method:\t" + e);
-        }
-    }
+        ArrayStack<Patient> reverseP = new ArrayStack<>();
+        LinkedList<Bed> copyB = bedS.copy();
 
-    /**
-     * Save the class to a file
-     *
-     * @param f file object holding location of save
-     */
+        try {
+            ArrayStack<Patient> copyP = PatientS.copy();
+            while (!copyP.isEmpty()) {
+                reverseP.push(copyP.pop());
+            }
+
+            //while (there are beds left) && ( there are patients left)
+            while (!reverseP.isEmpty() && !copyB.isEmpty()) {
+                if (!copyB.first().isAssignable()) {
+                    copyB.removeFirst();
+                }
+                if (reverseP.peek().getBed()!= null) {
+                    reverseP.pop();
+                }
+                if (!reverseP.isEmpty() && !copyB.isEmpty()) {
+                    if ((reverseP.peek().getBed() == null) && (copyB.first().isAssignable())) {
+                        Bed b = copyB.removeFirst();
+                        Patient p = reverseP.pop();
+
+                        p.setBed(b);
+                        b.setPatient(p);
+                    }
+                }
+            }
+        } catch (EmptyCollectionException ex) {
+            Logger.getLogger(CareFacility.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //        //Old recurisve algorithm
+        //        try {
+        //            if (bedS == null) {
+        //                return;
+        //            }
+        //            if (bedS.isEmpty()) {
+        //                return;
+        //            }
+        //            if (!PatientS.isEmpty()) {
+        //                Patient t = PatientS.pop();                     //pop temp element off of the stack
+        //                bedTime(PatientS, bedS);                        //recursive call (ie reverse stack by pushing to call-stack)
+        //                //                                              //recursion unwinds and starts returning to this line
+        //                if (t.getBed() == null && !bedS.isEmpty()) {    //if Patient t does not have a bed and if there are beds available...
+        //                    t.setBed(bedS.removeFirst());               //remove bed from bed linked list and give to Patient
+        //                }
+        //                PatientS.push(t);                               //put temp element back on to stack as recursion unwinds
+        //            }
+        //        } catch (EmptyCollectionException e) {
+        //            System.out.println("Something went wrong in the .bedTime method:\t" + e);
+        //        }
+        }
+
+        /**
+         * Save the class to a file
+         *
+         * @param f file object holding location of save
+         */
     public void Save(File f) {
         FileOutputStream fileOut = null;
         ObjectOutputStream objOut = null;
@@ -184,6 +215,40 @@ public class CareFacility extends Company implements Serializable {
     }
 
     /**
+     * adds a new casual employee to the care facility
+     *
+     * @param cE casual employee
+     */
+    public void addCasualEmployee(CasualEmployee cE) {
+        casualEmployee.enqueue(cE);
+        assignCasualEmployee();
+    }
+
+    /**
+     * returns a casual employee object without removing it
+     *
+     * @param n the index of the casual employee from the head of the queue
+     * @return casual employee at index n from head
+     * @throws EmptyCollectionException
+     */
+    public CasualEmployee getCasualEmployee(int n) throws EmptyCollectionException {
+        return casualEmployee.get(n);
+    }
+
+    /**
+     * returns a casual employee by removing it
+     *
+     * @param n the index of the casual employee from the head of the queue
+     * @return casual employee at index n from head
+     * @throws EmptyCollectionException
+     */
+    public CasualEmployee removeCasualEmployee(int n) throws EmptyCollectionException {
+        CasualEmployee temp = casualEmployee.removeAt(n);
+        assignCasualEmployee();//Not necessary but left for debugging, as this will get called eventually
+        return temp;
+    }
+
+    /**
      * This method adds a patient to the patient stack and places it in order or
      * priority on the stack.
      *
@@ -191,14 +256,15 @@ public class CareFacility extends Company implements Serializable {
      */
     public void addPatient(Patient p) {
         insert(patientStack, p);
+        assignBedAndCasualEmployee();
     }
 
     /**
      * Assign registered patients to existing beds, without kicking people
      * already in beds out.
      */
-    public void assignBed() {
-        bedTime(patientStack, bedListAvailable);
+    public void assignBeds() {
+        bedTime(patientStack, bedListInWorkingOrder);
     }
 
     /**
@@ -207,19 +273,22 @@ public class CareFacility extends Company implements Serializable {
      * available
      */
     public void assignBedAndCasualEmployee() {
-        assignBed();
+        assignBeds();
         assignCasualEmployee();
     }
 
     /**
-     * returns the bed object by removing it.
+     * returns the bed object by removing it. Removes patient from the bed.
      *
      * @param n index of bed in list
      * @return bed object at index n
      * @throws EmptyCollectionException
      */
     public Bed removeAvailableBed(int n) throws EmptyCollectionException {
-        return bedListAvailable.removeAt(n);
+        Bed bed = bedListInWorkingOrder.removeAt(n);
+        bed.removePatient();
+        return bed;
+         
     }
 
     /**
@@ -230,7 +299,7 @@ public class CareFacility extends Company implements Serializable {
      * @throws EmptyCollectionException
      */
     public Bed removeUnavailableBed(int n) throws EmptyCollectionException {
-        return bedListUnavailable.removeAt(n);
+        return bedListInRepair.removeAt(n);
     }
 
     /**
@@ -241,7 +310,7 @@ public class CareFacility extends Company implements Serializable {
      * @throws EmptyCollectionException
      */
     public Bed getAvailableBed(int n) throws EmptyCollectionException {
-        return bedListAvailable.get(n);
+        return bedListInWorkingOrder.get(n);
     }
 
     /**
@@ -252,7 +321,7 @@ public class CareFacility extends Company implements Serializable {
      * @throws EmptyCollectionException
      */
     public Bed getUnavailableBed(int n) throws EmptyCollectionException {
-        return bedListUnavailable.get(n);
+        return bedListInRepair.get(n);
     }
 
     /**
@@ -269,7 +338,7 @@ public class CareFacility extends Company implements Serializable {
      * @return copy of bed linked list
      */
     public LinkedList<Bed> getCopyBedListAvailable() {
-        return bedListAvailable.copy();
+        return bedListInWorkingOrder.copy();
     }
 
     /**
@@ -279,7 +348,7 @@ public class CareFacility extends Company implements Serializable {
      * @return copy of bed linked list
      */
     public LinkedList<Bed> getCopyBedListUnavailable() {
-        return bedListUnavailable.copy();
+        return bedListInRepair.copy();
     }
 
     /**
@@ -308,8 +377,8 @@ public class CareFacility extends Company implements Serializable {
      *
      * @return copy of bedListAvailable
      */
-    public LinkedList<Bed> getCopybedListAvailable() {
-        return bedListAvailable.copy();
+    public LinkedList<Bed> getCopybedListInWorkingOrder() {
+        return bedListInWorkingOrder.copy();
     }
 
     /**
@@ -319,7 +388,7 @@ public class CareFacility extends Company implements Serializable {
      * @return copy of bedListUnavailable
      */
     public LinkedList<Bed> getCopybedListUnAvailable() {
-        return bedListUnavailable.copy();
+        return bedListInRepair.copy();
     }
 
     /**
@@ -329,7 +398,7 @@ public class CareFacility extends Company implements Serializable {
         File f = new File("saves/bedList.ser");
 
         if (f.isFile()) {
-            bedListAvailable = (LinkedList<Bed>) new ReadFile("saves/bedList.ser").getFile();
+            bedListInWorkingOrder = (LinkedList<Bed>) new ReadFile("saves/bedList.ser").getFile();
         } else {
             System.out.println("Save file does not exist");
         }
@@ -366,7 +435,7 @@ public class CareFacility extends Company implements Serializable {
      */
     public void saveBeds() {
         makeSavesFolder();
-        new WriteFile<>(bedListAvailable).writeTo("saves/bedList.ser");
+        new WriteFile<>(bedListInWorkingOrder).writeTo("saves/bedList.ser");
     }
 
     /**
@@ -393,10 +462,10 @@ public class CareFacility extends Company implements Serializable {
     public final void sortBeds(LinkedList<Bed> bedList) {
         while (!bedList.isEmpty()) {
             try {
-                if (bedList.first().getUsable() && bedList.first().getPatient() == null) {
-                    bedListAvailable.addFirst(bedList.removeFirst());
+                if (bedList.first().getInWorkingOrder()) {
+                    bedListInWorkingOrder.addFirst(bedList.removeFirst());
                 } else {
-                    bedListUnavailable.addFirst(bedList.removeFirst());
+                    bedListInRepair.addFirst(bedList.removeFirst());
                 }
             } catch (EmptyCollectionException e) {
                 e.printStackTrace();
@@ -413,6 +482,7 @@ public class CareFacility extends Company implements Serializable {
         LinkedList<Bed> temp = new LinkedList<>();
         temp.addLast(bed);
         sortBeds(temp);
+        assignBeds();
     }
 
     /**
@@ -424,32 +494,67 @@ public class CareFacility extends Company implements Serializable {
     }
 
     /**
-     * This method recursively assigns casual employees to the patients with the
-     * highest priority value
+     * This method assigns casual employees to the patients with the highest
+     * priority value
      *
      * @param PatientS The stack of patients to have casual employees assigned
      * @param CEList   The linked list of casual employees
      */
     private void AssignCasualE(ArrayStack<Patient> PatientS, LinkedQueue<CasualEmployee> CEList) {
+        ArrayStack<Patient> reverseP = new ArrayStack<>();
+        LinkedQueue<CasualEmployee> copyCE = CEList.copy();
+
         try {
-            if (CEList == null) {
-                return;
+            ArrayStack<Patient> copyP = PatientS.copy();
+            while (!copyP.isEmpty()) {
+                reverseP.push(copyP.pop());
             }
-            if (CEList.isEmpty()) {
-                return;
-            }
-            if (!PatientS.isEmpty()) {
-                Patient p = PatientS.pop();                                 //pop temp element off of the stack
-                AssignCasualE(PatientS, CEList);                            //recursive call (ie reverse stack by pushing to call-stack)
-                //                                                          //recursion unwinds and starts returning to this line
-                if (p.getCasualEmployee() == null && !CEList.isEmpty()) {   //if Patient t does not have a bed and if there are beds available...
-                    p.setCasualEmployee(CEList.dequeue());                  //remove bed from bed linked list and give to Patient 
+
+            //while (there are casual employee left) && ( there are patients left)
+            while (!reverseP.isEmpty() && !copyCE.isEmpty()) {
+                if (!copyCE.first().isAssignable()) {
+                    copyCE.dequeue();
                 }
-                PatientS.push(p);                                           //put temp element back on to stack as recursion unwinds
+                if (reverseP.peek().getCasualEmployee() != null) {
+                    reverseP.pop();
+                }
+                if (!reverseP.isEmpty() && !copyCE.isEmpty()) {
+                    if ((reverseP.peek().getCasualEmployee() == null) && (copyCE.first().isAssignable())) {
+                        CasualEmployee cE = copyCE.dequeue();
+                        Patient p = reverseP.pop();
+
+                        p.setCasualEmployee(cE);
+                        cE.setPatient(p);
+                    }
+                }
             }
-        } catch (EmptyCollectionException e) {
-            System.out.println(e + "Something went wrong in the AssignCasualE() method:\t");
+        } catch (EmptyCollectionException ex) {
+            Logger.getLogger(CareFacility.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+//        //Old recursive algorithm
+//        } catch (EmptyCollectionException ex) {
+//            Logger.getLogger(CareFacility.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        try { //TODO: fix this to work with get and remove methods
+//            if (CEList == null) {
+//                return;
+//            }
+//            if (CEList.isEmpty()) {
+//                return;
+//            }
+//            if (!PatientS.isEmpty()) {
+//                Patient p = PatientS.pop();                                 //pop temp element off of the stack
+//                AssignCasualE(PatientS, CEList);                            //recursive call (ie reverse stack by pushing to call-stack)
+//                //                                                          //recursion unwinds and starts returning to this line
+//                if (p.getCasualEmployee() == null && !CEList.isEmpty()) {   //if Patient t does not have a bed and if there are beds available...
+//                    p.setCasualEmployee(CEList.dequeue());                  //remove bed from bed linked list and give to Patient 
+//                }
+//                PatientS.push(p);                                           //put temp element back on to stack as recursion unwinds
+//            }
+//        } catch (EmptyCollectionException e) {
+//            System.out.println(e + "Something went wrong in the AssignCasualE() method:\t");
+//        }
     }
 
     /**
@@ -517,25 +622,42 @@ public class CareFacility extends Company implements Serializable {
         }
     }
 
-    public void removePatient(int n) {
-        removeP(patientStack, n);
+    /**
+     * removes the patient at the selected index
+     *
+     * @param n index
+     * @return patient at n index
+     * @throws EmptyCollectionException
+     */
+    public Patient removePatient(int n) throws EmptyCollectionException {
+        return patientStack.remove(n);
     }
 
-    private void removeP(ArrayStack<Patient> stack, int n) {
-        //TODO: code case where n is outside of stack
-        try {
-            if (stack == null) {
-                return;
-            } else if (stack.isEmpty()) {
-                return;
-            } if (stack.size() - n == n) 
-               
-             
-            Patient t = stack.pop();
-            
-        } catch (EmptyCollectionException e) {
-            System.out.println("Something went wrong in Carefacility.sort(s):\t" + e);
-        }
+    /**
+     * gets without removing the patient at the selected index
+     *
+     * @param n index
+     * @return patient at n index
+     * @throws EmptyCollectionException
+     */
+    public Patient getPatient(int n) throws EmptyCollectionException {
+        return patientStack.get(n);
     }
 
+//    private void removeP(ArrayStack<Patient> stack, int n) {
+//        //TODO: code case where n is outside of stack
+//        try {
+//            if (stack == null) {
+//                return;
+//            } else if (stack.isEmpty()) {
+//                return;
+//            } if (stack.size() - n == n) 
+//               
+//             
+//            Patient t = stack.pop();
+//            
+//        } catch (EmptyCollectionException e) {
+//            System.out.println("Something went wrong in Carefacility.sort(s):\t" + e);
+//        }
+//    }
 }

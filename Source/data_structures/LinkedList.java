@@ -21,11 +21,11 @@ public class LinkedList<T> implements ListADT<T>, DataStructure<T>, Serializable
     /**
      * Stores the number of elements in the Linked List *
      */
-    protected int count;
+    private int count;
     /**
      * Stores head and tail pointers
      */
-    protected LinearNode<T> head, tail;
+    private LinearNode<T> head, tail;
 
     /**
      * Creates an empty list.
@@ -61,10 +61,10 @@ public class LinkedList<T> implements ListADT<T>, DataStructure<T>, Serializable
     }
 
     /**
-     * TODO: test
+     * removes and returns element at specified index
      *
-     * @param n
-     * @return
+     * @param n index
+     * @return element
      * @throws EmptyCollectionException
      */
     public T removeAt(int n) throws EmptyCollectionException {
@@ -94,22 +94,27 @@ public class LinkedList<T> implements ListADT<T>, DataStructure<T>, Serializable
             }
         }
     }
-   
+
+    /**
+     * gets element at specified index without removing it
+     *
+     * @param n index
+     * @return element
+     * @throws EmptyCollectionException
+     */
     public T get(int n) throws EmptyCollectionException {
-        LinearNode<T> probe = head;        
+        LinearNode<T> probe = head;
         if (n <= 0 || n > count) {
-            throw new EmptyCollectionException();        
+            throw new EmptyCollectionException();
         } else {
             int i = 1;
-            while (i < n) {    
+            while (i < n) {
                 probe = probe.getNext();
                 i++;
             }
-            return probe.getElement();             
-        }        
+            return probe.getElement();
+        }
     }
-
-
 
     /**
      * Adds an empty element to the end of the list

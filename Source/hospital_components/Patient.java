@@ -38,6 +38,15 @@ public class Patient implements java.io.Serializable, Comparable<Patient> {
         bed = null;
     }
 
+    public void removeBed() {
+        if (bed != null) {
+            if (bed.getPatient() != null) {
+                bed.setPatient(null);
+            }
+            bed = null;
+        }
+    }
+
     /**
      * get this patient object's bed
      *
@@ -122,9 +131,10 @@ public class Patient implements java.io.Serializable, Comparable<Patient> {
 
     /**
      * Compares Patient objects by order of priority
+     *
      * @param p Patient object to be compared against.
-     * @return -int if this patient has lower priority than passed object, +int if it
-     *         has higher priority, and 0 if they are equal.
+     * @return -int if this patient has lower priority than passed object, +int
+     *         if it has higher priority, and 0 if they are equal.
      */
     @Override
     public int compareTo(Patient p) {

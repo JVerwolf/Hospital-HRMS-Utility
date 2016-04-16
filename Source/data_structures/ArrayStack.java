@@ -87,19 +87,29 @@ public class ArrayStack<T> implements StackADT<T>, DataStructure<T>, Serializabl
      * @param n
      * @return
      */
-    public T get(int n) {
-        return stackArray[n];
+    public T get(int n) throws EmptyCollectionException {
+        int i = top - n;
+        try {
+            return stackArray[i];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new EmptyCollectionException();
+        }
     }
 
-    public T remove(int n) {
-        T temp = stackArray[n];
-        while (n < stackArray.length - 1) {
-            stackArray[n] = stackArray[n + 1];
-            stackArray[n + 1] = null;
-            n++;
+    public T remove(int n) throws EmptyCollectionException {
+        try {
+            int i = top - n;
+            T temp = stackArray[i];
+            while (i < stackArray.length - 1) {
+                stackArray[i] = stackArray[i + 1];
+                stackArray[i + 1] = null;
+                i++;
+            }
+            top--;
+            return temp;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new EmptyCollectionException();
         }
-        top--;
-        return temp;
     }
 
     /**

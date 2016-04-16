@@ -158,7 +158,7 @@ public class CareFacilityTest {
          * method
          */
         CareFacility CF = new CareFacility("TestLab", pStack, bList, null);
-        CF.assignBed();
+        CF.assignBeds();
 
         /**
          * pop each patient and check to make sure that they have been assigned

@@ -12,7 +12,7 @@ public class Bed implements Serializable {
 
     private String location;
     private String name;
-    boolean usable;
+    boolean inWorkingOrder;
     Patient patient;
 
     /**
@@ -25,8 +25,26 @@ public class Bed implements Serializable {
     public Bed(String name, String location, boolean available, Patient patient) {
         this.location = location;
         this.name = name;
-        this.usable = available;
+        this.inWorkingOrder = available;
         this.patient = patient;
+    }
+
+    /**
+     * returns true if bed can be assigned a patient
+     *
+     * @return True if bed can be assigned a patient
+     */
+    public boolean isAssignable() {
+        return (inWorkingOrder && patient == null);
+    }
+
+    public void removePatient() {
+        if (patient != null) {
+            if (patient.getBed() != null) {
+                patient.setBed(null);
+            }
+            patient = null;
+        }
     }
 
     /**
@@ -70,8 +88,8 @@ public class Bed implements Serializable {
      *
      * @return True if usable, false if not usable.
      */
-    public boolean getUsable() {
-        return usable;
+    public boolean getInWorkingOrder() {
+        return inWorkingOrder;
     }
 
     /**
@@ -79,8 +97,11 @@ public class Bed implements Serializable {
      *
      * @param availability True if usable, false if not usable.
      */
-    public void setUsable(boolean usable) {
-        this.usable = usable;
+    public void setInWorkingOrder(boolean inWorkingOrder) {
+        this.inWorkingOrder = inWorkingOrder;
+        if(!inWorkingOrder){
+            this.removePatient();
+        }
     }
 
     /**

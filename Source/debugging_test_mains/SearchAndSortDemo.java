@@ -1,7 +1,7 @@
 /*
  *
  */
-package old_mains;
+package debugging_test_mains;
 
 import hospital_components.CasualEmployee;
 import data_structures.ElementNotFoundException;
@@ -119,13 +119,14 @@ public class SearchAndSortDemo {
         }
 
         //demonstrate remove()
-        {            
+        {
             //call the search
             ArrayStack<Patient> testSSortStack = SortUtilities.insertionSort(stackOfPatients());
-            
-            System.out.println("Remove; " + testSSortStack.remove(4).getName());
+
             //print to screen
             try {
+                System.out.println("get; " + testSSortStack.get(10).getName());
+                System.out.println(testSSortStack.size());
                 while (!testSSortStack.isEmpty()) {
                     System.out.println(testSSortStack.pop().getName());
 
@@ -134,7 +135,23 @@ public class SearchAndSortDemo {
                 System.out.println(e);
             }
         }
+        //test LinkedQueue
+        {
 
+            LinkedQueue<CasualEmployee> firstList = queueOfCasualEmployees();
+            LinkedQueue<CasualEmployee> bedList = firstList.copy();
+            try {
+              
+                System.out.println("\ntest linkedQueue:" );
+            
+                while (!bedList.isEmpty()) {
+                    System.out.println(bedList.dequeue().getName());
+                }
+            } catch (EmptyCollectionException e) {
+                System.out.println(e);
+            }
+
+        }
     }
 
     /**
@@ -182,15 +199,15 @@ public class SearchAndSortDemo {
     }
 
     private static LinkedQueue<CasualEmployee> queueOfCasualEmployees() {
-        CasualEmployee e1 = new CasualEmployee("Emp1", true);
-        CasualEmployee e2 = new CasualEmployee("Emp2", true);
-        CasualEmployee e3 = new CasualEmployee("Emp3", true);
-
         LinkedQueue<CasualEmployee> CEQueue = new LinkedQueue<>();
+        
+        CEQueue.enqueue(new CasualEmployee("Emp1", true));
+        CEQueue.enqueue(new CasualEmployee("Emp2", true));
+        CEQueue.enqueue( new CasualEmployee("Emp3", true));
 
-        for (CasualEmployee e : new CasualEmployee[]{e1, e2, e3}) {
-            CEQueue.enqueue(e);
-        }
+        
+
+        
         return CEQueue;
     }
 }

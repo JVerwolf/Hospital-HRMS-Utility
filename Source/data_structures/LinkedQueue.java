@@ -1,26 +1,33 @@
+/*
+ *
+ */
 package data_structures;
 
-import data_structures.QueueADT;
 import io_utils.DataStructure;
-import data_structures.EmptyCollectionException;
 import java.io.Serializable;
 
 /**
  *
  * @author John Verwolf
- * @param <T> Type of element to be stored
  */
-public class LinkedQueue<T> implements QueueADT<T>, DataStructure<T>,Serializable {
+public class LinkedQueue<T> implements QueueADT<T>, DataStructure<T>, Serializable {
 
-    private int count;
-    private LinearNode<T> front, rear;
+    LinkedList<T> list;
 
     /**
      * Creates an empty queue.
      */
     public LinkedQueue() {
-        count = 0;
-        front = rear = null;
+        list = new LinkedList<>();
+    }
+
+    /*
+     * private constructor to be used with the copy method. Builds a new linked
+     * list copy. Although the list is new, the elements inside the list are not
+     * deep copied and remain as references to the original data elements
+     */
+    private LinkedQueue(LinkedList<T> list) {
+        this.list = list.copy();
     }
 
     /**
@@ -30,15 +37,7 @@ public class LinkedQueue<T> implements QueueADT<T>, DataStructure<T>,Serializabl
      */
     @Override
     public void enqueue(T element) {
-        LinearNode<T> node = new LinearNode<>(element);
-        if (isEmpty()) {
-            front = node;
-        } else {
-            rear.setNext(node);
-        }
-        rear = node;
-        count++;
-
+        list.addLast(element);
     }
 
     /**
@@ -50,17 +49,29 @@ public class LinkedQueue<T> implements QueueADT<T>, DataStructure<T>,Serializabl
      */
     @Override
     public T dequeue() throws EmptyCollectionException {
-        if (isEmpty()) {
-            throw new EmptyCollectionException("queue");
-        }
-        T result = front.getElement();
-        front = front.getNext();
-        count--;
-        if (isEmpty()) {
-            rear = null;
-        }
-        return result;
+        return list.removeFirst();
+    }
 
+    /**
+     * gets element at specified index without removing it
+     *
+     * @param n index
+     * @return element
+     * @throws EmptyCollectionException
+     */
+    public T get(int n) throws EmptyCollectionException {
+        return list.get(n);
+    }
+
+    /**
+     * removes and returns element at specified index
+     *
+     * @param n index
+     * @return element
+     * @throws EmptyCollectionException
+     */
+    public T removeAt(int n) throws EmptyCollectionException {
+        return list.removeAt(n);
     }
 
     /**
@@ -68,8 +79,9 @@ public class LinkedQueue<T> implements QueueADT<T>, DataStructure<T>,Serializabl
      *
      * @return true if the queue is empty
      */
+    @Override
     public boolean isEmpty() {
-        return (count == 0);
+        return list.isEmpty();
     }
 
     /**
@@ -79,7 +91,7 @@ public class LinkedQueue<T> implements QueueADT<T>, DataStructure<T>,Serializabl
      */
     @Override
     public T first() {
-        return front.getElement();
+        return list.first();
     }
 
     /**
@@ -89,38 +101,18 @@ public class LinkedQueue<T> implements QueueADT<T>, DataStructure<T>,Serializabl
      */
     @Override
     public int size() {
-        return count;
+        return list.size();
     }
 
     /**
      * Returns a copy of the linked queue data structure. Although the list is
      * new, the elements inside the list are not deep copied and remain as
      * references to the original data elements
-     * 
-     * @return  copy of the linked queue instance
+     *
+     * @return copy of the linked queue instance
      */
     public LinkedQueue<T> copy() {
-        return new LinkedQueue<>(front);
+        return new LinkedQueue<>(list);
     }
 
-    /*
-     * private constructor to be used with the copy method. Builds a new linked
-     * list copy. Although the list is new, the elements inside the list are not
-     * deep copied and remain as references to the original data elements
-     */
-    private LinkedQueue(LinearNode<T> passedFront) {
-        this.rear = this.front = new LinearNode<>();         //create new linked node that will start the list
-        this.count = 1;
-
-        LinearNode<T> probeForPassed = passedFront;
-
-        while (probeForPassed.getNext() != null) {
-            rear.setElement(probeForPassed.getElement());
-            probeForPassed = probeForPassed.getNext();
-            rear.setNext(new LinearNode<T>());
-            rear = rear.getNext();
-            count++;
-        }
-        rear.setElement(probeForPassed.getElement());
-    }
 }

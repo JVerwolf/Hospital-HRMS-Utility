@@ -1,4 +1,4 @@
-package old_mains;
+package debugging_test_mains;
 
 import data_structures.LinkedList;
 import data_structures.LinkedQueue;
@@ -141,12 +141,12 @@ public class Queue_List_MainClass {
      * @return a stack of beds with 4 beds.
      */
     private static LinkedList<Bed> listOfBeds() {
-        Bed b1 = new Bed("Bed1", "1",true, null);
-        Bed b2 = new Bed("Bed2", "1",true, null);
-        Bed b3 = new Bed("Bed3", "1",true, null);
-        Bed b4 = new Bed("Bed4", "1",true, null);
-        Bed b5 = new Bed("Bed5", "1",true, null);
-        Bed b6 = new Bed("Bed6", "1",true, null);
+        Bed b1 = new Bed("Bed1", "1", true, null);
+        Bed b2 = new Bed("Bed2", "1", true, null);
+        Bed b3 = new Bed("Bed3", "1", true, null);
+        Bed b4 = new Bed("Bed4", "1", true, null);
+        Bed b5 = new Bed("Bed5", "1", true, null);
+        Bed b6 = new Bed("Bed6", "1", true, null);
 
         LinkedList<Bed> bList = new LinkedList<>();
 
