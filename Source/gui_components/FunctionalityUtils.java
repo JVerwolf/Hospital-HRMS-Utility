@@ -21,18 +21,44 @@ import javax.swing.JTextField;
  */
 public class FunctionalityUtils {
 
-    static void modifyCasualEmployees(CareFacility cF, int cEIndexSelected, JTextField casualName1, JSpinner casualPay1, JCheckBox casualAvailable) {
-        throw new Unsupp ortedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    static void deleteBed(CareFacility cF, int nW, int nIR) {
+        try {
+            if (nW >= 0) {//if index is from the list of beds in working order 
+                cF.removeBedInWorkingOrder(nW);
+            } else if (nIR >= 0) {
+                cF.removeBedInRepair(nIR);
+            }
+        } catch (EmptyCollectionException e) {
+            System.out.println(e);
+        }
+        
     }
 
-    protected static void modifyBeds(CareFacility cF, int nA, int nU, JTextField nameTF, JTextField locationTF, JCheckBox isAvailable) {
+    static void modifyCasualEmployees(CareFacility cF, int index, JTextField nameTF, JSpinner casualPay, JCheckBox available) {
+        String name = nameTF.getText();
+        double pay = (double) casualPay.getValue();
+        try {
+            if (index >= 0) {
+                CasualEmployee cE = cF.getCasualEmployee(index);
+                if (!name.equals("")) {
+                    cE.setName(name);
+                }
+                cE.setPayRate(pay);
+                cE.setAvailability(available.isSelected());
+                cF.assignCasualEmployee();
+            }
+        } catch (EmptyCollectionException e) {
+            System.out.println(e);
+        }
+    }
+
+    protected static void modifyBeds(CareFacility cF, int nW, int nIR, JTextField nameTF, JTextField locationTF, JCheckBox isAvailable) {
         String name = nameTF.getText();
         String location = locationTF.getText();
 
         try {
-
-            if (nA >= 0) {
-                Bed temp = cF.removeAvailableBed(nA);
+            if (nW >= 0) {
+                Bed temp = cF.getAvailableBed(nW);
                 if (!name.equals("")) {
                     temp.setName(name);
                 }
@@ -44,9 +70,8 @@ public class FunctionalityUtils {
                 } else {
                     temp.setInWorkingOrder(false);
                 }
-                cF.addBed(temp);
-            } else if (nU >= 0) {
-                Bed temp2 = cF.removeUnavailableBed(nU);
+            } else if (nIR >= 0) {
+                Bed temp2 = cF.getUnavailableBed(nIR);
                 if (!name.equals("")) {
                     temp2.setName(name);
                 }
@@ -58,11 +83,11 @@ public class FunctionalityUtils {
                 } else {
                     temp2.setInWorkingOrder(false);
                 }
-                cF.addBed(temp2);
             }
         } catch (EmptyCollectionException e) {
             System.out.println(e);
         }
+        cF.assignBeds();
     }
 
     protected static void modifyPatients(CareFacility cF, int pI, JTextField nameTF, JSpinner patientPriority) {
@@ -168,17 +193,21 @@ public class FunctionalityUtils {
             while (!pStack.isEmpty()) {
                 Patient tempP = pStack.pop();
 
-                String bed = "no bed";
+                String bed = "<font color=red>no bed</font>";
                 if (tempP.getBed() != null) {
-                    bed = tempP.getBed().getName();
+                    bed = "<font color=green>" + tempP.getBed().getName() + "</font>";
                 }
-                String employee = "no employee";
+                String employee = "<font color=red>no employee</font>";
                 if (tempP.getCasualEmployee() != null) {
-                    employee = tempP.getCasualEmployee().getName();
+                    employee = "<font color=green>" + tempP.getCasualEmployee().getName() + "</font>";
                 }
-                listModelA.addElement("Name: " + tempP.getName() + ",  Priority: "
-                        + tempP.getPriority() + ",  Bed: " + bed
-                        + ",  Assigned: " + employee);
+                String html = "<html><pre font face=\"verdana\"><b>Name:</b> " + tempP.getName() + "\t<b>Priority:</b> "
+                        + tempP.getPriority() + "\t<b>Bed:</b> " + bed
+                        + "\t<b>Assigned:</b> " + employee + "</pre></html>";
+                listModelA.addElement(html);
+//                listModelA.addElement("Name: " + tempP.getName() + ",  Priority: "
+//                        + tempP.getPriority() + ",  Bed: " + bed
+//                        + ",  Assigned: " + employee);
             }
         } catch (EmptyCollectionException e) {
             System.out.println(e);

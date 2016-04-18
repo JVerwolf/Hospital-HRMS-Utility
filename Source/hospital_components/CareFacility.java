@@ -23,11 +23,33 @@ import java.util.logging.Logger;
  */
 public class CareFacility extends Company implements Serializable {
 
-    private LinkedList<Bed> bedListInWorkingOrder;
     private LinkedList<Bed> bedListInRepair;
+    private LinkedList<Bed> bedListInWorkingOrder;
     private LinkedQueue<CasualEmployee> casualEmployee;
     private java.lang.String facilityName;
     private ArrayStack<Patient> patientStack;
+
+    /**
+     * Goes through both the bedListInRepair and bedListInWorkingOrder class
+     * variables and makes sure that they each only have beds in repair or beds
+     * in working order in each data structure, respectively.
+     */
+    private void cleanBedLists() {
+        try {
+            for (int i = 1; i <= bedListInWorkingOrder.size(); i++) {
+                if (!bedListInWorkingOrder.get(i).getInWorkingOrder()) {
+                    bedListInRepair.addFirst(bedListInWorkingOrder.removeAt(i));
+                }
+            }
+            for (int j = 1; j <= bedListInRepair.size(); j++) {
+                if (bedListInRepair.get(j).getInWorkingOrder()) {
+                    bedListInWorkingOrder.addFirst(bedListInRepair.removeAt(j));
+                }
+            }
+        } catch (EmptyCollectionException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Initializes this Care Facility object's name and array of employees,
@@ -67,7 +89,7 @@ public class CareFacility extends Company implements Serializable {
         this();
         this.facilityName = facilityName;
         this.patientStack = patientStack;
-        sortBeds(bedList); //assigns beds to bedListUnavailable and bedListAvailable
+        addBedList(bedList); //assigns beds to bedListUnavailable and bedListAvailable
         this.casualEmployee = casualEmployee;
         sortPatientStack(); //sort data in  passed stack of patients
     }
@@ -146,7 +168,7 @@ public class CareFacility extends Company implements Serializable {
                 if (!copyB.first().isAssignable()) {
                     copyB.removeFirst();
                 }
-                if (reverseP.peek().getBed()!= null) {
+                if (reverseP.peek().getBed() != null) {
                     reverseP.pop();
                 }
                 if (!reverseP.isEmpty() && !copyB.isEmpty()) {
@@ -182,13 +204,13 @@ public class CareFacility extends Company implements Serializable {
         //        } catch (EmptyCollectionException e) {
         //            System.out.println("Something went wrong in the .bedTime method:\t" + e);
         //        }
-        }
+    }
 
-        /**
-         * Save the class to a file
-         *
-         * @param f file object holding location of save
-         */
+    /**
+     * Save the class to a file
+     *
+     * @param f file object holding location of save
+     */
     public void Save(File f) {
         FileOutputStream fileOut = null;
         ObjectOutputStream objOut = null;
@@ -215,6 +237,37 @@ public class CareFacility extends Company implements Serializable {
     }
 
     /**
+     * adds a Bed to the Care Facility
+     *
+     * @param bed bed to be added
+     */
+    public void addBed(Bed bed) {
+        LinkedList<Bed> temp = new LinkedList<>();
+        temp.addLast(bed);
+        addBedList(temp);
+        assignBeds();
+    }
+
+    /**
+     * adds beds by availability and puts them into their respective lists.
+     *
+     * @param bedList list of beds to be sorted
+     */
+    public final void addBedList(LinkedList<Bed> bedList) {
+        while (!bedList.isEmpty()) {
+            try {
+                if (bedList.first().getInWorkingOrder()) {
+                    bedListInWorkingOrder.addFirst(bedList.removeFirst());
+                } else {
+                    bedListInRepair.addFirst(bedList.removeFirst());
+                }
+            } catch (EmptyCollectionException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
      * adds a new casual employee to the care facility
      *
      * @param cE casual employee
@@ -222,30 +275,6 @@ public class CareFacility extends Company implements Serializable {
     public void addCasualEmployee(CasualEmployee cE) {
         casualEmployee.enqueue(cE);
         assignCasualEmployee();
-    }
-
-    /**
-     * returns a casual employee object without removing it
-     *
-     * @param n the index of the casual employee from the head of the queue
-     * @return casual employee at index n from head
-     * @throws EmptyCollectionException
-     */
-    public CasualEmployee getCasualEmployee(int n) throws EmptyCollectionException {
-        return casualEmployee.get(n);
-    }
-
-    /**
-     * returns a casual employee by removing it
-     *
-     * @param n the index of the casual employee from the head of the queue
-     * @return casual employee at index n from head
-     * @throws EmptyCollectionException
-     */
-    public CasualEmployee removeCasualEmployee(int n) throws EmptyCollectionException {
-        CasualEmployee temp = casualEmployee.removeAt(n);
-        assignCasualEmployee();//Not necessary but left for debugging, as this will get called eventually
-        return temp;
     }
 
     /**
@@ -260,14 +289,6 @@ public class CareFacility extends Company implements Serializable {
     }
 
     /**
-     * Assign registered patients to existing beds, without kicking people
-     * already in beds out.
-     */
-    public void assignBeds() {
-        bedTime(patientStack, bedListInWorkingOrder);
-    }
-
-    /**
      * Assign a bed and a casual employee to each patient in order of highest
      * priority value first, while there are still beds and casual employees
      * available
@@ -278,28 +299,19 @@ public class CareFacility extends Company implements Serializable {
     }
 
     /**
-     * returns the bed object by removing it. Removes patient from the bed.
-     *
-     * @param n index of bed in list
-     * @return bed object at index n
-     * @throws EmptyCollectionException
+     * Assign registered patients to existing beds, without kicking people
+     * already in beds out.
      */
-    public Bed removeAvailableBed(int n) throws EmptyCollectionException {
-        Bed bed = bedListInWorkingOrder.removeAt(n);
-        bed.removePatient();
-        return bed;
-         
+    public void assignBeds() {
+        cleanBedLists();
+        bedTime(patientStack, bedListInWorkingOrder);
     }
 
     /**
-     * returns the bed object by removing it.
-     *
-     * @param n index of bed in list
-     * @return bed object at index n
-     * @throws EmptyCollectionException
+     * Assign casual employees to patients with the highest priority value
      */
-    public Bed removeUnavailableBed(int n) throws EmptyCollectionException {
-        return bedListInRepair.removeAt(n);
+    public void assignCasualEmployee() {
+        AssignCasualE(patientStack, casualEmployee);
     }
 
     /**
@@ -314,21 +326,14 @@ public class CareFacility extends Company implements Serializable {
     }
 
     /**
-     * returns the bed object without removing it.
+     * returns a casual employee object without removing it
      *
-     * @param n index of bed in list
-     * @return bed object at index n
+     * @param n the index of the casual employee from the head of the queue
+     * @return casual employee at index n from head
      * @throws EmptyCollectionException
      */
-    public Bed getUnavailableBed(int n) throws EmptyCollectionException {
-        return bedListInRepair.get(n);
-    }
-
-    /**
-     * Assign casual employees to patients with the highest priority value
-     */
-    public void assignCasualEmployee() {
-        AssignCasualE(patientStack, casualEmployee);
+    public CasualEmployee getCasualEmployee(int n) throws EmptyCollectionException {
+        return casualEmployee.get(n);
     }
 
     /**
@@ -392,6 +397,44 @@ public class CareFacility extends Company implements Serializable {
     }
 
     /**
+     * gets without removing the patient at the selected index
+     *
+     * @param n index
+     * @return patient at n index
+     * @throws EmptyCollectionException
+     */
+    public Patient getPatient(int n) throws EmptyCollectionException {
+        return patientStack.get(n);
+    }
+
+//    private void removeP(ArrayStack<Patient> stack, int n) {
+//        //TODO: code case where n is outside of stack
+//        try {
+//            if (stack == null) {
+//                return;
+//            } else if (stack.isEmpty()) {
+//                return;
+//            } if (stack.size() - n == n)
+//
+//
+//            Patient t = stack.pop();
+//
+//        } catch (EmptyCollectionException e) {
+//            System.out.println("Something went wrong in Carefacility.sort(s):\t" + e);
+//        }
+//    }
+    /**
+     * returns the bed object without removing it.
+     *
+     * @param n index of bed in list
+     * @return bed object at index n
+     * @throws EmptyCollectionException
+     */
+    public Bed getUnavailableBed(int n) throws EmptyCollectionException {
+        return bedListInRepair.get(n);
+    }
+
+    /**
      * Loads a list of beds from a file, provided it exists
      */
     public void loadBeds() {
@@ -431,6 +474,55 @@ public class CareFacility extends Company implements Serializable {
     }
 
     /**
+     * Returns the bed object by removing it. Removes patient from the bed.
+     *
+     * @param n index of bed in list
+     * @return bed object at index n
+     * @throws EmptyCollectionException
+     */
+    public Bed removeBedInWorkingOrder(int n) throws EmptyCollectionException {
+        Bed bed = bedListInWorkingOrder.removeAt(n);
+        bed.removePatient();
+        assignBeds(); //reasign patient to a new bed in the rare instance there are more beds than patients
+        return bed;
+    }
+
+    /**
+     * returns a casual employee by removing it
+     *
+     * @param n the index of the casual employee from the head of the queue
+     * @return casual employee at index n from head
+     * @throws EmptyCollectionException
+     */
+    public CasualEmployee removeCasualEmployee(int n) throws EmptyCollectionException {
+        CasualEmployee temp = casualEmployee.removeAt(n);
+        assignCasualEmployee();//Not necessary but left for debugging, as this will get called eventually
+        return temp;
+    }
+
+    /**
+     * removes the patient at the selected index
+     *
+     * @param n index
+     * @return patient at n index
+     * @throws EmptyCollectionException
+     */
+    public Patient removePatient(int n) throws EmptyCollectionException {
+        return patientStack.remove(n);
+    }
+
+    /**
+     * Removes and returns bed at specified index.
+     *
+     * @param n index of bed in list
+     * @return bed object at index n
+     * @throws EmptyCollectionException
+     */
+    public Bed removeBedInRepair(int n) throws EmptyCollectionException {
+        return bedListInRepair.removeAt(n);
+    }
+
+    /**
      * Saves the list of beds to a file
      */
     public void saveBeds() {
@@ -452,37 +544,6 @@ public class CareFacility extends Company implements Serializable {
     public void savePatientStack() {
         makeSavesFolder();
         new WriteFile<>(patientStack).writeTo("saves/patientStack.ser");
-    }
-
-    /**
-     * Sorts beds by availability and puts them into thier respective lists.
-     *
-     * @param bedList list of beds to be sorted
-     */
-    public final void sortBeds(LinkedList<Bed> bedList) {
-        while (!bedList.isEmpty()) {
-            try {
-                if (bedList.first().getInWorkingOrder()) {
-                    bedListInWorkingOrder.addFirst(bedList.removeFirst());
-                } else {
-                    bedListInRepair.addFirst(bedList.removeFirst());
-                }
-            } catch (EmptyCollectionException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    /**
-     * adds a Bed to the Care Facility
-     *
-     * @param bed bed to be added
-     */
-    public void addBed(Bed bed) {
-        LinkedList<Bed> temp = new LinkedList<>();
-        temp.addLast(bed);
-        sortBeds(temp);
-        assignBeds();
     }
 
     /**
@@ -622,42 +683,4 @@ public class CareFacility extends Company implements Serializable {
         }
     }
 
-    /**
-     * removes the patient at the selected index
-     *
-     * @param n index
-     * @return patient at n index
-     * @throws EmptyCollectionException
-     */
-    public Patient removePatient(int n) throws EmptyCollectionException {
-        return patientStack.remove(n);
-    }
-
-    /**
-     * gets without removing the patient at the selected index
-     *
-     * @param n index
-     * @return patient at n index
-     * @throws EmptyCollectionException
-     */
-    public Patient getPatient(int n) throws EmptyCollectionException {
-        return patientStack.get(n);
-    }
-
-//    private void removeP(ArrayStack<Patient> stack, int n) {
-//        //TODO: code case where n is outside of stack
-//        try {
-//            if (stack == null) {
-//                return;
-//            } else if (stack.isEmpty()) {
-//                return;
-//            } if (stack.size() - n == n) 
-//               
-//             
-//            Patient t = stack.pop();
-//            
-//        } catch (EmptyCollectionException e) {
-//            System.out.println("Something went wrong in Carefacility.sort(s):\t" + e);
-//        }
-//    }
 }

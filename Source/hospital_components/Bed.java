@@ -12,7 +12,7 @@ public class Bed implements Serializable {
 
     private String location;
     private String name;
-    boolean inWorkingOrder;
+    private boolean inWorkingOrder;
     Patient patient;
 
     /**
@@ -93,7 +93,7 @@ public class Bed implements Serializable {
     }
 
     /**
-     * sets availability
+     * Changes bed's status to be in working order
      *
      * @param availability True if usable, false if not usable.
      */
