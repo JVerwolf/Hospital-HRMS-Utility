@@ -1,17 +1,17 @@
 package hospital_components;
 
-import hospital_components.Bed;
+import java.io.Serializable;
 
 /**
  *
  * @author John Verwolf
  */
-public class Patient implements java.io.Serializable, Comparable<Patient> {
+public class Patient implements Serializable, Comparable<Patient> {
 
     private Bed bed;
+    private CasualEmployee casualEmployee;
     private java.lang.String name;
     private int priority;
-    private CasualEmployee casualEmployee;
 
     /**
      * Initializes this Patient object's name, priority and Bed the name for the
@@ -37,15 +37,18 @@ public class Patient implements java.io.Serializable, Comparable<Patient> {
         this.priority = priority;
         bed = null;
     }
-
-    public void removeBed() {
-        if (bed != null) {
-            if (bed.getPatient() != null) {
-                bed.setPatient(null);
-            }
-            bed = null;
-        }
+    /**
+     * Compares Patient objects by order of priority
+     *
+     * @param p Patient object to be compared against.
+     * @return -int if this patient has lower priority than passed object, +int
+     *         if it has higher priority, and 0 if they are equal.
+     */
+    @Override
+    public int compareTo(Patient p) {
+        return Integer.compare(this.priority, p.getPriority());
     }
+    
 
     /**
      * get this patient object's bed
@@ -63,6 +66,22 @@ public class Patient implements java.io.Serializable, Comparable<Patient> {
      */
     public void setBed(Bed bed) {
         this.bed = bed;
+    }
+    /**
+     * Get the casual employee assigned to the patient
+     *
+     * @return the casual employee assigned to the patient
+     */
+    public CasualEmployee getCasualEmployee() {
+        return casualEmployee;
+    }
+    /**
+     * Sets the Casual Employee to be assigned to the patient
+     *
+     * @param casualEmployee the Casual Employee to be assigned to the patient
+     */
+    public void setCasualEmployee(CasualEmployee casualEmployee) {
+        this.casualEmployee = casualEmployee;
     }
 
     /**
@@ -102,21 +121,26 @@ public class Patient implements java.io.Serializable, Comparable<Patient> {
     }
 
     /**
-     * Sets the Casual Employee to be assigned to the patient
-     *
-     * @param casualEmployee the Casual Employee to be assigned to the patient
+     *Removes bed from patient and patient from bed
      */
-    public void setCasualEmployee(CasualEmployee casualEmployee) {
-        this.casualEmployee = casualEmployee;
+    public void removeBed() {
+        if (bed != null) {
+            if (bed.getPatient() != null) {
+                bed.setPatient(null);
+            }
+            bed = null;
+        }
     }
-
     /**
-     * Get the casual employee assigned to the patient
-     *
-     * @return the casual employee assigned to the patient
+     * removes casual employee from patient and patient from casual employee
      */
-    public CasualEmployee getCasualEmployee() {
-        return casualEmployee;
+    public void removeCasualEmployee(){
+        if (casualEmployee != null) {
+            if (casualEmployee.getPatient() != null) {
+                casualEmployee.setPatient(null);
+            }
+            casualEmployee = null;
+        }
     }
 
     /**
@@ -129,15 +153,4 @@ public class Patient implements java.io.Serializable, Comparable<Patient> {
         return "Patient: " + "bed=" + bed + ", name=" + name + ", priority=" + priority;
     }
 
-    /**
-     * Compares Patient objects by order of priority
-     *
-     * @param p Patient object to be compared against.
-     * @return -int if this patient has lower priority than passed object, +int
-     *         if it has higher priority, and 0 if they are equal.
-     */
-    @Override
-    public int compareTo(Patient p) {
-        return Integer.compare(this.priority, p.getPriority());
-    }
 }

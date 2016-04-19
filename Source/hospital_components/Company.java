@@ -1,10 +1,12 @@
 package hospital_components;
 
+import java.io.Serializable;
+
 /**
  *
  * @author C0432660 John Verwolf
  */
-public class Company {
+public class Company implements Serializable {
 
     private String name; //holds name of company
     private FullTimeEmployee[] fullTimeEmployee; //holds array of employees

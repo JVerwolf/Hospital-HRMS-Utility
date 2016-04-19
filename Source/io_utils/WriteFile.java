@@ -11,19 +11,30 @@ import java.io.*;
 /**
  *
  * @author C0432660 John Verwolf
+ * @param <T> Element type
  */
 public class WriteFile<T> {
 
     private DataStructure<T> fileObject;
 
+    /**
+     * Writes the specified data structure to a file
+     *
+     * @param FILEOBJECT
+     */
     public WriteFile(DataStructure<T> FILEOBJECT) {
         this.fileObject = FILEOBJECT;
     }
-    
+
+    /**
+     * takes a filepath and writes the file
+     *
+     * @param fileName file path
+     */
     public void writeTo(String fileName) {
         String dirName = "saves";
         String filePath = dirName + "/" + fileName + ".cf";
-        File f = new File(dirName);                
+        File f = new File(dirName);
         FileOutputStream fileOut = null;
         ObjectOutputStream objOut = null;
         try {

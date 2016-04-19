@@ -19,6 +19,13 @@ public class SortUtilities {
     private SortUtilities() {
     }
 
+    /**
+     * Insertion sort for ArrayStack
+     *
+     * @param <T>        type of Comparable object
+     * @param inputStack ArrayStack to sort
+     * @return Sorted Stack
+     */
     public static <T extends Comparable> ArrayStack<T> insertionSort(ArrayStack<T> inputStack) {
         ArrayStack<T> tempStack = inputStack.copy();   //pass a copy of the stack so that the original stack is not mutated        
         insSort(tempStack);

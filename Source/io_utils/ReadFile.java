@@ -21,10 +21,10 @@ public class ReadFile<T> {
      * <p>
      * Proper use example:
      * <p>
-     * <code> Bedlist = (LinkedList<Bed>) new
-     * ReadFile("saves/bedList.ser").getFile(); </code>
+     * <code> Bedlist = (LinkedList&lt;Bed&gt;) new
+     * ReadFile("saves/bedList.cf").getFile(); </code>
      *
-     * @param filepath The filepath of the .ser file
+     * @param fileName The specified filepath 
      *
      */
     public ReadFile(String fileName) {

@@ -7,11 +7,13 @@ import data_structures.EmptyCollectionException;
 import hospital_components.Bed;
 import hospital_components.CareFacility;
 import hospital_components.CasualEmployee;
+import hospital_components.FullTimeEmployee;
 import hospital_components.Patient;
 import java.awt.CardLayout;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -34,6 +36,7 @@ public class MainGUI extends javax.swing.JFrame {
 
         //employeeCard components
         cEIndexSelected = -1;
+        fTEIndexSelected = -1;
 
         initComponents();
     }
@@ -60,7 +63,7 @@ public class MainGUI extends javax.swing.JFrame {
         bedAvailable = new javax.swing.JCheckBox();
         jLabel4 = new javax.swing.JLabel();
         bedLocation = new javax.swing.JTextField();
-        bedNameAdd = new javax.swing.JTextField();
+        bedName = new javax.swing.JTextField();
         bedNew = new javax.swing.JButton();
         bedUnavailable2 = new javax.swing.JCheckBox();
         bedEdit = new javax.swing.JButton();
@@ -78,7 +81,7 @@ public class MainGUI extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        PatientNameAdd1 = new javax.swing.JTextField();
+        patientName = new javax.swing.JTextField();
         patientNew = new javax.swing.JButton();
         jLabel22 = new javax.swing.JLabel();
         patientPriority1 = new javax.swing.JSpinner();
@@ -87,22 +90,6 @@ public class MainGUI extends javax.swing.JFrame {
         patientModify = new javax.swing.JCheckBox();
         cardEmployees = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        cEList1 = new javax.swing.JList<>();
-        jPanel11 = new javax.swing.JPanel();
-        casualNew1 = new javax.swing.JButton();
-        casualEdit1 = new javax.swing.JButton();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        casualName2 = new javax.swing.JTextField();
-        casualAvailable1 = new javax.swing.JCheckBox();
-        casualPay2 = new javax.swing.JSpinner();
-        casualDelete1 = new javax.swing.JButton();
-        jScrollPane7 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         cEList = new javax.swing.JList<>();
@@ -110,7 +97,7 @@ public class MainGUI extends javax.swing.JFrame {
         casualNew = new javax.swing.JButton();
         casualEdit = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
-        casualName1 = new javax.swing.JTextField();
+        casualName = new javax.swing.JTextField();
         casualAvailable = new javax.swing.JCheckBox();
         casualPay1 = new javax.swing.JSpinner();
         casualDelete = new javax.swing.JButton();
@@ -118,6 +105,21 @@ public class MainGUI extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        cEList1 = new javax.swing.JList<>();
+        jPanel11 = new javax.swing.JPanel();
+        fullTimeNew = new javax.swing.JButton();
+        fullTimeEdit = new javax.swing.JButton();
+        jCheckBox2 = new javax.swing.JCheckBox();
+        fullTimeName = new javax.swing.JTextField();
+        fullTimePay = new javax.swing.JSpinner();
+        fullTimeDelete = new javax.swing.JButton();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jTextArea2 = new javax.swing.JTextArea();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
         cardReport = new javax.swing.JPanel();
         reportScrollArea = new javax.swing.JScrollPane();
         reportDisplay = new javax.swing.JTextArea();
@@ -132,7 +134,6 @@ public class MainGUI extends javax.swing.JFrame {
         editPatients = new javax.swing.JMenuItem();
         editBeds = new javax.swing.JMenuItem();
         editEmployees = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
         reportsMenu = new javax.swing.JMenu();
         viewReport = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
@@ -224,13 +225,12 @@ public class MainGUI extends javax.swing.JFrame {
         bedLocation.setText("Floor 1");
         jPanel1.add(bedLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 90, -1));
 
-        bedNameAdd.setText("Bed1");
-        bedNameAdd.addActionListener(new java.awt.event.ActionListener() {
+        bedName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bedNameAddActionPerformed(evt);
+                bedNameActionPerformed(evt);
             }
         });
-        jPanel1.add(bedNameAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 107, -1));
+        jPanel1.add(bedName, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 107, -1));
 
         bedNew.setText("New");
         bedNew.addActionListener(new java.awt.event.ActionListener() {
@@ -352,13 +352,12 @@ public class MainGUI extends javax.swing.JFrame {
         jLabel21.setText("Name:");
         jPanel3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 44, -1, -1));
 
-        PatientNameAdd1.setText("Name");
-        PatientNameAdd1.addActionListener(new java.awt.event.ActionListener() {
+        patientName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PatientNameAdd1ActionPerformed(evt);
+                patientNameActionPerformed(evt);
             }
         });
-        jPanel3.add(PatientNameAdd1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 64, 107, -1));
+        jPanel3.add(patientName, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 64, 107, -1));
 
         patientNew.setText("New");
         patientNew.addActionListener(new java.awt.event.ActionListener() {
@@ -419,108 +418,6 @@ public class MainGUI extends javax.swing.JFrame {
 
         mainPanel.add(cardPatients, "cardPatients");
 
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        cEList1.setModel(new javax.swing.DefaultListModel());
-        cEList1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cEList1MouseClicked(evt);
-            }
-        });
-        jScrollPane6.setViewportView(cEList1);
-
-        jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        casualNew1.setText("New");
-        casualNew1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                casualNew1ActionPerformed(evt);
-            }
-        });
-        jPanel11.add(casualNew1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
-
-        casualEdit1.setText("Edit");
-        casualEdit1.setEnabled(false);
-        casualEdit1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                casualEdit1ActionPerformed(evt);
-            }
-        });
-        jPanel11.add(casualEdit1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
-
-        jCheckBox2.setText("modify");
-        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox2ActionPerformed(evt);
-            }
-        });
-        jPanel11.add(jCheckBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 67, -1));
-
-        casualName2.setText("Name");
-        casualName2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                casualName2ActionPerformed(evt);
-            }
-        });
-        jPanel11.add(casualName2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 95, -1));
-
-        casualAvailable1.setSelected(true);
-        casualAvailable1.setText("available");
-        jPanel11.add(casualAvailable1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 40, 87, -1));
-
-        casualPay2.setModel(new javax.swing.SpinnerNumberModel(25.0d, 10.25d, 100.0d, 0.1d));
-        jPanel11.add(casualPay2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 94, -1));
-
-        casualDelete1.setText("Delete");
-        casualDelete1.setEnabled(false);
-        casualDelete1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                casualDelete1ActionPerformed(evt);
-            }
-        });
-        jPanel11.add(casualDelete1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, -1, -1));
-
-        jTextArea2.setBackground(new java.awt.Color(240, 240, 240));
-        jTextArea2.setColumns(20);
-        jTextArea2.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        jTextArea2.setRows(5);
-        jTextArea2.setText(" \n To admit a new patient, fill in the forms and press new.\n\n\n\n To edit a patient, first check Modify, then select patient\n from the list. Fill in the forms and press edit.");
-        jTextArea2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jTextArea2.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        jTextArea2.setEnabled(false);
-        jTextArea2.setFocusable(false);
-        jScrollPane7.setViewportView(jTextArea2);
-
-        jPanel11.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 6, 280, 120));
-
-        jLabel13.setText("Name:");
-        jPanel11.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
-
-        jLabel14.setText("Hourly Rate:");
-        jPanel11.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, -1, -1));
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
-                .addContainerGap())
-            .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel4.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 33, -1, -1));
-
-        jTabbedPane1.addTab("Full Time", jPanel4);
-
         cEList.setModel(new javax.swing.DefaultListModel());
         cEList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -556,13 +453,12 @@ public class MainGUI extends javax.swing.JFrame {
         });
         jPanel10.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 67, -1));
 
-        casualName1.setText("Name");
-        casualName1.addActionListener(new java.awt.event.ActionListener() {
+        casualName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                casualName1ActionPerformed(evt);
+                casualNameActionPerformed(evt);
             }
         });
-        jPanel10.add(casualName1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 95, -1));
+        jPanel10.add(casualName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 95, -1));
 
         casualAvailable.setSelected(true);
         casualAvailable.setText("available");
@@ -618,6 +514,104 @@ public class MainGUI extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Casual Employees", jPanel5);
+
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        cEList1.setModel(new javax.swing.DefaultListModel());
+        cEList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cEList1MouseClicked(evt);
+            }
+        });
+        jScrollPane6.setViewportView(cEList1);
+
+        jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        fullTimeNew.setText("New");
+        fullTimeNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fullTimeNewActionPerformed(evt);
+            }
+        });
+        jPanel11.add(fullTimeNew, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
+
+        fullTimeEdit.setText("Edit");
+        fullTimeEdit.setEnabled(false);
+        fullTimeEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fullTimeEditActionPerformed(evt);
+            }
+        });
+        jPanel11.add(fullTimeEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
+
+        jCheckBox2.setText("modify");
+        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox2ActionPerformed(evt);
+            }
+        });
+        jPanel11.add(jCheckBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 67, -1));
+
+        fullTimeName.setText("Name");
+        fullTimeName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fullTimeNameActionPerformed(evt);
+            }
+        });
+        jPanel11.add(fullTimeName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 95, -1));
+
+        fullTimePay.setModel(new javax.swing.SpinnerNumberModel(50000.0d, 0.0d, 500000.0d, 5000.0d));
+        jPanel11.add(fullTimePay, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 94, -1));
+
+        fullTimeDelete.setText("Delete");
+        fullTimeDelete.setEnabled(false);
+        fullTimeDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fullTimeDeleteActionPerformed(evt);
+            }
+        });
+        jPanel11.add(fullTimeDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, -1, -1));
+
+        jTextArea2.setBackground(new java.awt.Color(240, 240, 240));
+        jTextArea2.setColumns(20);
+        jTextArea2.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        jTextArea2.setRows(5);
+        jTextArea2.setText(" \n To admit a new patient, fill in the forms and press new.\n\n\n\n To edit a patient, first check Modify, then select patient\n from the list. Fill in the forms and press edit.");
+        jTextArea2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jTextArea2.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jTextArea2.setEnabled(false);
+        jTextArea2.setFocusable(false);
+        jScrollPane7.setViewportView(jTextArea2);
+
+        jPanel11.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 6, 280, 120));
+
+        jLabel13.setText("Name:");
+        jPanel11.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
+
+        jLabel14.setText("Salary:");
+        jPanel11.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, -1, -1));
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
+                .addContainerGap())
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel4.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 33, -1, -1));
+
+        jTabbedPane1.addTab("Full Time Employees", jPanel4);
 
         javax.swing.GroupLayout cardEmployeesLayout = new javax.swing.GroupLayout(cardEmployees);
         cardEmployees.setLayout(cardEmployeesLayout);
@@ -738,9 +732,6 @@ public class MainGUI extends javax.swing.JFrame {
         });
         editMenu.add(editEmployees);
 
-        jMenuItem1.setText("jMenuItem1");
-        editMenu.add(jMenuItem1);
-
         menuBar.add(editMenu);
 
         reportsMenu.setText("Reports");
@@ -831,10 +822,18 @@ public class MainGUI extends javax.swing.JFrame {
             }
             if (!name.equals("")) {
                 cF = new CareFacility(name);
-                card.show(mainPanel, "cardReport");
+                card.show(mainPanel, "cardPatients");
             }
         } catch (NullPointerException e) {
         }
+
+        //Default text for Name Text fields
+        bedName.setText("Bed " + cF.getCountBeds());
+        casualName.setText("Casual " + cF.getCountCE());
+        fullTimeName.setText("Full Time " + cF.getCountFTE());
+        patientName.setText("Patient " + cF.getCountP());
+
+        updateDisplays();
     }//GEN-LAST:event_startNewActionPerformed
 
     private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
@@ -854,13 +853,15 @@ public class MainGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_saveAsMenuItemActionPerformed
 
     private void patientEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patientEditActionPerformed
-        FunctionalityUtils.modifyPatients(cF, patientIndexSelected, PatientNameAdd1, patientPriority1);
+        FunctionalityUtils.modifyPatients(cF, patientIndexSelected, patientName, patientPriority1);
         updateDisplays();
         patientIndexSelected = -1;
     }//GEN-LAST:event_patientEditActionPerformed
 
     private void patientDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patientDeleteActionPerformed
-        // TODO add your handling code here:
+        FunctionalityUtils.deletePatient(cF, patientIndexSelected);
+        updateDisplays();
+        patientIndexSelected = -1;
     }//GEN-LAST:event_patientDeleteActionPerformed
 
 
@@ -872,7 +873,7 @@ public class MainGUI extends javax.swing.JFrame {
             //Fill forms with data from selected patient
             try {
                 Patient temp = cF.getCopyPatientStack().get(patientIndexSelected); //get a reference to the patient selected
-                PatientNameAdd1.setText(temp.getName()); //set name text                
+                patientName.setText(temp.getName()); //set name text                
                 patientPriority1.setValue(temp.getPriority()); //set location priority                  
                 isChanging = false; //flag to prevent listener conflicts
             } catch (EmptyCollectionException e) {
@@ -890,7 +891,7 @@ public class MainGUI extends javax.swing.JFrame {
             //Fill forms with data from selected bed
             try {
                 CasualEmployee temp = cF.getCasualEmployee(cEIndexSelected);
-                casualName1.setText(temp.getName()); //set name text
+                casualName.setText(temp.getName()); //set name text
                 casualPay1.setValue(temp.getPayRate()); //set location priority
                 casualAvailable.setSelected(temp.getAvailability());
                 isChanging = false; //flag to prevent listener conflicts
@@ -901,9 +902,9 @@ public class MainGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cEListMouseClicked
 
-    private void casualName1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_casualName1ActionPerformed
+    private void casualNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_casualNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_casualName1ActionPerformed
+    }//GEN-LAST:event_casualNameActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         if (jCheckBox1.isSelected()) {
@@ -919,60 +920,95 @@ public class MainGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void casualEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_casualEditActionPerformed
-        FunctionalityUtils.modifyCasualEmployees(cF, cEIndexSelected, casualName1, casualPay1, casualAvailable);
-
+        FunctionalityUtils.modifyCasualEmployees(cF, cEIndexSelected, casualName, casualPay1, casualAvailable);
         updateDisplays();
         cEIndexSelected = -1;
     }//GEN-LAST:event_casualEditActionPerformed
 
     private void casualNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_casualNewActionPerformed
-        String name = casualName1.getText();
+        String name = casualName.getText();
         double pay = (double) casualPay1.getValue();
         Boolean available = casualAvailable.isSelected();
         CasualEmployee cE = new CasualEmployee(name, available, pay);
         cF.addCasualEmployee(cE);
         updateDisplays();
+        casualName.setText("Casual " + cF.getCountCE());
     }//GEN-LAST:event_casualNewActionPerformed
 
     private void casualDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_casualDeleteActionPerformed
-        // TODO add your handling code here:
+        FunctionalityUtils.deleteCasualEmployee(cF, cEIndexSelected);
+        updateDisplays();
+        cEIndexSelected = -1;
     }//GEN-LAST:event_casualDeleteActionPerformed
 
     private void cEList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cEList1MouseClicked
-        // TODO add your handling code here:
+        if (!isChanging && !cEList1.isSelectionEmpty()) {
+            isChanging = true; //flag to prevent listener conflicts
+            fTEIndexSelected = cEList1.getSelectedIndex() + 1;
+
+            //Fill forms with data from selected bed
+            try {
+                FullTimeEmployee temp = cF.getFullTimeEmployee(fTEIndexSelected);
+                fullTimeName.setText(temp.getName()); //set name text
+                fullTimePay.setValue(temp.getGrossPay()); //set location priority                
+                isChanging = false; //flag to prevent listener conflicts
+            } catch (EmptyCollectionException e) {
+                isChanging = false; //flag to prevent listener conflicts
+                System.out.println(e);
+            }
+        }
     }//GEN-LAST:event_cEList1MouseClicked
 
-    private void casualDelete1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_casualDelete1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_casualDelete1ActionPerformed
+    private void fullTimeDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fullTimeDeleteActionPerformed
+        FunctionalityUtils.deleteFullTimeEmployee(cF, fTEIndexSelected);
+        updateDisplays();
+        fTEIndexSelected = -1;
+    }//GEN-LAST:event_fullTimeDeleteActionPerformed
 
-    private void casualName2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_casualName2ActionPerformed
+    private void fullTimeNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fullTimeNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_casualName2ActionPerformed
+    }//GEN-LAST:event_fullTimeNameActionPerformed
 
     private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
-        // TODO add your handling code here:
+        if (jCheckBox1.isSelected()) {
+            fullTimeEdit.setEnabled(true);
+            fullTimeDelete.setEnabled(true);
+            fullTimeNew.setEnabled(false);
+
+        } else {
+            fullTimeEdit.setEnabled(false);
+            fullTimeDelete.setEnabled(false);
+            fullTimeNew.setEnabled(true);
+        }
     }//GEN-LAST:event_jCheckBox2ActionPerformed
 
-    private void casualEdit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_casualEdit1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_casualEdit1ActionPerformed
+    private void fullTimeEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fullTimeEditActionPerformed
+        FunctionalityUtils.modifyFullTimeEmployees(cF, cEIndexSelected, fullTimeName, fullTimePay);
+        updateDisplays();
+        fTEIndexSelected = -1;
+    }//GEN-LAST:event_fullTimeEditActionPerformed
 
-    private void casualNew1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_casualNew1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_casualNew1ActionPerformed
+    private void fullTimeNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fullTimeNewActionPerformed
+        String name = fullTimeName.getText();
+        double pay = (double) fullTimePay.getValue();
+        FullTimeEmployee fTE = new FullTimeEmployee(name, pay);
+        cF.addFullTimeEmployee(fTE);
+        updateDisplays();
+        fullTimeName.setText("Full Time " + cF.getCountFTE());
+    }//GEN-LAST:event_fullTimeNewActionPerformed
 
     private void patientNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patientNewActionPerformed
-        String name = PatientNameAdd1.getText();
+        String name = patientName.getText();
         int priority = (int) patientPriority1.getValue();
         Patient patient = new Patient(name, priority);
         cF.addPatient(patient);
         updateDisplays();
+        patientName.setText("Patient " + cF.getCountP());
     }//GEN-LAST:event_patientNewActionPerformed
 
-    private void PatientNameAdd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PatientNameAdd1ActionPerformed
+    private void patientNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patientNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_PatientNameAdd1ActionPerformed
+    }//GEN-LAST:event_patientNameActionPerformed
 
     private void patientModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patientModifyActionPerformed
         if (patientModify.isSelected()) {
@@ -1024,7 +1060,7 @@ public class MainGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_bedDeleteActionPerformed
 
     private void bedEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bedEditActionPerformed
-        FunctionalityUtils.modifyBeds(cF, bedListAvailableIndexSelected, bedListUnavailableIndexSelected, bedNameAdd, bedLocation, bedAvailable);
+        FunctionalityUtils.modifyBeds(cF, bedListAvailableIndexSelected, bedListUnavailableIndexSelected, bedName, bedLocation, bedAvailable);
         updateDisplays();
         bedListUnavailableIndexSelected = -1; //reset to unselected after modification
         bedListAvailableIndexSelected = -1; //reset to unselected after modification
@@ -1044,17 +1080,18 @@ public class MainGUI extends javax.swing.JFrame {
      * @param evt action event
      */
     private void bedNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bedNewActionPerformed
-        String name = bedNameAdd.getText();
+        String name = bedName.getText();
         String location = bedLocation.getText();
         Boolean available = bedAvailable.isSelected();
         Bed bed = new Bed(name, location, available, null);
         cF.addBed(bed);
         updateDisplays();
+        bedName.setText("Bed " + cF.getCountBeds());
     }//GEN-LAST:event_bedNewActionPerformed
 
-    private void bedNameAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bedNameAddActionPerformed
+    private void bedNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bedNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_bedNameAddActionPerformed
+    }//GEN-LAST:event_bedNameActionPerformed
 
     private void bedAvailableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bedAvailableActionPerformed
         if (bedAvailable.isSelected()) {
@@ -1063,14 +1100,25 @@ public class MainGUI extends javax.swing.JFrame {
             bedUnavailable2.setSelected(true);
         }
     }//GEN-LAST:event_bedAvailableActionPerformed
-
+    
+    /**
+     * Updates all the reports (jLists) to show current information
+     */
     private void updateDisplays() {
         FunctionalityUtils.updateBedDisplay(cF, bedListA, bedListU);
         FunctionalityUtils.updatePatientDisplay(cF, patientList);
         FunctionalityUtils.updateCasualDisplay(cF, cEList);
+        FunctionalityUtils.updateFullTimeDisplay(cF, cEList1);
         FunctionalityUtils.updateReport(cF, reportDisplay);
+
     }
 
+    /**
+     *
+     * gets the user input from the selected element in the jList, stores the
+     * index to instance var, and populates the input fields with the selected
+     * bed's information
+     */
     private void bedListASelect() {
         if (!isChanging && !bedListA.isSelectionEmpty()) {
             isChanging = true; //flag to prevent listener conflicts
@@ -1080,7 +1128,7 @@ public class MainGUI extends javax.swing.JFrame {
             //Fill forms with data from selected bed            
             try {
                 Bed temp = cF.getAvailableBed(bedListAvailableIndexSelected);
-                bedNameAdd.setText(temp.getName()); //set name text
+                bedName.setText(temp.getName()); //set name text
                 bedLocation.setText(temp.getLocation()); //set location text                
                 bedAvailable.setSelected(temp.getInWorkingOrder());
                 bedUnavailable2.setSelected(!temp.getInWorkingOrder());
@@ -1093,6 +1141,11 @@ public class MainGUI extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * gets the user input from the selected element in the jlist, stores it to
+     * instance var, and populates the input fields with the selected bed's
+     * information
+     */
     private void bedListUSelect() {
         if (!isChanging && !bedListU.isSelectionEmpty()) {
             isChanging = true; //flag to prevent listener conflicts
@@ -1102,7 +1155,7 @@ public class MainGUI extends javax.swing.JFrame {
             //Fill forms with data from selected bed            
             try {
                 Bed temp = cF.getUnavailableBed(bedListUnavailableIndexSelected);
-                bedNameAdd.setText(temp.getName()); //set name text
+                bedName.setText(temp.getName()); //set name text
                 bedLocation.setText(temp.getLocation()); //set location text                
                 bedAvailable.setSelected(temp.getInWorkingOrder());
                 bedUnavailable2.setSelected(!temp.getInWorkingOrder());
@@ -1121,15 +1174,30 @@ public class MainGUI extends javax.swing.JFrame {
      * @param evt ActionEvent
      */
     private void fileOpenDialog(java.awt.event.ActionEvent evt) {
+        File setDir = new File(".");                        //sets setDir to default file path
+        fileChooser.setCurrentDirectory(setDir);            //set fileChooser to open at default file path
+
         int returnVal = fileChooser.showOpenDialog(this);
+
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             //get the file name
             String filename = fileChooser.getSelectedFile().toString();
 
             //ensure the file type is correct
-            if (!filename.endsWith(".cf")) {
+            if (filename.endsWith(".cf")) {
                 File openFile = new File(filename);
                 cF = CareFacility.load(openFile);
+
+                //set default savePath to the file path from filechooser
+                savePath = openFile;
+
+                //Default text for Name Text fields
+                bedName.setText("Bed " + cF.getCountBeds());
+                casualName.setText("Casual " + cF.getCountCE());
+                fullTimeName.setText("Full Time " + cF.getCountFTE());
+                patientName.setText("Patient " + cF.getCountP());
+
+                updateDisplays();
 
                 //set card to cardReport
                 CardLayout card = (CardLayout) mainPanel.getLayout();
@@ -1162,7 +1230,7 @@ public class MainGUI extends javax.swing.JFrame {
                 File saveFile = new File(filename);
                 cF.Save(saveFile);
 
-                savePath = tempPath;                        //set default savePath to the file path from filechooser
+                savePath = tempPath;    //set default savePath to the file path from filechooser
             }
         }
     }
@@ -1240,12 +1308,12 @@ public class MainGUI extends javax.swing.JFrame {
 
     //for emloyeeCard
     private int cEIndexSelected;
+    private int fTEIndexSelected;
 
     //flag to prevent listener conflics    
     boolean isChanging = false;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField PatientNameAdd1;
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JCheckBox bedAvailable;
     private javax.swing.JButton bedDelete;
@@ -1254,7 +1322,7 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JList bedListU;
     private javax.swing.JTextField bedLocation;
     private javax.swing.JCheckBox bedModify;
-    private javax.swing.JTextField bedNameAdd;
+    private javax.swing.JTextField bedName;
     private javax.swing.JButton bedNew;
     private javax.swing.JCheckBox bedUnavailable2;
     private javax.swing.JList<String> cEList;
@@ -1264,17 +1332,11 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JPanel cardPatients;
     private javax.swing.JPanel cardReport;
     private javax.swing.JCheckBox casualAvailable;
-    private javax.swing.JCheckBox casualAvailable1;
     private javax.swing.JButton casualDelete;
-    private javax.swing.JButton casualDelete1;
     private javax.swing.JButton casualEdit;
-    private javax.swing.JButton casualEdit1;
-    private javax.swing.JTextField casualName1;
-    private javax.swing.JTextField casualName2;
+    private javax.swing.JTextField casualName;
     private javax.swing.JButton casualNew;
-    private javax.swing.JButton casualNew1;
     private javax.swing.JSpinner casualPay1;
-    private javax.swing.JSpinner casualPay2;
     private javax.swing.JMenuItem editBeds;
     private javax.swing.JMenuItem editEmployees;
     private javax.swing.JMenu editMenu;
@@ -1282,6 +1344,11 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JFileChooser fileChooser;
     private javax.swing.JMenu fileMenu;
+    private javax.swing.JButton fullTimeDelete;
+    private javax.swing.JButton fullTimeEdit;
+    private javax.swing.JTextField fullTimeName;
+    private javax.swing.JButton fullTimeNew;
+    private javax.swing.JSpinner fullTimePay;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
@@ -1298,7 +1365,6 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -1323,6 +1389,7 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JButton patientEdit;
     private javax.swing.JList patientList;
     private javax.swing.JCheckBox patientModify;
+    private javax.swing.JTextField patientName;
     private javax.swing.JButton patientNew;
     private javax.swing.JSpinner patientPriority1;
     private javax.swing.JTextArea reportDisplay;

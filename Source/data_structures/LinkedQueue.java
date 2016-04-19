@@ -9,6 +9,7 @@ import java.io.Serializable;
 /**
  *
  * @author John Verwolf
+ * @param <T> Type of element stored in the list
  */
 public class LinkedQueue<T> implements QueueADT<T>, DataStructure<T>, Serializable {
 

@@ -1,12 +1,12 @@
 package hospital_components;
 
-import hospital_components.Employee;
+import java.io.Serializable;
 
 /**
  *
  * @author C0432660 John Verwolf
  */
-public class FullTimeEmployee implements Employee {
+public class FullTimeEmployee implements Employee, Serializable {
 
     private String name;
     private double grossPay;

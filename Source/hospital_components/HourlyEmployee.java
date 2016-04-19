@@ -2,12 +2,13 @@ package hospital_components;
 
 import hospital_components.FullTimeEmployee;
 import hospital_components.BusinessRules;
+import java.io.Serializable;
 
 /**
  *
  * @author C0432660 John Verwolf
  */
-public class HourlyEmployee extends FullTimeEmployee {
+public class HourlyEmployee extends FullTimeEmployee implements Serializable {
 
     private int hoursWorked;
     private double payRate;

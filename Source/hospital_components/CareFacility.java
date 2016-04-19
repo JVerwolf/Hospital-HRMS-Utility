@@ -1,7 +1,7 @@
 package hospital_components;
 
-import data_structures.EmptyCollectionException;
 import data_structures.ArrayStack;
+import data_structures.EmptyCollectionException;
 import data_structures.LinkedList;
 import data_structures.LinkedQueue;
 import io_utils.ReadFile;
@@ -27,29 +27,20 @@ public class CareFacility extends Company implements Serializable {
     private LinkedList<Bed> bedListInWorkingOrder;
     private LinkedQueue<CasualEmployee> casualEmployee;
     private java.lang.String facilityName;
+    private LinkedQueue<FullTimeEmployee> fullTimeEmployee;
     private ArrayStack<Patient> patientStack;
 
-    /**
-     * Goes through both the bedListInRepair and bedListInWorkingOrder class
-     * variables and makes sure that they each only have beds in repair or beds
-     * in working order in each data structure, respectively.
+    /*
+     * These vars do NOT hold the total number of each object in the care
+     * facility, rather they just count up when called through their getter
+     * methods. They are used as a way of distinguishing between default names
+     * in the GUI. They were placed in this class so that their values would be
+     * stored when this class is saved.
      */
-    private void cleanBedLists() {
-        try {
-            for (int i = 1; i <= bedListInWorkingOrder.size(); i++) {
-                if (!bedListInWorkingOrder.get(i).getInWorkingOrder()) {
-                    bedListInRepair.addFirst(bedListInWorkingOrder.removeAt(i));
-                }
-            }
-            for (int j = 1; j <= bedListInRepair.size(); j++) {
-                if (bedListInRepair.get(j).getInWorkingOrder()) {
-                    bedListInWorkingOrder.addFirst(bedListInRepair.removeAt(j));
-                }
-            }
-        } catch (EmptyCollectionException e) {
-            e.printStackTrace();
-        }
-    }
+    private int countBeds;
+    private int countCE;
+    private int countFTE;
+    private int countP;
 
     /**
      * Initializes this Care Facility object's name and array of employees,
@@ -58,9 +49,15 @@ public class CareFacility extends Company implements Serializable {
     public CareFacility() {
         facilityName = "";
         casualEmployee = new LinkedQueue<>();
+        fullTimeEmployee = new LinkedQueue<>();
         bedListInWorkingOrder = new LinkedList<>();
         bedListInRepair = new LinkedList<>();
         patientStack = new ArrayStack<>();
+
+        countBeds = 0;
+        countCE = 0;
+        countFTE = 0;
+        countP = 0;
     }
 
     /**
@@ -107,6 +104,46 @@ public class CareFacility extends Company implements Serializable {
         this.casualEmployee = casualEmployee;
         bedListInWorkingOrder = new LinkedList<>();
         patientStack = new ArrayStack<>();
+    }
+
+    /**
+     * returns the number of times this method was called. used to create
+     * default names in the GUI.
+     *
+     * @return the number of times this method was called.
+     */
+    public int getCountBeds() {
+        return ++countBeds;
+    }
+
+    /**
+     * returns the number of times this method was called. used to create
+     * default names in the GUI.
+     *
+     * @return the number of times this method was called.
+     */
+    public int getCountCE() {
+        return ++countCE;
+    }
+
+    /**
+     * returns the number of times this method was called. used to create
+     * default names in the GUI.
+     *
+     * @return the number of times this method was called.
+     */
+    public int getCountFTE() {
+        return ++countFTE;
+    }
+
+    /**
+     * returns the number of times this method was called. used to create
+     * default names in the GUI.
+     *
+     * @return the number of times this method was called.
+     */
+    public int getCountP() {
+        return ++countP;
     }
 
     /**
@@ -278,6 +315,15 @@ public class CareFacility extends Company implements Serializable {
     }
 
     /**
+     * adds a new full time employee to the care facility
+     *
+     * @param fTE FullTimeEmployee object
+     */
+    public void addFullTimeEmployee(FullTimeEmployee fTE) {
+        fullTimeEmployee.enqueue(fTE);
+    }
+
+    /**
      * This method adds a patient to the patient stack and places it in order or
      * priority on the stack.
      *
@@ -367,6 +413,16 @@ public class CareFacility extends Company implements Serializable {
     }
 
     /**
+     * Returns a copy of the full time employee queue. This allows the data to
+     * be printed out without emptying the original stack
+     *
+     * @return copy of casual employee queue
+     */
+    public LinkedQueue<FullTimeEmployee> getCopyFullTimeEmployeeQueue() {
+        return fullTimeEmployee.copy();
+    }
+
+    /**
      * Returns a copy of the patient stack. This allows the data to be printed
      * out without emptying the original stack
      *
@@ -394,6 +450,17 @@ public class CareFacility extends Company implements Serializable {
      */
     public LinkedList<Bed> getCopybedListUnAvailable() {
         return bedListInRepair.copy();
+    }
+
+    /**
+     * returns a full Time employee object without removing it
+     *
+     * @param n the index of the casual employee from the head of the queue
+     * @return casual employee at index n from head
+     * @throws EmptyCollectionException
+     */
+    public FullTimeEmployee getFullTimeEmployee(int n) throws EmptyCollectionException {
+        return fullTimeEmployee.get(n);
     }
 
     /**
@@ -474,6 +541,17 @@ public class CareFacility extends Company implements Serializable {
     }
 
     /**
+     * Removes and returns bed at specified index.
+     *
+     * @param n index of bed in list
+     * @return bed object at index n
+     * @throws EmptyCollectionException
+     */
+    public Bed removeBedInRepair(int n) throws EmptyCollectionException {
+        return bedListInRepair.removeAt(n);
+    }
+
+    /**
      * Returns the bed object by removing it. Removes patient from the bed.
      *
      * @param n index of bed in list
@@ -488,38 +566,47 @@ public class CareFacility extends Company implements Serializable {
     }
 
     /**
-     * returns a casual employee by removing it
+     * Removes the casual employee at the selected index, assigns patients to
+     * another casual employee.
      *
      * @param n the index of the casual employee from the head of the queue
      * @return casual employee at index n from head
      * @throws EmptyCollectionException
      */
     public CasualEmployee removeCasualEmployee(int n) throws EmptyCollectionException {
-        CasualEmployee temp = casualEmployee.removeAt(n);
-        assignCasualEmployee();//Not necessary but left for debugging, as this will get called eventually
-        return temp;
+        CasualEmployee cE = casualEmployee.removeAt(n);
+        cE.removePatient();
+        assignCasualEmployee();//reassign patient to a new casual employee in the rare instance there are more casual employees than patients
+        return cE;
     }
 
     /**
-     * removes the patient at the selected index
+     * Removes the full time employee at the selected index, assigns patients to
+     * another casual employee.
+     *
+     * @param n the index of the casual employee from the head of the queue
+     * @return casual employee at index n from head
+     * @throws EmptyCollectionException
+     */
+    public FullTimeEmployee removeFullTimeEmployee(int n) throws EmptyCollectionException {
+        FullTimeEmployee fTE = fullTimeEmployee.removeAt(n);
+        return fTE;
+    }
+
+    /**
+     * Removes the patient at the selected index, assigns patients bed to a
+     * another patient.
      *
      * @param n index
      * @return patient at n index
      * @throws EmptyCollectionException
      */
     public Patient removePatient(int n) throws EmptyCollectionException {
-        return patientStack.remove(n);
-    }
-
-    /**
-     * Removes and returns bed at specified index.
-     *
-     * @param n index of bed in list
-     * @return bed object at index n
-     * @throws EmptyCollectionException
-     */
-    public Bed removeBedInRepair(int n) throws EmptyCollectionException {
-        return bedListInRepair.removeAt(n);
+        Patient p = patientStack.remove(n);
+        p.removeBed();
+        p.removeCasualEmployee();
+        assignBedAndCasualEmployee(); //reasign bed and casual employee to a new patient 
+        return p;
     }
 
     /**
@@ -616,6 +703,28 @@ public class CareFacility extends Company implements Serializable {
 //        } catch (EmptyCollectionException e) {
 //            System.out.println(e + "Something went wrong in the AssignCasualE() method:\t");
 //        }
+    }
+
+    /**
+     * Goes through both the bedListInRepair and bedListInWorkingOrder class
+     * variables and makes sure that they each only have beds in repair or beds
+     * in working order in each data structure, respectively.
+     */
+    private void cleanBedLists() {
+        try {
+            for (int i = 1; i <= bedListInWorkingOrder.size(); i++) {
+                if (!bedListInWorkingOrder.get(i).getInWorkingOrder()) {
+                    bedListInRepair.addFirst(bedListInWorkingOrder.removeAt(i));
+                }
+            }
+            for (int j = 1; j <= bedListInRepair.size(); j++) {
+                if (bedListInRepair.get(j).getInWorkingOrder()) {
+                    bedListInWorkingOrder.addFirst(bedListInRepair.removeAt(j));
+                }
+            }
+        } catch (EmptyCollectionException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

@@ -13,14 +13,15 @@ public class Bed implements Serializable {
     private String location;
     private String name;
     private boolean inWorkingOrder;
-    Patient patient;
+    private Patient patient;
 
     /**
-     * Initializes this Bed object's name and location to a specified name and
-     * location
+     * Initializes this Bed object
      *
-     * @param name     The specified name for the bed
-     * @param location the specified location where this bed is located
+     * @param name      The specified name for the bed
+     * @param location  the specified location where this bed is located
+     * @param available If the bed is available
+     * @param patient   The patient in the bed
      */
     public Bed(String name, String location, boolean available, Patient patient) {
         this.location = location;
@@ -38,6 +39,9 @@ public class Bed implements Serializable {
         return (inWorkingOrder && patient == null);
     }
 
+    /**
+     * Removes patient from bed, and bed from patient
+     */
     public void removePatient() {
         if (patient != null) {
             if (patient.getBed() != null) {
@@ -95,11 +99,11 @@ public class Bed implements Serializable {
     /**
      * Changes bed's status to be in working order
      *
-     * @param availability True if usable, false if not usable.
+     * @param inWorkingOrder the condition of the bed
      */
     public void setInWorkingOrder(boolean inWorkingOrder) {
         this.inWorkingOrder = inWorkingOrder;
-        if(!inWorkingOrder){
+        if (!inWorkingOrder) {
             this.removePatient();
         }
     }

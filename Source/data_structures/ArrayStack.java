@@ -86,6 +86,7 @@ public class ArrayStack<T> implements StackADT<T>, DataStructure<T>, Serializabl
      *
      * @param n
      * @return
+     * @throws data_structures.EmptyCollectionException
      */
     public T get(int n) throws EmptyCollectionException {
         int i = top - n;
@@ -96,6 +97,13 @@ public class ArrayStack<T> implements StackADT<T>, DataStructure<T>, Serializabl
         }
     }
 
+    /**
+     * removes and returns element at specified index
+     *
+     * @param n indeex from head of list
+     * @return element at index
+     * @throws EmptyCollectionException
+     */
     public T remove(int n) throws EmptyCollectionException {
         try {
             int i = top - n;

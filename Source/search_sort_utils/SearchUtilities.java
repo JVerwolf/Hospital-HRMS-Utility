@@ -44,6 +44,14 @@ public class SearchUtilities {
         return locationFromTop;
     }
 
+    /**
+     * Searches for a patient object by priority
+     *
+     * @param target     priority
+     * @param inputStack the stack in which to look
+     * @return patient element
+     * @throws ElementNotFoundException
+     */
     public static Patient binarySearch(int target, ArrayStack<Patient> inputStack) throws ElementNotFoundException {
         //TODO: call sort on stack
 

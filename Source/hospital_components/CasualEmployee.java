@@ -1,10 +1,12 @@
 package hospital_components;
 
+import java.io.Serializable;
+
 /**
  *
  * @author John Verwolf
  */
-public class CasualEmployee extends HourlyEmployee implements java.io.Serializable {
+public class CasualEmployee extends HourlyEmployee implements Serializable {
 
     /**
      * Availability
@@ -35,6 +37,13 @@ public class CasualEmployee extends HourlyEmployee implements java.io.Serializab
         this.patient = null;
     }
 
+    /**
+     * construct casual employee
+     *
+     * @param name         name of casual employee
+     * @param availability availability of casual employee
+     * @param pay          hourly pay
+     */
     public CasualEmployee(String name, boolean availability, double pay) {
         super();
         super.setName(name);
@@ -43,6 +52,14 @@ public class CasualEmployee extends HourlyEmployee implements java.io.Serializab
         this.patient = null;
     }
 
+    /**
+     * constructs casual employee
+     *
+     * @param name
+     * @param availability
+     * @param assigned
+     * @param pay
+     */
     public CasualEmployee(String name, boolean availability, Patient assigned, double pay) {
         super();
         super.setName(name);
@@ -50,7 +67,9 @@ public class CasualEmployee extends HourlyEmployee implements java.io.Serializab
         this.availability = availability;
         this.patient = assigned;
     }
-
+    /**
+     * removes the patient from the casual employee, and the casual employee from the patient
+     */
     public void removePatient() {
         if (patient != null) {
             if (patient.getCasualEmployee() != null) {
