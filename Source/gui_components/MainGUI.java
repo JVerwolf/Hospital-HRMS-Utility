@@ -11,9 +11,9 @@ import hospital_components.FullTimeEmployee;
 import hospital_components.Patient;
 import java.awt.CardLayout;
 import java.io.File;
+import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 
 /**
  *
@@ -75,6 +75,8 @@ public class MainGUI extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         bedListU = new javax.swing.JList();
+        jScrollPane11 = new javax.swing.JScrollPane();
+        jTextArea6 = new javax.swing.JTextArea();
         cardPatients = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         patientList = new javax.swing.JList();
@@ -83,11 +85,14 @@ public class MainGUI extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         patientName = new javax.swing.JTextField();
         patientNew = new javax.swing.JButton();
-        jLabel22 = new javax.swing.JLabel();
         patientPriority1 = new javax.swing.JSpinner();
         patientDelete = new javax.swing.JButton();
         patientEdit = new javax.swing.JButton();
         patientModify = new javax.swing.JCheckBox();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        jTextArea4 = new javax.swing.JTextArea();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        jTextArea5 = new javax.swing.JTextArea();
         cardEmployees = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel5 = new javax.swing.JPanel();
@@ -101,10 +106,10 @@ public class MainGUI extends javax.swing.JFrame {
         casualAvailable = new javax.swing.JCheckBox();
         casualPay1 = new javax.swing.JSpinner();
         casualDelete = new javax.swing.JButton();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        jTextArea3 = new javax.swing.JTextArea();
         jPanel4 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
@@ -123,7 +128,6 @@ public class MainGUI extends javax.swing.JFrame {
         cardReport = new javax.swing.JPanel();
         reportScrollArea = new javax.swing.JScrollPane();
         reportDisplay = new javax.swing.JTextArea();
-        reportUpdate = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         openMenuItem = new javax.swing.JMenuItem();
@@ -136,8 +140,6 @@ public class MainGUI extends javax.swing.JFrame {
         editEmployees = new javax.swing.JMenuItem();
         reportsMenu = new javax.swing.JMenu();
         viewReport = new javax.swing.JMenuItem();
-        helpMenu = new javax.swing.JMenu();
-        aboutMenuItem = new javax.swing.JMenuItem();
 
         fileChooser.setDialogTitle("Hospital Management Utility File Chooser");
         fileChooser.setFileFilter(new MyCustomFilter());
@@ -177,17 +179,18 @@ public class MainGUI extends javax.swing.JFrame {
         startLayout.setHorizontalGroup(
             startLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(startLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(startLoad)
-                .addGap(49, 49, 49)
-                .addComponent(startNew)
-                .addGap(156, 156, 156))
-            .addGroup(startLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(startLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(190, Short.MAX_VALUE))
+                    .addGroup(startLayout.createSequentialGroup()
+                        .addGap(178, 178, 178)
+                        .addComponent(startLoad)
+                        .addGap(95, 95, 95)
+                        .addComponent(startNew))
+                    .addGroup(startLayout.createSequentialGroup()
+                        .addGap(94, 94, 94)
+                        .addGroup(startLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(106, Short.MAX_VALUE))
         );
         startLayout.setVerticalGroup(
             startLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,11 +199,11 @@ public class MainGUI extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 290, Short.MAX_VALUE)
-                .addGroup(startLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(startNew)
-                    .addComponent(startLoad))
-                .addGap(51, 51, 51))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, Short.MAX_VALUE)
+                .addGroup(startLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(startLoad)
+                    .addComponent(startNew))
+                .addGap(220, 220, 220))
         );
 
         mainPanel.add(start, "start");
@@ -246,7 +249,7 @@ public class MainGUI extends javax.swing.JFrame {
                 bedUnavailable2ActionPerformed(evt);
             }
         });
-        jPanel1.add(bedUnavailable2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, -1, 13));
+        jPanel1.add(bedUnavailable2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 60, -1, 13));
 
         bedEdit.setText("Edit");
         bedEdit.setEnabled(false);
@@ -304,28 +307,48 @@ public class MainGUI extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(bedListU);
 
+        jTextArea6.setBackground(new java.awt.Color(240, 240, 240));
+        jTextArea6.setColumns(20);
+        jTextArea6.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        jTextArea6.setRows(5);
+        jTextArea6.setText(" \n To add a new bed, fill in the forms and press new.\n\n\n\n To edit a bed, first check Modify, then select\n the bed from the list. Fill in the forms and press\n edit.");
+        jTextArea6.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jTextArea6.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jTextArea6.setEnabled(false);
+        jTextArea6.setFocusable(false);
+        jScrollPane11.setViewportView(jTextArea6);
+
         javax.swing.GroupLayout cardBedsLayout = new javax.swing.GroupLayout(cardBeds);
         cardBeds.setLayout(cardBedsLayout);
         cardBedsLayout.setHorizontalGroup(
             cardBedsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(cardBedsLayout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 320, Short.MAX_VALUE))
             .addGroup(cardBedsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(cardBedsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel10))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(cardBedsLayout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(cardBedsLayout.createSequentialGroup()
+                        .addGroup(cardBedsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         cardBedsLayout.setVerticalGroup(
             cardBedsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cardBedsLayout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel9)
+                .addGroup(cardBedsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(cardBedsLayout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel9))
+                    .addGroup(cardBedsLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -347,17 +370,17 @@ public class MainGUI extends javax.swing.JFrame {
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel20.setText("Priority from 0  (low) to 10( high):");
-        jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(117, 44, -1, -1));
+        jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, -1, -1));
 
         jLabel21.setText("Name:");
-        jPanel3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 44, -1, -1));
+        jPanel3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, -1, -1));
 
         patientName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 patientNameActionPerformed(evt);
             }
         });
-        jPanel3.add(patientName, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 64, 107, -1));
+        jPanel3.add(patientName, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 107, -1));
 
         patientNew.setText("New");
         patientNew.addActionListener(new java.awt.event.ActionListener() {
@@ -365,13 +388,10 @@ public class MainGUI extends javax.swing.JFrame {
                 patientNewActionPerformed(evt);
             }
         });
-        jPanel3.add(patientNew, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 95, -1, -1));
-
-        jLabel22.setText("To admit a new patient, fill in the forms and press new");
-        jPanel3.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 282, 27));
+        jPanel3.add(patientNew, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, -1, -1));
 
         patientPriority1.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10, 1));
-        jPanel3.add(patientPriority1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 60, 40, -1));
+        jPanel3.add(patientPriority1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, 40, -1));
 
         patientDelete.setText("Delete");
         patientDelete.setEnabled(false);
@@ -380,7 +400,7 @@ public class MainGUI extends javax.swing.JFrame {
                 patientDeleteActionPerformed(evt);
             }
         });
-        jPanel3.add(patientDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, -1, -1));
+        jPanel3.add(patientDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, -1, -1));
 
         patientEdit.setText("Edit");
         patientEdit.setEnabled(false);
@@ -389,7 +409,7 @@ public class MainGUI extends javax.swing.JFrame {
                 patientEditActionPerformed(evt);
             }
         });
-        jPanel3.add(patientEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, -1, -1));
+        jPanel3.add(patientEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, -1, -1));
 
         patientModify.setText("Modify");
         patientModify.addActionListener(new java.awt.event.ActionListener() {
@@ -397,23 +417,61 @@ public class MainGUI extends javax.swing.JFrame {
                 patientModifyActionPerformed(evt);
             }
         });
-        jPanel3.add(patientModify, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, -1, -1));
+        jPanel3.add(patientModify, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, -1));
+
+        jTextArea4.setBackground(new java.awt.Color(240, 240, 240));
+        jTextArea4.setColumns(20);
+        jTextArea4.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        jTextArea4.setRows(5);
+        jTextArea4.setText(" \n To add a new employee, fill in the forms and press new.\n\n\n\n To edit an employee, first check Modify, then select\n the employee from the list. Fill in the forms and press\n edit.");
+        jTextArea4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jTextArea4.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jTextArea4.setEnabled(false);
+        jTextArea4.setFocusable(false);
+        jScrollPane9.setViewportView(jTextArea4);
+
+        jTextArea5.setBackground(new java.awt.Color(240, 240, 240));
+        jTextArea5.setColumns(20);
+        jTextArea5.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        jTextArea5.setRows(5);
+        jTextArea5.setText(" \n To add a new patient, fill in the forms and press new.\n\n\n\n To edit a patient, first check Modify, then select\n the patient from the list. Fill in the forms and press\n edit.");
+        jTextArea5.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        jTextArea5.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jTextArea5.setEnabled(false);
+        jTextArea5.setFocusable(false);
+        jScrollPane10.setViewportView(jTextArea5);
 
         javax.swing.GroupLayout cardPatientsLayout = new javax.swing.GroupLayout(cardPatients);
         cardPatients.setLayout(cardPatientsLayout);
         cardPatientsLayout.setHorizontalGroup(
             cardPatientsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
             .addGroup(cardPatientsLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(342, Short.MAX_VALUE))
-            .addComponent(jScrollPane3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(cardPatientsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(cardPatientsLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         cardPatientsLayout.setVerticalGroup(
             cardPatientsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cardPatientsLayout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addGroup(cardPatientsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE))
+            .addGroup(cardPatientsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(cardPatientsLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         mainPanel.add(cardPatients, "cardPatients");
@@ -476,24 +534,24 @@ public class MainGUI extends javax.swing.JFrame {
         });
         jPanel10.add(casualDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, -1, -1));
 
-        jTextArea1.setBackground(new java.awt.Color(240, 240, 240));
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        jTextArea1.setRows(5);
-        jTextArea1.setText(" \n To admit a new patient, fill in the forms and press new.\n\n\n\n To edit a patient, first check Modify, then select patient\n from the list. Fill in the forms and press edit.");
-        jTextArea1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jTextArea1.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        jTextArea1.setEnabled(false);
-        jTextArea1.setFocusable(false);
-        jScrollPane5.setViewportView(jTextArea1);
-
-        jPanel10.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 6, 280, 120));
-
         jLabel11.setText("Name:");
         jPanel10.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
         jLabel12.setText("Hourly Rate:");
         jPanel10.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, -1, -1));
+
+        jTextArea3.setBackground(new java.awt.Color(240, 240, 240));
+        jTextArea3.setColumns(20);
+        jTextArea3.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        jTextArea3.setRows(5);
+        jTextArea3.setText(" \n To add a new employee, fill in the forms and press new.\n\n\n\n To edit an employee, first check Modify, then select\n the employee from the list. Fill in the forms and press\n edit.");
+        jTextArea3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jTextArea3.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jTextArea3.setEnabled(false);
+        jTextArea3.setFocusable(false);
+        jScrollPane8.setViewportView(jTextArea3);
+
+        jPanel10.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 6, 280, 120));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -509,8 +567,7 @@ public class MainGUI extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Casual Employees", jPanel5);
@@ -544,7 +601,7 @@ public class MainGUI extends javax.swing.JFrame {
         });
         jPanel11.add(fullTimeEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
 
-        jCheckBox2.setText("modify");
+        jCheckBox2.setText("Modify");
         jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox2ActionPerformed(evt);
@@ -576,7 +633,7 @@ public class MainGUI extends javax.swing.JFrame {
         jTextArea2.setColumns(20);
         jTextArea2.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jTextArea2.setRows(5);
-        jTextArea2.setText(" \n To admit a new patient, fill in the forms and press new.\n\n\n\n To edit a patient, first check Modify, then select patient\n from the list. Fill in the forms and press edit.");
+        jTextArea2.setText(" \n To add a new employee, fill in the forms and press new.\n\n\n\n To edit an employee, first check Modify, then select\n the employee from the list. Fill in the forms and press\n edit.");
         jTextArea2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jTextArea2.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jTextArea2.setEnabled(false);
@@ -605,8 +662,7 @@ public class MainGUI extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE))
         );
 
         jPanel4.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 33, -1, -1));
@@ -632,28 +688,15 @@ public class MainGUI extends javax.swing.JFrame {
         reportDisplay.setRows(5);
         reportScrollArea.setViewportView(reportDisplay);
 
-        reportUpdate.setText("Update");
-        reportUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                reportUpdateActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout cardReportLayout = new javax.swing.GroupLayout(cardReport);
         cardReport.setLayout(cardReportLayout);
         cardReportLayout.setHorizontalGroup(
             cardReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(reportScrollArea, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
-            .addGroup(cardReportLayout.createSequentialGroup()
-                .addComponent(reportUpdate)
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         cardReportLayout.setVerticalGroup(
             cardReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(cardReportLayout.createSequentialGroup()
-                .addComponent(reportScrollArea, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(reportUpdate))
+            .addComponent(reportScrollArea, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
         );
 
         mainPanel.add(cardReport, "cardReport");
@@ -702,6 +745,7 @@ public class MainGUI extends javax.swing.JFrame {
 
         editMenu.setMnemonic('e');
         editMenu.setText("Edit");
+        editMenu.setEnabled(false);
         editMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editMenuActionPerformed(evt);
@@ -734,9 +778,10 @@ public class MainGUI extends javax.swing.JFrame {
 
         menuBar.add(editMenu);
 
-        reportsMenu.setText("Reports");
+        reportsMenu.setText("Overview");
+        reportsMenu.setEnabled(false);
 
-        viewReport.setText("Reports");
+        viewReport.setText("Overview");
         viewReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 viewReportActionPerformed(evt);
@@ -745,15 +790,6 @@ public class MainGUI extends javax.swing.JFrame {
         reportsMenu.add(viewReport);
 
         menuBar.add(reportsMenu);
-
-        helpMenu.setMnemonic('h');
-        helpMenu.setText("Help");
-
-        aboutMenuItem.setMnemonic('a');
-        aboutMenuItem.setText("About");
-        helpMenu.add(aboutMenuItem);
-
-        menuBar.add(helpMenu);
 
         setJMenuBar(menuBar);
 
@@ -769,6 +805,7 @@ public class MainGUI extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
@@ -812,28 +849,37 @@ public class MainGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_editPatientsActionPerformed
 
     private void startNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startNewActionPerformed
-        CardLayout card = (CardLayout) mainPanel.getLayout();
+        newCF();
 
-        //instantiate care facility
-        try {
-            String name = JOptionPane.showInputDialog("Please enter a name for the carefacility", "CareFacility");
-            while (name.equals("")) {
-                name = JOptionPane.showInputDialog("Please enter a name for the carefacility", "CareFacility");
-            }
-            if (!name.equals("")) {
-                cF = new CareFacility(name);
-                card.show(mainPanel, "cardPatients");
-            }
-        } catch (NullPointerException e) {
-        }
-
-        //Default text for Name Text fields
-        bedName.setText("Bed " + cF.getCountBeds());
-        casualName.setText("Casual " + cF.getCountCE());
-        fullTimeName.setText("Full Time " + cF.getCountFTE());
-        patientName.setText("Patient " + cF.getCountP());
-
-        updateDisplays();
+//        //instantiate care facility
+//        try {
+//            String name = JOptionPane.showInputDialog("Please enter a name for the carefacility", "CareFacility");
+//            if (name != null) {
+//                while (name != null && name.equals("")) { //promps user for valid non empty imput
+//                    name = JOptionPane.showInputDialog("Please enter a name for the carefacility", "CareFacility");
+//                }
+//                if (!name.equals("")) {
+//                    cF = new CareFacility(name);
+//
+//                    //enable menus
+//                    reportsMenu.setEnabled(true);
+//                    editMenu.setEnabled(true);
+//
+//                    //Default text for Name Text fields
+//                    bedName.setText("Bed " + cF.getCountBeds());
+//                    casualName.setText("Casual " + cF.getCountCE());
+//                    fullTimeName.setText("Full Time " + cF.getCountFTE());
+//                    patientName.setText("Patient " + cF.getCountP());
+//
+//                    //Update the Displays
+//                    updateDisplays();
+//                    
+//                    CardLayout card = (CardLayout) mainPanel.getLayout();
+//                    card.show(mainPanel, "cardPatients");
+//                }
+//            }
+//        } catch (NullPointerException e) {
+//        }
     }//GEN-LAST:event_startNewActionPerformed
 
     private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
@@ -843,10 +889,6 @@ public class MainGUI extends javax.swing.JFrame {
             cF.Save(savePath);
         }
     }//GEN-LAST:event_saveMenuItemActionPerformed
-
-    private void reportUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportUpdateActionPerformed
-
-    }//GEN-LAST:event_reportUpdateActionPerformed
 
     private void saveAsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAsMenuItemActionPerformed
         fileSaveDialog(evt);
@@ -970,7 +1012,7 @@ public class MainGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_fullTimeNameActionPerformed
 
     private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
-        if (jCheckBox1.isSelected()) {
+        if (jCheckBox2.isSelected()) {
             fullTimeEdit.setEnabled(true);
             fullTimeDelete.setEnabled(true);
             fullTimeNew.setEnabled(false);
@@ -983,7 +1025,7 @@ public class MainGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jCheckBox2ActionPerformed
 
     private void fullTimeEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fullTimeEditActionPerformed
-        FunctionalityUtils.modifyFullTimeEmployees(cF, cEIndexSelected, fullTimeName, fullTimePay);
+        FunctionalityUtils.modifyFullTimeEmployees(cF, fTEIndexSelected, fullTimeName, fullTimePay);
         updateDisplays();
         fTEIndexSelected = -1;
     }//GEN-LAST:event_fullTimeEditActionPerformed
@@ -1100,7 +1142,7 @@ public class MainGUI extends javax.swing.JFrame {
             bedUnavailable2.setSelected(true);
         }
     }//GEN-LAST:event_bedAvailableActionPerformed
-    
+
     /**
      * Updates all the reports (jLists) to show current information
      */
@@ -1186,22 +1228,30 @@ public class MainGUI extends javax.swing.JFrame {
             //ensure the file type is correct
             if (filename.endsWith(".cf")) {
                 File openFile = new File(filename);
-                cF = CareFacility.load(openFile);
+                try {
+                    cF = CareFacility.load(openFile);
 
-                //set default savePath to the file path from filechooser
-                savePath = openFile;
+                    //set default savePath to the file path from filechooser
+                    savePath = openFile;
 
-                //Default text for Name Text fields
-                bedName.setText("Bed " + cF.getCountBeds());
-                casualName.setText("Casual " + cF.getCountCE());
-                fullTimeName.setText("Full Time " + cF.getCountFTE());
-                patientName.setText("Patient " + cF.getCountP());
+                    //enable menus
+                    reportsMenu.setEnabled(true);
+                    editMenu.setEnabled(true);
 
-                updateDisplays();
+                    //Default text for Name Text fields
+                    bedName.setText("Bed " + cF.getCountBeds());
+                    casualName.setText("Casual " + cF.getCountCE());
+                    fullTimeName.setText("Full Time " + cF.getCountFTE());
+                    patientName.setText("Patient " + cF.getCountP());
 
-                //set card to cardReport
-                CardLayout card = (CardLayout) mainPanel.getLayout();
-                card.show(mainPanel, "cardReport");
+                    updateDisplays();
+
+                    //set card to cardReport
+                    CardLayout card = (CardLayout) mainPanel.getLayout();
+                    card.show(mainPanel, "cardReport");
+                } catch (ClassNotFoundException | IOException e) {
+
+                }
             }
         }
     }
@@ -1232,6 +1282,49 @@ public class MainGUI extends javax.swing.JFrame {
 
                 savePath = tempPath;    //set default savePath to the file path from filechooser
             }
+        }
+    }
+
+    private void newCF() {
+        //instantiate care facility
+//        if (cF != null) {
+//            JOptionPane optionPane = new JOptionPane(
+//                    "Do you want to save before Exiting?",
+//                    JOptionPane.QUESTION_MESSAGE,
+//                    JOptionPane.YES_NO_OPTION);
+//            
+//            if (JOptionPane.CANCEL_OPTION == optionPane){
+//                
+//            }
+//        }
+        
+        try {
+            String name = JOptionPane.showInputDialog("Please enter a name for the carefacility", "CareFacility");
+            if (name != null) {
+                while (name != null && name.equals("")) { //promps user for valid non empty imput
+                    name = JOptionPane.showInputDialog("Please enter a name for the carefacility", "CareFacility");
+                }
+                if (!name.equals("")) {
+                    cF = new CareFacility(name);
+
+                    //enable menus
+                    reportsMenu.setEnabled(true);
+                    editMenu.setEnabled(true);
+
+                    //Default text for Name Text fields
+                    bedName.setText("Bed " + cF.getCountBeds());
+                    casualName.setText("Casual " + cF.getCountCE());
+                    fullTimeName.setText("Full Time " + cF.getCountFTE());
+                    patientName.setText("Patient " + cF.getCountP());
+
+                    //Update the Displays
+                    updateDisplays();
+
+                    CardLayout card = (CardLayout) mainPanel.getLayout();
+                    card.show(mainPanel, "cardPatients");
+                }
+            }
+        } catch (NullPointerException e) {
         }
     }
 
@@ -1314,7 +1407,6 @@ public class MainGUI extends javax.swing.JFrame {
     boolean isChanging = false;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JCheckBox bedAvailable;
     private javax.swing.JButton bedDelete;
     private javax.swing.JButton bedEdit;
@@ -1349,7 +1441,6 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JTextField fullTimeName;
     private javax.swing.JButton fullTimeNew;
     private javax.swing.JSpinner fullTimePay;
-    private javax.swing.JMenu helpMenu;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JLabel jLabel1;
@@ -1361,7 +1452,6 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel9;
@@ -1373,15 +1463,21 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane10;
+    private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JTextArea jTextArea3;
+    private javax.swing.JTextArea jTextArea4;
+    private javax.swing.JTextArea jTextArea5;
+    private javax.swing.JTextArea jTextArea6;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
@@ -1394,7 +1490,6 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JSpinner patientPriority1;
     private javax.swing.JTextArea reportDisplay;
     private javax.swing.JScrollPane reportScrollArea;
-    private javax.swing.JButton reportUpdate;
     private javax.swing.JMenu reportsMenu;
     private javax.swing.JMenuItem saveAsMenuItem;
     private javax.swing.JMenuItem saveMenuItem;

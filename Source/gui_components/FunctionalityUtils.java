@@ -9,6 +9,8 @@ import hospital_components.CareFacility;
 import hospital_components.CasualEmployee;
 import hospital_components.FullTimeEmployee;
 import hospital_components.Patient;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import javax.swing.DefaultListModel;
 import javax.swing.JCheckBox;
 import javax.swing.JList;
@@ -22,40 +24,7 @@ import javax.swing.JTextField;
  */
 public class FunctionalityUtils {
 
-    static void deleteBed(CareFacility cF, int nW, int nIR) {
-        try {
-            if (nW > 0) {//if index is from the list of beds in working order 
-                cF.removeBedInWorkingOrder(nW);
-            } else if (nIR > 0) {
-                cF.removeBedInRepair(nIR);
-            }
-        } catch (EmptyCollectionException e) {
-            System.out.println(e);
-        }
-
-    }
-
-    static void deleteCasualEmployee(CareFacility cF, int nCE) {
-        try {
-            if (nCE > 0) {
-                cF.removeCasualEmployee(nCE);
-            }
-        } catch (EmptyCollectionException e) {
-            System.out.println(e);
-        }
-    }
-
-    static void deleteFullTimeEmployee(CareFacility cF, int fTE) {
-        try {
-            if (fTE > 0) {
-                cF.removeFullTimeEmployee(fTE);
-            }
-        } catch (EmptyCollectionException e) {
-            System.out.println(e);
-        }
-    }
-
-    static void deletePatient(CareFacility cF, int nP) {
+    protected static void deletePatient(CareFacility cF, int nP) {
         try {
             if (nP > 0) {
                 cF.removePatient(nP);
@@ -65,7 +34,7 @@ public class FunctionalityUtils {
         }
     }
 
-    static void modifyCasualEmployees(CareFacility cF, int index, JTextField nameTF, JSpinner casualPay, JCheckBox available) {
+    protected static void modifyCasualEmployees(CareFacility cF, int index, JTextField nameTF, JSpinner casualPay, JCheckBox available) {
         String name = nameTF.getText();
         double pay = (double) casualPay.getValue();
         try {
@@ -83,7 +52,7 @@ public class FunctionalityUtils {
         }
     }
 
-    static void modifyFullTimeEmployees(CareFacility cF, int index, JTextField nameTF, JSpinner jSpinnerPay) {
+    protected static void modifyFullTimeEmployees(CareFacility cF, int index, JTextField nameTF, JSpinner jSpinnerPay) {
         String name = nameTF.getText();
         double pay = (double) jSpinnerPay.getValue();
         try {
@@ -99,7 +68,7 @@ public class FunctionalityUtils {
         }
     }
 
-    static void updateFullTimeDisplay(CareFacility CF, JList<String> fTEList) {
+    protected static void updateFullTimeDisplay(CareFacility CF, JList<String> fTEList) {
         LinkedQueue<FullTimeEmployee> fTECopy = CF.getCopyFullTimeEmployeeQueue();
 
         //Make listModels
@@ -112,8 +81,41 @@ public class FunctionalityUtils {
             while (!fTECopy.isEmpty()) {
                 FullTimeEmployee tempFTE = fTECopy.dequeue();
 
-                listModel.addElement(tempFTE.getName() + ",  Salary: $"
-                        + tempFTE.getGrossPay());
+                listModel.addElement("<html><pre font face=\"verdana\">Name:&nbsp;<b>" + tempFTE.getName() + "\t</b>Salary: $<b>"
+                        + tempFTE.getGrossPay()+ "</b></pre></html>");
+            }
+        } catch (EmptyCollectionException e) {
+            System.out.println(e);
+        }
+    }
+
+    protected static void deleteBed(CareFacility cF, int nW, int nIR) {
+        try {
+            if (nW > 0) {//if index is from the list of beds in working order
+                cF.removeBedInWorkingOrder(nW);
+            } else if (nIR > 0) {
+                cF.removeBedInRepair(nIR);
+            }
+        } catch (EmptyCollectionException e) {
+            System.out.println(e);
+        }
+
+    }
+
+    protected static void deleteCasualEmployee(CareFacility cF, int nCE) {
+        try {
+            if (nCE > 0) {
+                cF.removeCasualEmployee(nCE);
+            }
+        } catch (EmptyCollectionException e) {
+            System.out.println(e);
+        }
+    }
+
+    protected static void deleteFullTimeEmployee(CareFacility cF, int fTE) {
+        try {
+            if (fTE > 0) {
+                cF.removeFullTimeEmployee(fTE);
             }
         } catch (EmptyCollectionException e) {
             System.out.println(e);
@@ -208,7 +210,7 @@ public class FunctionalityUtils {
          * object.
          */
         LinkedList<Bed> workingOrder = cF.getCopybedListInWorkingOrder();
-        LinkedList<Bed> inRepair = cF.getCopybedListUnAvailable();
+        LinkedList<Bed> inRepair = cF.getCopyBedListInRepair();
 
         //clear list
         DefaultListModel listModelA = (DefaultListModel) bedListA.getModel();
@@ -271,8 +273,13 @@ public class FunctionalityUtils {
                 if (tempCE.getAvailability()) {
                     available = "<font color=green>Yes</font>";
                 }
-                String html = "<html><pre font face=\"verdana\">Name:<b> " + tempCE.getName() + "\t</b>Pay: <b>$"
-                        + tempCE.getPayRate() + "\t</b>/hr  Assigned To: <b>" + patient
+                
+                //to pretent getting 10+ decimal figures in double rounding
+                NumberFormat formatter = new DecimalFormat("#0.00");
+                System.out.println(formatter.format(4.0));
+               
+                String html = "<html><pre font face=\"verdana\">Name:<b>&nbsp;" + tempCE.getName() + "&nbsp;\t</b>Pay: <b>$"
+                        + formatter.format(tempCE.getPayRate()) + "\t</b>/hr  Assigned To: <b>" + patient
                         + "\t</b>Available: <b>" + available + "</b></pre></html>";
                 listModel.addElement(html);
             }
@@ -336,30 +343,106 @@ public class FunctionalityUtils {
         //this method assigns beds to patients
         CF.assignBedAndCasualEmployee();
 
-        /**
-         * Get a copy of the patientStack instance variable of CF CareFacility
-         * object.
-         */
-        ArrayStack<Patient> tempPatientStack = CF.getCopyPatientStack();
-
         report.setText(null);//clear text area
         try {
-            report.append("\nPATIENT NAME:\tPATIENT \tBED:\tCASUAL EMPLOYEE:\n\t\tPRIORITY:");
+            report.append("\nFACILITY NAME: " + CF.getFacilityName());
+
+            report.append("\n\n\nLIST OF SALARIED STAFF:");
+            report.append("\n   NAME:\tSALARY:");
+            LinkedQueue<FullTimeEmployee> fTECopy = CF.getCopyFullTimeEmployeeQueue();
+            while (!fTECopy.isEmpty()) {
+                FullTimeEmployee fTE = fTECopy.dequeue();
+
+                String name = "";
+                if (fTE.getName() != null) {
+                    name = fTE.getName();
+                }
+
+                report.append("\n   " + name + "\t" + fTE.getGrossPay());
+            }
+
+            report.append("\n\n\nLIST OF CASUAL STAFF:");
+            report.append("\n   NAME:\tHOURLY RATE:\tPATIENT:");
+            LinkedQueue<CasualEmployee> cEQ = CF.getCopyCasualEmployeeQueue();
+            while (!cEQ.isEmpty()) {
+                CasualEmployee cE = cEQ.dequeue();
+
+                String name = "";
+                if (cE.getName() != null) {
+                    name = cE.getName();
+                }
+
+                double pay = cE.getPayRate();
+
+                String patient = "";
+                if (cE.getPatient() != null) {
+                    patient = cE.getPatient().getName();
+                }
+
+                report.append("\n   " + name + "\t" + pay + "\t" + patient);
+            }
+
+            report.append("\n\n\nLIST OF BEDS IN WORKING ORDER:");
+            report.append("\n   NAME:\tLOCATION:\tPATIENT:");
+            LinkedList<Bed> BedList = CF.getCopybedListInWorkingOrder();
+            while (!BedList.isEmpty()) {
+                Bed b = BedList.removeLast();
+
+                String location = "";
+                if (b.getLocation() != null) {
+                    location = b.getLocation();
+                }
+
+                String patient = "";
+                if (b.getLocation() != null) {
+                    patient = b.getLocation();
+                }
+
+                String name = "";
+                if (b.getName() != null) {
+                    name = b.getName();
+                }
+
+                report.append("\n   " + name + "\t" + location + "\t" + patient);
+            }
+
+            report.append("\n\n\nLIST OF BEDS IN REPAIR:");
+            report.append("\n   NAME:\tLOCATION:");
+            LinkedList<Bed> BedList2 = CF.getCopyBedListInRepair();
+            while (!BedList2.isEmpty()) {
+                Bed b = BedList2.removeLast();
+
+                String location = "";
+                if (b.getLocation() != null) {
+                    location = b.getLocation();
+                }
+
+                String name = "";
+                if (b.getName() != null) {
+                    name = b.getName();
+                }
+
+                report.append("\n   " + name + "\t" + location);
+            }
+
+            ArrayStack<Patient> tempPatientStack = CF.getCopyPatientStack();
+            report.append("\n\n\nPATEINT OVERVIEW:");
+            report.append("\n   PATIENT NAME:\tPATIENT \tBED:\tCASUAL EMPLOYEE:\n\t\tPRIORITY:");
             while (!tempPatientStack.isEmpty()) {               //loop while there are still elements in the patientStack
                 Patient p = tempPatientStack.pop();             //pop a patient, assign to temp variable
 
-                String bed = "";                                //instantiate bed variable to default value "NO BED"
+                String bed = "No Bed";                                //instantiate bed variable to default value "NO BED"
                 if (p.getBed() != null) {                       //If the current patient (in the temp variable) has a bed...
                     bed = p.getBed().getName();                 //change bed variable to the name of the bed
                 }
-                String CEmployee = "";
+                String CEmployee = "No Casual Employee";
                 if (p.getCasualEmployee() != null) {                       //If the current patient (in the temp variable) has a bed...
                     CEmployee = p.getCasualEmployee().getName();        //change bed variable to the name of the bed
                 }
 
                 String name = p.getName();              //instantiate name varaible to hold name of patient
 
-                report.append(" " + name + "\t\t" + p.getPriority() + "\t\t" + bed + "\t" + CEmployee);  //print out properties of current patient in temp vraible
+                report.append("\n   " + name + "\t\t" + p.getPriority() + "\t" + bed + "\t" + CEmployee);  //print out properties of current patient in temp vraible
             }
         } catch (EmptyCollectionException e) {
             System.out.println(e);

@@ -15,6 +15,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  * This class models a care facility with patients, beds, and hourly employees.
@@ -107,52 +108,14 @@ public class CareFacility extends Company implements Serializable {
     }
 
     /**
-     * returns the number of times this method was called. used to create
-     * default names in the GUI.
-     *
-     * @return the number of times this method was called.
-     */
-    public int getCountBeds() {
-        return ++countBeds;
-    }
-
-    /**
-     * returns the number of times this method was called. used to create
-     * default names in the GUI.
-     *
-     * @return the number of times this method was called.
-     */
-    public int getCountCE() {
-        return ++countCE;
-    }
-
-    /**
-     * returns the number of times this method was called. used to create
-     * default names in the GUI.
-     *
-     * @return the number of times this method was called.
-     */
-    public int getCountFTE() {
-        return ++countFTE;
-    }
-
-    /**
-     * returns the number of times this method was called. used to create
-     * default names in the GUI.
-     *
-     * @return the number of times this method was called.
-     */
-    public int getCountP() {
-        return ++countP;
-    }
-
-    /**
      * Loads the class from a file
      *
      * @param f file to load
      * @return the care facility class loaded from the file
+     * @throws java.io.IOException
+     * @throws java.lang.ClassNotFoundException
      */
-    public static CareFacility load(File f) {
+    public static CareFacility load(File f) throws IOException, ClassNotFoundException {
         CareFacility CF = null;
         FileInputStream fileInput = null;
         ObjectInputStream in = null;
@@ -161,11 +124,17 @@ public class CareFacility extends Company implements Serializable {
             in = new ObjectInputStream(fileInput);
             CF = (CareFacility) in.readObject();
         } catch (IOException e) {
-            System.out.println("There was an IO error: " + e);
-            System.exit(1);
+            JOptionPane.showMessageDialog(null,
+                    "Bad file type",
+                    "IO error",
+                    JOptionPane.ERROR_MESSAGE);
+            throw new IOException();
         } catch (ClassNotFoundException e) {
-            System.out.println("The file was not found: " + e);
-            System.exit(1);
+            JOptionPane.showMessageDialog(null,
+                    "File not found",
+                    "ClassNotFoundException",
+                    JOptionPane.ERROR_MESSAGE);
+            throw new ClassNotFoundException();
         } finally {
             try {
                 if (in != null) {
@@ -175,7 +144,11 @@ public class CareFacility extends Company implements Serializable {
                     fileInput.close();
                 }
             } catch (IOException e) {
-                System.out.println("There was an IO error: " + e);
+                JOptionPane.showMessageDialog(null,
+                        "IO Failure",
+                        "IO error",
+                        JOptionPane.ERROR_MESSAGE);
+                System.exit(1);
             }
         }
         return CF;
@@ -383,22 +356,12 @@ public class CareFacility extends Company implements Serializable {
     }
 
     /**
-     * Returns a copy of the bed linked list. This allows the data to be printed
-     * out without emptying the original stack
+     * Returns a copy of the bedListAvailable. This allows the data to be
+     * printed out without emptying the original Data Structure
      *
-     * @return copy of bed linked list
+     * @return copy of bedListUnavailable
      */
-    public LinkedList<Bed> getCopyBedListAvailable() {
-        return bedListInWorkingOrder.copy();
-    }
-
-    /**
-     * Returns a copy of the bed linked list. This allows the data to be printed
-     * out without emptying the original stack
-     *
-     * @return copy of bed linked list
-     */
-    public LinkedList<Bed> getCopyBedListUnavailable() {
+    public LinkedList<Bed> getCopyBedListInRepair() {
         return bedListInRepair.copy();
     }
 
@@ -443,13 +406,52 @@ public class CareFacility extends Company implements Serializable {
     }
 
     /**
-     * Returns a copy of the bedListAvailable. This allows the data to be
-     * printed out without emptying the original Data Structure
+     * returns the number of times this method was called. used to create
+     * default names in the GUI.
      *
-     * @return copy of bedListUnavailable
+     * @return the number of times this method was called.
      */
-    public LinkedList<Bed> getCopybedListUnAvailable() {
-        return bedListInRepair.copy();
+    public int getCountBeds() {
+        return ++countBeds;
+    }
+
+    /**
+     * returns the number of times this method was called. used to create
+     * default names in the GUI.
+     *
+     * @return the number of times this method was called.
+     */
+    public int getCountCE() {
+        return ++countCE;
+    }
+
+    /**
+     * returns the number of times this method was called. used to create
+     * default names in the GUI.
+     *
+     * @return the number of times this method was called.
+     */
+    public int getCountFTE() {
+        return ++countFTE;
+    }
+
+    /**
+     * returns the number of times this method was called. used to create
+     * default names in the GUI.
+     *
+     * @return the number of times this method was called.
+     */
+    public int getCountP() {
+        return ++countP;
+    }
+
+    /**
+     * returns name of the facility
+     *
+     * @return name of the facility
+     */
+    public String getFacilityName() {
+        return facilityName;
     }
 
     /**
