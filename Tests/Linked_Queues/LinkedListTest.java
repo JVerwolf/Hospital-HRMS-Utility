@@ -3,7 +3,8 @@
  */
 package Linked_Queues;
 
-import Stacks.EmptyCollectionException;
+import data_structures.LinkedList;
+import data_structures.EmptyCollectionException;
 import java.util.Iterator;
 import junit.framework.TestCase;
 

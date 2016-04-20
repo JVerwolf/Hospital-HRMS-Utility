@@ -3,6 +3,7 @@
  */
 package Linked_Queues;
 
+import data_structures.LinearNode;
 import junit.framework.TestCase;
 
 /**
