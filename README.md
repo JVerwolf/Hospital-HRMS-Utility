@@ -6,12 +6,13 @@ Things that I learned and incorporated into this project:
 - The Static Factory Method approach used by Joshua Bloch in his book Effective Java 2nd Ed. (through self-study)
 - The power of generics coupled with polymorphism to allow flexibility and reuse of algorithms and data structures (through self-study)
 - Swing GUI design, and using NetBeans' GUI builder to build complex GUIs (through self-study)
-- Serialization and reading/writing files to disk (through self-study)
+- Serialization and reading/writing files to disk (primarily through self study)
 - Proper Javadoc
 - Linked data structures
 - Exception Handling and custom exceptions 
 - Automated unit testing with JUnit
 - Learned the basics of git (through self-study)
+- Learned the basics of designing with recursion (primarily through self study)
 
 Looking back, there are a number of things I would change were I to re-write this project with my current level of ability.  Primarily, would re-write most of the algorithms/data-structures to incorporate priority queues (with heaps), dictionaries (with hash-maps), dynamic arrays, and faster sorting. Rather than a jumble of assorted server classes recycled from previous projects, I would plan and build the project from the ground up with a more-focused design. My git history could also be cleaner, since I was in the midst of learning git/github through self study while working on this project. Of course, this project was a past learning opportunity and it reflects that.
 
