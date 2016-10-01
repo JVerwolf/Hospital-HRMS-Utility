@@ -1,4 +1,4 @@
-# Hospital Project Data Structure Project
+# Hospital HRMS Utility
 This is the final project for the second introductory programming course (term 1B) taken at Camosun College.  Over the course of the term, various data structures and algorithms were developed as server classes.  The overarching theme was to incorporate them into some sort of contrived hospital management utility at the end of the term.  We had a great deal of flexibility to decide and plan what the final project looked like.  Here, I decided to build a Swing GUI on top of the modified server classes that I had been building throughout the term. I spent a great deal of time learning concepts that were beyond what was covered in the course, some of which I incorporated into this projected.  As such, this project provided a great learning opportunity.
 
 **Things that I learned and incorporated into this project:**
